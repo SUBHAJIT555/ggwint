@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   categories as categoryList,
@@ -12,8 +13,8 @@ import {
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { FiFilter, FiX } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
-import { BsCart4 } from "react-icons/bs";
 import { useQuote } from "../../hooks/useQuote";
+import Button from "./Button";
 
 const PAGE_SIZE = 24;
 
@@ -21,6 +22,64 @@ type ProductGridProps = {
   title?: string;
   initialMainCategory?: MainCategory | "All";
 };
+
+function ProductCard({
+  product,
+  index,
+  inQuote,
+  onOpen,
+  onAdd,
+}: {
+  product: Product;
+  index: number;
+  inQuote: boolean;
+  onOpen: (product: Product) => void;
+  onAdd: (product: Product, e?: React.MouseEvent) => void;
+}) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: Math.min(index, 8) * 0.04 }}
+      onClick={() => onOpen(product)}
+      className="group flex h-full cursor-pointer flex-col rounded-3xl border border-dashed border-hairline bg-surface-card p-1 [--inner:1.25rem] shadow-lift transition-shadow duration-300 hover:shadow-lg"
+    >
+      <div className="overflow-hidden rounded-(--inner)">
+        <img
+          src={product.image}
+          alt={product.title}
+          className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          loading="lazy"
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col px-2.5 pb-2.5 pt-3 sm:px-3 sm:pb-3">
+        <p className="mb-1 text-[11px] font-medium text-muted sm:text-caption">
+          {product.mainCategory}
+        </p>
+        <h3 className="line-clamp-2 text-title-sm font-semibold leading-snug text-ink sm:text-title-md">
+          {product.title}
+        </h3>
+        <p className="mt-1 line-clamp-2 text-caption text-muted sm:text-body-sm">
+          {product.description}
+        </p>
+        <div className="mt-auto flex flex-col gap-2.5 pt-3">
+          <p className="text-body-sm font-semibold text-ink sm:text-title-sm">
+            AED {product.price.toFixed(2)}
+          </p>
+          <Button
+            variant={inQuote ? "secondary" : "accent"}
+            disabled={inQuote}
+            onClick={(e) => onAdd(product, e)}
+            className="h-9 w-full px-3 text-[13px] sm:h-10"
+          >
+            {inQuote ? "Added" : "Add to Quote"}
+          </Button>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
 
 const ProductGrid = ({
   title = "Our Variety of Products",
@@ -38,7 +97,12 @@ const ProductGrid = ({
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Sync state with props when they change (handles route navigation)
   // We use the "Adjusting state during rendering" pattern instead of useEffect
@@ -511,138 +575,16 @@ const ProductGrid = ({
           </div>
         ) : (
           <>
-        <div className="md:hidden space-y-3">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
           {paginatedProducts.map((product, index) => (
-            <motion.div
+            <ProductCard
               key={product.id}
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.02 }}
-              onClick={() => handleCardClick(product)}
-              className="bg-surface-card rounded-lg shadow-sm hover:shadow-lg border border-hairline transition flex gap-3 cursor-pointer p-3"
-            >
-              {/* Image - Left Side */}
-              <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 bg-gray-100 overflow-hidden rounded-lg">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-
-              {/* Content - Right Side */}
-              <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                <span className="text-[10px] uppercase tracking-wide text-ink  bg-primary text-on-primary/30 border border-gray-400 rounded px-1.5 py-0.5 w-fit">
-                  {product.mainCategory}
-                </span>
-                <h3 className="text-sm  font-medium text-ink leading-tight line-clamp-2">
-                  {product.title}
-                </h3>
-                <p className="text-xs text-muted  line-clamp-2 leading-snug">
-                  {product.description}
-                </p>
-                <div className="flex items-center justify-between mt-auto gap-2">
-                  <span className="text-sm font-semibold text-green-700 ">
-                    AED {product.price.toFixed(2)}
-                  </span>
-                  <button
-                    onClick={(e) => handleAddToQuote(product, e)}
-                    disabled={isInQuote(product.id)}
-                    className={`px-3 py-1.5 rounded-md  font-semibold text-xs transition shrink-0 ${isInQuote(product.id)
-                        ? "bg-gray-300 text-ink cursor-not-allowed"
-                        : "bg-primary text-on-primary border border-gray-400 text-ink hover:bg-green-800"
-                      }`}
-                  >
-                    {isInQuote(product.id) ? "Added" : "Add"}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Desktop Grid View */}
-        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-5 md:gap-6">
-          {paginatedProducts.map((product, index) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.02 }}
-              onClick={() => handleCardClick(product)}
-              className="bg-surface-card rounded-lg shadow-sm hover:shadow-lg border border-hairline transition flex flex-col cursor-pointer"
-            >
-              <div className="w-full h-40 sm:h-44 md:h-48 bg-gray-100 overflow-hidden rounded-t-lg">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-4 sm:p-5 flex flex-col gap-2 flex-1">
-                <span className="text-xs uppercase tracking-wide text-ink  bg-primary text-on-primary/30 border border-gray-400 rounded-md px-2 py-1 w-fit">
-                  {product.mainCategory}
-                </span>
-                <h3 className="text-lg sm:text-xl  text-ink leading-tight line-clamp-2">
-                  {product.title}
-                </h3>
-                <p className="text-sm text-ink  line-clamp-2">
-                  {product.description}
-                </p>
-                <div className="flex items-center justify-between mt-auto">
-                  <span className="text-base sm:text-lg  text-green-500  ">
-                    Price: AED {product.price.toFixed(2)}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <motion.button
-                    onClick={(e) => handleAddToQuote(product, e)}
-                    disabled={isInQuote(product.id)}
-                    className={`relative w-full py-3 sm:py-3.5 rounded-lg  font-semibold text-sm sm:text-base overflow-hidden mt-2 ${isInQuote(product.id)
-                        ? "bg-surface-card text-muted cursor-not-allowed border border-hairline"
-                        : "bg-primary text-on-primary hover:bg-green-600 border border-green-600 text-ink shadow-lg"
-                      }`}
-                    whileHover="hover"
-                    initial="default"
-                    variants={{
-                      default: {},
-                      hover: {},
-                    }}
-                  >
-                    {isInQuote(product.id) ? (
-                      "Added to Quote"
-                    ) : (
-                      <>
-                        {/* Text - Translates out on hover */}
-                        <motion.span
-                          className="inline-block"
-                          variants={{
-                            default: { opacity: 1, y: 0 },
-                            hover: { opacity: 0, y: -20 },
-                          }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          Add to Quote
-                        </motion.span>
-                        {/* Cart Icon - Translates in on hover */}
-                        <motion.span
-                          className="absolute inset-0 flex items-center justify-center"
-                          variants={{
-                            default: { opacity: 0, y: 20 },
-                            hover: { opacity: 1, y: 0 },
-                          }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <BsCart4 className="text-lg sm:text-xl" />
-                        </motion.span>
-                      </>
-                    )}
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
+              product={product}
+              index={index}
+              inQuote={isInQuote(product.id)}
+              onOpen={handleCardClick}
+              onAdd={handleAddToQuote}
+            />
           ))}
         </div>
 
@@ -708,130 +650,121 @@ const ProductGrid = ({
         )}
       </div>
 
-      {/* Product Detail Modal */}
-      <AnimatePresence>
-        {selectedProduct && (
-          <>
-            {/* Backdrop */}
+      {isMounted &&
+        createPortal(
+          <AnimatePresence>
+            {selectedProduct && (
+              <>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               onClick={closeModal}
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-100"
+              className="fixed inset-0 bg-ink/45 backdrop-blur-sm"
+              style={{ zIndex: 200 }}
             />
-            {/* Modal */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ duration: 0.3, type: "spring", damping: 25 }}
-              className="fixed inset-0 z-101 flex items-center justify-center p-4 sm:p-6"
-              onClick={(e) => e.stopPropagation()}
+              exit={{ opacity: 0, scale: 0.96, y: 16 }}
+              transition={{ duration: 0.25, type: "spring", damping: 26 }}
+              className="fixed inset-0 flex items-center justify-center p-4 sm:p-6"
+              style={{ zIndex: 201 }}
+              onClick={closeModal}
             >
-              <div className="bg-canvas rounded-2xl sm:rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-hairline shadow-2xl flex flex-col">
-                {/* Header */}
-                <div className="flex items-center justify-between p-4 sm:p-6 border-b border-hairline">
-                  <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink font-semibold">
-                    Product Details
-                  </h2>
+              <div
+                className="flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-dashed border-hairline bg-canvas p-1 shadow-lift [--inner:1.25rem]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between border-b border-dashed border-hairline px-4 py-3 sm:px-5">
+                  <p className="text-caption uppercase tracking-wide text-muted">
+                    Product details
+                  </p>
                   <button
                     onClick={closeModal}
-                    className="p-2 hover:bg-surface-card rounded-full transition-colors"
+                    className="inline-flex size-8 items-center justify-center rounded-md border border-dashed border-hairline text-body transition-colors hover:bg-surface-card hover:text-ink"
                     aria-label="Close modal"
                   >
-                    <FiX className="h-6 w-6 text-body" />
+                    <FiX className="size-4" />
                   </button>
                 </div>
 
-                {/* Content */}
-                <div className="overflow-y-auto flex-1 p-4 sm:p-6">
-                  <div className="flex flex-col lg:flex-row gap-6">
-                    {/* Image Section */}
-                    <div className="w-full lg:w-1/2">
-                      <div className="w-full h-64 sm:h-80 lg:h-96 bg-gray-100 rounded-xl overflow-hidden">
-                        <img
-                          src={selectedProduct.image}
-                          alt={selectedProduct.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                <div className="overflow-y-auto p-3 sm:p-5">
+                  <div className="grid gap-4 md:grid-cols-[1.05fr_0.95fr] md:items-stretch md:gap-6">
+                    <div className="overflow-hidden rounded-(--inner) bg-surface-card">
+                      <img
+                        src={selectedProduct.image}
+                        alt={selectedProduct.title}
+                        className="aspect-4/3 h-full min-h-56 w-full object-cover md:aspect-auto md:min-h-80"
+                      />
                     </div>
 
-                    {/* Details Section */}
-                    <div className="w-full lg:w-1/2 flex flex-col gap-4">
-                      {/* Category Badge */}
-                      <span className="text-xs uppercase tracking-wide text-ink  bg-primary text-on-primary/30 border border-gray-400 rounded-md px-3 py-1.5 w-fit">
+                    <div className="flex flex-col rounded-(--inner) border border-dashed border-hairline bg-surface-card p-4 sm:p-5">
+                      <p className="w-fit rounded-pill border border-dashed border-hairline bg-canvas px-2.5 py-1 text-caption text-muted">
                         {selectedProduct.mainCategory}
-                      </span>
-
-                      {/* Title */}
-                      <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink font-semibold leading-tight">
+                      </p>
+                      <h2 className="mt-3 text-balance text-title-lg font-semibold tracking-tight text-ink sm:text-display-sm">
                         {selectedProduct.title}
-                      </h3>
+                      </h2>
+                      <p className="mt-3 text-pretty text-body-md leading-relaxed text-body">
+                        {selectedProduct.description}
+                      </p>
 
-                      {/* Price */}
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl sm:text-2xl font-bold text-green-700 ">
-                          Price: AED {selectedProduct.price.toFixed(2)}
-                        </span>
-                      </div>
+                      <div className="mt-auto pt-6">
+                        <div className="flex items-end justify-between gap-4 border-t border-dashed border-hairline pt-4">
+                          <div>
+                            <p className="text-caption text-muted">
+                              Indicative price
+                            </p>
+                            <p className="mt-0.5 text-title-lg font-semibold text-brand-accent">
+                              AED {selectedProduct.price.toFixed(2)}
+                            </p>
+                          </div>
+                          <p className="max-w-40 text-right text-caption leading-snug text-muted">
+                            Volume pricing available on request
+                          </p>
+                        </div>
 
-                      {/* Description */}
-                      <div className="mt-2">
-                        <h4 className="text-lg  font-semibold text-ink mb-2">
-                          Description
-                        </h4>
-                        <p className="text-base sm:text-lg text-body  leading-relaxed">
-                          {selectedProduct.description}
-                        </p>
-                      </div>
-
-                      {/* Product ID */}
-                      {/* <div className="mt-2">
-                        <h4 className="text-sm  font-semibold text-muted mb-1">
-                          Product ID
-                        </h4>
-                        <p className="text-sm text-zinc-500 ">
-                          {selectedProduct.id}
-                        </p>
-                      </div> */}
-
-                      {/* Action Buttons */}
-                      <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                        <button
-                          onClick={(e) => {
-                            handleAddToQuote(selectedProduct, e);
-                            if (!isInQuote(selectedProduct.id)) {
-                              setTimeout(() => closeModal(), 500);
+                        <div className="mt-4 grid grid-cols-2 gap-2">
+                          <Button
+                            variant={
+                              isInQuote(selectedProduct.id)
+                                ? "secondary"
+                                : "accent"
                             }
-                          }}
-                          disabled={isInQuote(selectedProduct.id)}
-                          className={`flex-1 py-3 px-6 rounded-lg  font-semibold text-base transition ${isInQuote(selectedProduct.id)
-                              ? "bg-gray-300 text-ink cursor-not-allowed"
-                              : "bg-primary text-on-primary border border-gray-400 text-ink hover:bg-green-800"
-                            }`}
-                        >
-                          {isInQuote(selectedProduct.id)
-                            ? "Added to Quote"
-                            : "Add to Quote"}
-                        </button>
-                        <button
-                          onClick={closeModal}
-                          className="flex-1 py-3 px-6 rounded-lg  font-semibold text-base bg-surface-card border border-hairline text-ink hover:bg-surface-card transition"
-                        >
-                          Close
-                        </button>
+                            disabled={isInQuote(selectedProduct.id)}
+                            onClick={(e) => {
+                              handleAddToQuote(selectedProduct, e);
+                              if (!isInQuote(selectedProduct.id)) {
+                                setTimeout(() => closeModal(), 500);
+                              }
+                            }}
+                            className="w-full"
+                          >
+                            {isInQuote(selectedProduct.id)
+                              ? "Added"
+                              : "Add to quote"}
+                          </Button>
+                          <Button
+                            variant="secondary"
+                            onClick={closeModal}
+                            className="w-full"
+                          >
+                            Close
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </motion.div>
-          </>
+              </>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 };

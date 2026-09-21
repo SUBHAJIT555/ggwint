@@ -10,7 +10,8 @@ import { mainCategories, toCategorySlug } from "../../data/products";
 
 function FooterSectionHeading({ children }: { children: ReactNode }) {
   return (
-    <h3 className="inline-flex items-center rounded-lg border border-dashed border-hairline bg-surface-card px-3 py-1 text-caption font-medium text-body">
+    <h3 className="inline-flex items-center gap-2 text-body-md font-medium text-ink">
+      <span className="size-1.5 shrink-0 rounded-full bg-ink" aria-hidden />
       {children}
     </h3>
   );
@@ -220,13 +221,29 @@ const Footer = () => {
 
         <div className="mt-10 border-t border-dashed border-hairline" />
 
-        <div className="flex w-full items-center justify-center px-4 py-6">
+        <div className="flex w-full flex-col items-center justify-center gap-2 px-4 py-6 sm:flex-row sm:gap-3">
           <p className="text-center text-body-md leading-relaxed text-muted">
             &copy; {currentYear}{" "}
             <Link href="/" className="text-ink hover:underline">
               GGW International General Trading LLC
             </Link>
             . All Rights Reserved.
+          </p>
+          <p className="inline-flex items-center gap-1 text-center text-body-md leading-relaxed text-muted">
+            Design with
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="size-4 text-brand-accent"
+              aria-hidden
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z" />
+            </svg>
+            by <Link href="https://subhajit-dhali.vercel.app/" target="_blank" className="text-ink hover:underline">Subhajit</Link>
           </p>
         </div>
       </div>
