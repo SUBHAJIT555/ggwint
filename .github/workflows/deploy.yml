@@ -1,0 +1,51 @@
+name: Deploy Next.js App to cPanel (prod)
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build (Next.js)
+        run: yarn build
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.CPANEL_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p 37980 ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Create dist tarball
+        run: |
+          tar -czf dist.tar.gz -C out .
+
+      - name: Upload dist tarball
+        run: |
+          scp -P 37980 dist.tar.gz \
+            ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }}:~/
+
+      - name: Extract to public_html (cPanel safe)
+        run: |
+          ssh -p 37980 ${{ secrets.CPANEL_USER }}@${{ secrets.CPANEL_HOST }} << 'EOF'
+            set -e
+            mkdir -p ~/public_html
+            tar -xzf ~/dist.tar.gz -C ~/public_html
+            rm -f ~/dist.tar.gz
+          EOF

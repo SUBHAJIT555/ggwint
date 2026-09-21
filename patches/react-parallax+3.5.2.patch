@@ -1,0 +1,10 @@
+diff --git a/node_modules/react-parallax/@types/index.ts b/node_modules/react-parallax/@types/index.ts
+index cc6bf84..46ec6f5 100644
+--- a/node_modules/react-parallax/@types/index.ts
++++ b/node_modules/react-parallax/@types/index.ts
+@@ -1,4 +1,4 @@
+-import React, { ReactNode } from 'react';
++import React, { type ReactNode } from 'react';
+ 
+ export type DynamicBlurProp = { min: number; max: number };
+ export type BlurProp = number | DynamicBlurProp;
