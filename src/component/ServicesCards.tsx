@@ -2,101 +2,137 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { toSrc, type ImageSource } from "../lib/toSrc";
-import { ProductMockupCard } from "./ui/Card";
-import eventCardImage from "../assets/images/Home-page-images/Services-EventManagement.webp";
-import corporateGiftSupplyCardImage from "../assets/images/Home-page-images/Services-CorporateGifts.webp";
-import printingServicesCardImage from "../assets/images/Home-page-images/Services-PrintingServices.webp";
-import generalTradingCardImage from "../assets/images/Home-page-images/Services-GeneralTrading.webp";
+import { heroShowcaseCards } from "../data/heroShowcase";
 
-interface ServiceData {
-  id: number;
-  title: string;
-  category: string;
-  bgImage: ImageSource;
-  description: string;
-}
+const imageById = (id: string) =>
+  heroShowcaseCards.find((card) => card.id === id)?.src ?? "";
 
-const servicesData: ServiceData[] = [
+const servicesData = [
   {
-    id: 4,
-    title: "General Trading",
-    category: "Trading",
-    bgImage: generalTradingCardImage,
+    id: 1,
+    title: "Global Sourcing & Procurement.",
     description:
-      "Food, beverages, packaged food, spices, and related products. Your trusted B2B trading partner.",
+      "We specialize in sourcing high-quality products from trusted suppliers worldwide. Our extensive network ensures that you get the best raw materials, industrial chemicals, and agro products at competitive prices, meeting your business needs efficiently.",
+    image: imageById("warehouse-supply"),
+    accent: "bg-brand-accent text-on-primary",
   },
   {
     id: 2,
-    title: "Corporate Gift Supply",
-    category: "Corporate",
-    bgImage: corporateGiftSupplyCardImage,
+    title: "International Trade & Distribution.",
     description:
-      "Customized promotional and business gifts that leave lasting impressions on clients and partners.",
-  },
-  {
-    id: 1,
-    title: "Event Management",
-    category: "Events",
-    bgImage: eventCardImage,
-    description:
-      "Planning and execution of corporate events. From concept to completion, we deliver excellence.",
+      "With a robust logistics and supply chain network, we facilitate seamless import and export operations across global markets. From food additives to building materials, we ensure timely delivery with full compliance with international trade regulations.",
+    image: imageById("global-logistics"),
+    accent: "bg-amber-400 text-ink",
   },
   {
     id: 3,
-    title: "Printing Services",
-    category: "Print",
-    bgImage: printingServicesCardImage,
+    title: "Customized Supply Chain Solutions.",
     description:
-      "High-quality printing for branding and marketing. State-of-the-art tech meets creative excellence.",
+      "Every business has unique requirements, and we provide tailored supply chain solutions to optimize your procurement, storage, and distribution processes. Our expertise helps reduce costs and improve operational efficiency.",
+    image: imageById("port-operations"),
+    accent: "bg-violet-500 text-on-primary",
+  },
+  {
+    id: 4,
+    title: "Quality Assurance & Compliance.",
+    description:
+      "We prioritize quality and regulatory compliance in every trade transaction. Our rigorous quality control measures ensure that all products meet industry standards, providing our clients with reliable and safe solutions.",
+    image: imageById("quality-control"),
+    accent: "bg-orange-500 text-on-primary",
   },
 ];
+
+const pairs = [
+  [servicesData[0], servicesData[1]],
+  [servicesData[2], servicesData[3]],
+] as const;
 
 const ServicesCards = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
-    <section ref={sectionRef} className="relative bg-canvas py-section screen-line-top">
-      <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      ref={sectionRef}
+      className="relative isolate overflow-hidden bg-surface-card py-section screen-line-top"
+    >
+      <div
+        aria-hidden="true"
+        className="pattern-hatch absolute inset-0 h-full w-full bg-[repeating-linear-gradient(-315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[5px_5px] bg-fixed"
+      />
+
+      <div className="relative z-10 mx-auto max-w-content px-4 sm:px-6 lg:px-8">
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="text-caption text-muted uppercase mb-4"
+          className="mb-4 text-caption text-muted uppercase"
         >
-          What we offer
+          Services
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.05 }}
-          className="text-[32px] sm:text-display-md lg:text-display-lg font-semibold text-ink tracking-[-1.5px] leading-[1.1]"
+          className="max-w-xl text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md lg:text-display-lg"
         >
-          Our services
+          A supply process that stays in sync
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1 }}
-          className="mt-4 text-body-md text-body max-w-2xl"
+          className="mt-4 max-w-lg text-body-md text-body"
         >
-          Comprehensive solutions tailored to elevate your business across the
-          GCC region.
+          Source, move, store, and deliver — nothing gets lost in the handoff.
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-          {servicesData.map((service) => (
-            <ProductMockupCard key={service.id}>
-              <div
-                className="h-40 rounded-md bg-cover bg-center mb-5"
-                style={{ backgroundImage: `url(${toSrc(service.bgImage)})` }}
-              />
-              <p className="text-caption text-muted uppercase mb-2">
-                {service.category}
-              </p>
-              <h3 className="text-title-md text-ink">{service.title}</h3>
-              <p className="mt-2 text-body-sm text-body">{service.description}</p>
-            </ProductMockupCard>
+        <div className="mt-12 space-y-10 lg:space-y-12">
+          {pairs.map(([left, right]) => (
+            <div key={left.id}>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
+                {[left, right].map((service) => (
+                  <motion.div
+                    key={`${service.id}-visual`}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    className="overflow-hidden bg-canvas p-2 shadow-sm ring-1 ring-black/5 [--inner:var(--radius-xl)] [--pad:0.5rem] rounded-[calc(var(--inner)+var(--pad))]"
+                  >
+                    <img
+                      src={service.image}
+                      alt=""
+                      className="h-56 w-full rounded-[var(--inner)] object-cover sm:h-64 lg:h-72"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-10">
+                {[left, right].map((service) => (
+                  <motion.div
+                    key={`${service.id}-copy`}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    className="flex items-start gap-3"
+                  >
+                    <span
+                      className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[11px] font-semibold ${service.accent}`}
+                    >
+                      {service.id}
+                    </span>
+                    <div>
+                      <h3 className="text-title-md font-semibold text-ink">
+                        {service.title}
+                      </h3>
+                      <p className="mt-2 text-body-sm leading-6 text-body">
+                        {service.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>

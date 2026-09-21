@@ -40,7 +40,6 @@ const MobileMenu: React.FC = () => {
         })),
       ],
     },
-    { name: "Contact", path: "/contact" },
   ];
 
   const toggleDropdown = (name: string) => {

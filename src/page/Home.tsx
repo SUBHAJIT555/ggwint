@@ -2,6 +2,7 @@
 
 import HeroSection from "../component/HeroSection";
 import AboutSnapshot from "../component/AboutSnapshot";
+import ClientLogos from "../component/ClientLogos";
 import ServicesCards from "../component/ServicesCards";
 import WhyChooseUs from "../component/WhyChooseUs";
 import FAQ, { type FAQItem } from "../component/ui/Faq";
@@ -54,6 +55,7 @@ const Home = () => {
       <HeroSection />
       <div className="mx-auto max-w-content border-x border-dashed border-hairline">
         <AboutSnapshot />
+        <ClientLogos />
         <ServicesCards />
         <ProductCategoryCards />
         <WhyChooseUs />

@@ -60,7 +60,7 @@ export const categoryDetails: {
       "Cement, steel, timber, tiles, and core building supplies for projects of every scale.",
     menuDescription: "Cement, steel, timber & core building supplies",
     image:
-      "https://images.unsplash.com/photo-1503387762458-7e528f908504?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Food Products",
@@ -105,7 +105,7 @@ export const categoryDetails: {
       "Waterproofing membranes, fire-resistant coatings, and protective systems.",
     menuDescription: "Membranes, coatings & protective systems",
     image:
-      "https://images.unsplash.com/photo-1581094794329-adc7bb0b4d2b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Electronics",
@@ -141,7 +141,7 @@ export const categoryDetails: {
       "Industrial, agro, food, and pharma-grade chemicals for specialized supply.",
     menuDescription: "Industrial, agro, food & pharma-grade chemicals",
     image:
-      "https://images.unsplash.com/photo-1532187875605-2fe358a71e7a?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80",
   },
 ];
 

@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
 import Button from "./ui/Button";
 import { heroFallbackSrc, heroShowcaseCards } from "../data/heroShowcase";
 
@@ -201,43 +200,10 @@ const HeroCardWall = () => {
 };
 
 const HeroSection = () => {
-  const previewImages = heroShowcaseCards.slice(0, 5);
-
   return (
     <section className="relative w-full min-h-[calc(100svh-4rem)] overflow-hidden bg-canvas screen-line-bottom">
       <div className="relative z-10 flex w-full flex-col items-center lg:min-h-[calc(100svh-4rem)] lg:flex-row">
         <div className="relative z-20 flex w-full flex-col items-start justify-center px-4 py-10 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:w-[50%] lg:py-16 lg:pl-[max(1.25rem,calc((100vw-1200px)/2-1.25rem))] xl:w-[48%]">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="relative mb-4 flex items-center"
-          >
-            <Link
-              href="/about"
-              className="group inline-flex items-center gap-2 rounded-full bg-neutral-100 py-1 pr-4 pl-2"
-            >
-              <span className="relative h-4.5 w-6">
-                <span className="absolute inset-0 rounded-xs bg-linear-to-b from-amber-400 to-amber-500" />
-                {previewImages.map((image, index) => (
-                  <HeroImage
-                    key={image.id}
-                    src={image.src}
-                    alt=""
-                    className="hero-preview-card absolute top-0.5 left-1/2 h-3.5 w-5 origin-bottom overflow-hidden rounded-[3px] object-cover ring-1 ring-black/10"
-                    style={{
-                      animation: "hero-preview-flip 11s linear infinite",
-                      animationDelay: `${index * 2.2}s`,
-                    }}
-                  />
-                ))}
-              </span>
-              <span className="text-[12px] font-medium text-ink">Dubai · UAE</span>
-              <span className="text-[12px] text-muted">ISO 9001:2015</span>
-              <FiArrowRight className="h-3 w-3 text-muted transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}

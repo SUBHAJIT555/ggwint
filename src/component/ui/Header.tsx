@@ -95,7 +95,6 @@ const Header: React.FC = () => {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Products", path: "/products", hasDropdown: true },
-    { name: "Contact", path: "/contact" },
   ];
 
   const isActive = (path: string) => {
@@ -120,34 +119,33 @@ const Header: React.FC = () => {
             </div>
           </Link>
 
-          <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-2">
-            {navigationItems.map((item) => (
-              <div
-                key={item.name}
-                className={item.hasDropdown ? "relative group" : "relative"}
-                data-nav={item.hasDropdown ? "products" : undefined}
-              >
-                <Link
-                  href={item.path}
-                  className={`flex items-center gap-1 text-nav-link rounded-full px-3 py-1.5 ${
-                    isActive(item.path) ? "text-ink" : "text-body"
-                  } ${
-                    item.hasDropdown
-                      ? "group-hover:bg-surface-card group-hover:text-ink"
-                      : ""
-                  }`}
+          <div className="hidden md:flex items-center gap-4 shrink-0">
+            <nav className="flex items-center gap-2">
+              {navigationItems.map((item) => (
+                <div
+                  key={item.name}
+                  className={item.hasDropdown ? "relative group" : "relative"}
+                  data-nav={item.hasDropdown ? "products" : undefined}
                 >
-                  {item.name}
-                  {item.hasDropdown && (
-                    <FiChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" />
-                  )}
-                </Link>
-                {item.hasDropdown && <ProductsDropdown />}
-              </div>
-            ))}
-          </nav>
-
-          <div className="hidden md:flex items-center shrink-0">
+                  <Link
+                    href={item.path}
+                    className={`flex items-center gap-1 text-nav-link rounded-full px-3 py-1.5 ${
+                      isActive(item.path) ? "text-ink" : "text-body"
+                    } ${
+                      item.hasDropdown
+                        ? "group-hover:bg-surface-card group-hover:text-ink"
+                        : ""
+                    }`}
+                  >
+                    {item.name}
+                    {item.hasDropdown && (
+                      <FiChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" />
+                    )}
+                  </Link>
+                  {item.hasDropdown && <ProductsDropdown />}
+                </div>
+              ))}
+            </nav>
             <Button href="/contact" variant="accent" className="group h-10 gap-2 px-4">
               Contact
               <FiArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
