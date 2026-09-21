@@ -185,9 +185,9 @@ const SectionCard = ({
           initial={{ scaleX: 0 }}
           animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
           transition={{ duration: 0.8, delay: index * 0.2 + 0.7 }}
-          className={`mt-8 h-[2px] bg-linear-to-r ${section.gradientFrom} ${
+          className={`mt-8 h-0.5 bg-linear-to-r ${section.gradientFrom} ${
             section.gradientTo
-          } max-w-[200px] ${
+          } max-w-50 ${
             isReversed ? "lg:ml-auto origin-right" : "origin-left"
           }`}
         />
@@ -209,7 +209,7 @@ const SectionCard = ({
           {/* Image Container */}
           <motion.div
             style={{ y: imageY, scale: imageScale }}
-            className="relative w-full max-w-[500px] overflow-hidden rounded-2xl sm:rounded-3xl"
+            className="relative w-full max-w-125 overflow-hidden rounded-2xl sm:rounded-3xl"
           >
             {/* Image */}
             <div className="relative aspect-4/3 overflow-hidden">
@@ -280,7 +280,7 @@ const MissionVisionSection = () => {
         className="hidden lg:block absolute left-1/2 top-1/4 bottom-1/4 w-px bg-linear-to-b from-transparent via-white/10 to-transparent origin-top"
       />
 
-      <div className="relative max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16">
+      <div className="relative max-w-400 mx-auto px-4 sm:px-6 md:px-8 lg:px-16">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

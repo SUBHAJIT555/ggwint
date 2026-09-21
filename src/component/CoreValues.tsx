@@ -297,7 +297,7 @@ const CoreValues = () => {
               }}
             >
               <motion.div
-                className="relative w-[240px] h-[160px] rounded-xl overflow-hidden"
+                className="relative w-60 h-40 rounded-xl overflow-hidden"
                 style={{
                   boxShadow:
                     "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(34, 211, 238, 0.1)",

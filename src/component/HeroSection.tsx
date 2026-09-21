@@ -217,8 +217,8 @@ const HeroSection = () => {
               href="/about"
               className="group inline-flex items-center gap-2 rounded-full bg-neutral-100 py-1 pr-4 pl-2"
             >
-              <span className="relative h-[18px] w-6">
-                <span className="absolute inset-0 rounded-[4px] bg-linear-to-b from-amber-400 to-amber-500" />
+              <span className="relative h-4.5 w-6">
+                <span className="absolute inset-0 rounded-xs bg-linear-to-b from-amber-400 to-amber-500" />
                 {previewImages.map((image, index) => (
                   <HeroImage
                     key={image.id}
