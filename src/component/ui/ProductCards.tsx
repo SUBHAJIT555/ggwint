@@ -327,7 +327,7 @@ const ProductGrid = ({
     >
       <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-480 mx-auto space-y-6">
         <div className="flex flex-col gap-4 sm:gap-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-ink leading-tight flex items-center gap-3">
+          <h2 className="flex items-center gap-3 text-section text-ink">
             {title} <IoArrowForwardOutline className="rotate-45" />
           </h2>
 
@@ -488,10 +488,10 @@ const ProductGrid = ({
                       <p className="w-fit rounded-pill border border-dashed border-hairline bg-canvas px-2.5 py-1 text-caption text-muted">
                         {selectedProduct.mainCategory}
                       </p>
-                      <h2 className="mt-3 text-balance text-title-lg font-semibold tracking-tight text-ink sm:text-display-sm">
+                      <h2 className="mt-3 text-balance text-title-lg font-semibold tracking-tight text-ink">
                         {selectedProduct.title}
                       </h2>
-                      <p className="mt-3 text-pretty text-body-md leading-relaxed text-body">
+                      <p className="mt-3 text-pretty text-copy text-body">
                         {selectedProduct.description}
                       </p>
 

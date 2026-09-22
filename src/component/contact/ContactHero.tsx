@@ -61,7 +61,7 @@ export default function ContactHero() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fade}
-          className="text-balance text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md lg:text-display-lg"
+          className="text-balance text-hero text-ink"
         >
           We&apos;d love to hear from you
         </motion.h1>
@@ -71,7 +71,7 @@ export default function ContactHero() {
           viewport={{ once: true }}
           variants={fade}
           transition={{ delay: 0.05 }}
-          className="mx-auto mt-4 max-w-xl text-body-md leading-relaxed text-muted"
+          className="mx-auto mt-4 max-w-xl text-copy text-muted"
         >
           Based in Dubai — serving partners across the UAE, GCC, and beyond.
         </motion.p>
@@ -107,7 +107,7 @@ export default function ContactHero() {
               <span className="mx-auto flex size-10 items-center justify-center rounded-xl border border-dashed border-hairline bg-surface-card shadow-lift">
                 <item.Icon className="size-4 text-brand-accent" />
               </span>
-              <h2 className="mt-4 text-lg font-semibold tracking-tight text-ink sm:text-xl">
+              <h2 className="mt-4 text-title-md text-ink">
                 {item.title}
               </h2>
               <p className="mx-auto mt-2 max-w-[16rem] text-body-sm leading-relaxed text-muted">

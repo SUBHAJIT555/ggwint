@@ -56,13 +56,13 @@ const CookiePolicy = () => {
 
           {/* Introduction */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               1. Introduction
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 This Cookie Policy explains how{" "}
-                <strong className="text-white">
+                <strong className="text-ink">
                   GGW INTERNATIONAL GENERAL TRADING LLC
                 </strong>{" "}
                 ("we," "us," or "our") uses cookies and similar tracking
@@ -90,10 +90,10 @@ const CookiePolicy = () => {
 
           {/* What Are Cookies */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               2. What Are Cookies
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 Cookies are small text files that are stored on your device
                 (computer, tablet, or mobile device) when you visit a website.
@@ -127,12 +127,12 @@ const CookiePolicy = () => {
 
           {/* Types of Cookies We Use */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               3. Types of Cookies We Use
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-6">
+            <div className="text-copy text-body space-y-6">
               <div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-oswald font-semibold text-white mb-4">
+                <h3 className="text-title-lg text-ink mb-3">
                   Essential Cookies
                 </h3>
                 <p>
@@ -158,7 +158,7 @@ const CookiePolicy = () => {
               </div>
 
               <div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-oswald font-semibold text-white mb-4">
+                <h3 className="text-title-lg text-ink mb-3">
                   Performance & Analytics Cookies
                 </h3>
                 <p>
@@ -184,7 +184,7 @@ const CookiePolicy = () => {
               </div>
 
               <div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-oswald font-semibold text-white mb-4">
+                <h3 className="text-title-lg text-ink mb-3">
                   Functionality Cookies
                 </h3>
                 <p>
@@ -213,10 +213,10 @@ const CookiePolicy = () => {
 
           {/* Third-Party Cookies */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               4. Third-Party Cookies
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 We may use third-party tools and services (such as analytics
                 services, advertising networks, social media platforms, and
@@ -251,10 +251,10 @@ const CookiePolicy = () => {
 
           {/* Managing Cookies */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               5. Managing Cookies
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 You have the right to control and manage cookies on your device.
                 Most web browsers allow you to control cookies through their
@@ -304,10 +304,10 @@ const CookiePolicy = () => {
 
           {/* Updates to Cookie Policy */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               6. Updates to Cookie Policy
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 We may update this Cookie Policy from time to time to reflect
                 changes in our practices, technology, legal requirements, or for
@@ -334,24 +334,24 @@ const CookiePolicy = () => {
 
           {/* Cookie Duration */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               7. Cookie Duration and Lifespan
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 Cookies have different lifespans depending on their purpose and
                 type. Understanding cookie duration helps you make informed
                 decisions about managing your cookie preferences.
               </p>
               <p>
-                <strong className="text-white">Session Cookies:</strong> These
+                <strong className="text-ink">Session Cookies:</strong> These
                 cookies are temporary and are deleted automatically when you
                 close your browser. They are used to maintain your session while
                 you navigate through our website and do not persist after you
                 leave.
               </p>
               <p>
-                <strong className="text-white">Persistent Cookies:</strong>{" "}
+                <strong className="text-ink">Persistent Cookies:</strong>{" "}
                 These cookies remain on your device for a specified period or
                 until you manually delete them. They can last from a few days to
                 several years, depending on their purpose. Persistent cookies
@@ -385,10 +385,10 @@ const CookiePolicy = () => {
 
           {/* Your Rights */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               8. Your Rights Regarding Cookies
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 You have several rights regarding cookies and your personal data
                 collected through cookies. We respect your privacy choices and
@@ -396,32 +396,32 @@ const CookiePolicy = () => {
                 preferences.
               </p>
               <p>
-                <strong className="text-white">Right to Information:</strong>{" "}
+                <strong className="text-ink">Right to Information:</strong>{" "}
                 You have the right to be informed about what cookies are used on
                 our website and how they are used. This Cookie Policy provides
                 comprehensive information about our cookie practices.
               </p>
               <p>
-                <strong className="text-white">Right to Consent:</strong> For
+                <strong className="text-ink">Right to Consent:</strong> For
                 non-essential cookies, you have the right to provide or withdraw
                 your consent at any time. You can manage your cookie preferences
                 through your browser settings or our cookie consent tool (if
                 available).
               </p>
               <p>
-                <strong className="text-white">Right to Access:</strong> You
+                <strong className="text-ink">Right to Access:</strong> You
                 have the right to access information about what personal data we
                 collect through cookies and how it is used. You can request this
                 information by contacting us.
               </p>
               <p>
-                <strong className="text-white">Right to Control:</strong> You
+                <strong className="text-ink">Right to Control:</strong> You
                 have the right to control which cookies are placed on your
                 device. You can accept, reject, or delete cookies through your
                 browser settings at any time.
               </p>
               <p>
-                <strong className="text-white">Right to Object:</strong> You
+                <strong className="text-ink">Right to Object:</strong> You
                 have the right to object to the use of certain cookies,
                 particularly those used for marketing or analytics purposes. You
                 can exercise this right through your browser settings or by
@@ -439,10 +439,10 @@ const CookiePolicy = () => {
 
           {/* Do Not Track */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               9. Do Not Track Signals
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 Some web browsers incorporate a "Do Not Track" (DNT) feature
                 that signals to websites you visit that you do not want to have
@@ -474,10 +474,10 @@ const CookiePolicy = () => {
 
           {/* Security */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               10. Security of Information
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 We take the security of information collected through cookies
                 seriously and implement appropriate technical and organizational
@@ -521,10 +521,10 @@ const CookiePolicy = () => {
 
           {/* Children's Privacy */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               11. Children's Privacy
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 Our website is not intended for children under the age of 18. We
                 do not knowingly collect personal information from children
@@ -556,24 +556,24 @@ const CookiePolicy = () => {
 
           {/* Links to Other Policies */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               12. Links to Other Policies
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 This Cookie Policy should be read in conjunction with our other
                 privacy and legal policies. Our use of cookies is part of our
                 broader data protection and privacy practices.
               </p>
               <p>
-                <strong className="text-white">Privacy Policy:</strong> Our
+                <strong className="text-ink">Privacy Policy:</strong> Our
                 Privacy Policy provides detailed information about how we
                 collect, use, store, and protect your personal information,
                 including information collected through cookies. It explains
                 your privacy rights and how you can exercise them.
               </p>
               <p>
-                <strong className="text-white">Terms & Conditions:</strong> Our
+                <strong className="text-ink">Terms & Conditions:</strong> Our
                 Terms & Conditions govern your use of our website and services,
                 including your agreement to our use of cookies as described in
                 this Cookie Policy.
@@ -597,10 +597,10 @@ const CookiePolicy = () => {
 
           {/* Contact Section */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               13. Contact Information
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 If you have any questions, concerns, or inquiries regarding this
                 Cookie Policy or our use of cookies, please feel free to contact
@@ -608,7 +608,7 @@ const CookiePolicy = () => {
               </p>
               <div className="space-y-4 mt-6">
                 <div>
-                  <p className="text-white font-semibold mb-2">Email:</p>
+                  <p className="text-ink font-semibold mb-2">Email:</p>
                   <a
                     href="mailto:info@ggwint.com"
                     className="block text-cyan-400 hover:text-cyan-300 transition-colors"
@@ -617,7 +617,7 @@ const CookiePolicy = () => {
                   </a>
                 </div>
                 <div>
-                  <p className="text-white font-semibold mb-2">Phone:</p>
+                  <p className="text-ink font-semibold mb-2">Phone:</p>
                   <a
                     href="tel:+97142712771"
                     className="text-cyan-400 hover:text-cyan-300 transition-colors"
@@ -626,7 +626,7 @@ const CookiePolicy = () => {
                   </a>
                 </div>
                 <div>
-                  <p className="text-white font-semibold mb-2">Location:</p>
+                  <p className="text-ink font-semibold mb-2">Location:</p>
                   <p className="text-zinc-300">
                     GGW INTERNATIONAL GENERAL TRADING LLC
                     <br />

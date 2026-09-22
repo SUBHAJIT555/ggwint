@@ -31,7 +31,7 @@ const PassionateProfessionals = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.05 }}
-              className="text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md lg:text-display-lg"
+              className="text-section text-ink"
             >
               Passionate Professionals
             </motion.h2>
@@ -52,7 +52,7 @@ const PassionateProfessionals = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.12 + index * 0.06 }}
-                className="text-body-md leading-relaxed text-body"
+                className="text-copy text-body"
               >
                 {text}
               </motion.p>

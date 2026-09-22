@@ -34,7 +34,7 @@ const CallToAction = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="text-display-md text-ink"
+            className="text-section text-ink"
           >
             Need a trusted trading partner in Dubai? Get a quote
           </motion.h2>
@@ -43,7 +43,7 @@ const CallToAction = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
-            className="mx-auto mt-4 max-w-3xl text-body-md font-semibold capitalize text-brand-accent sm:text-[17px] sm:leading-7"
+            className="mx-auto mt-4 max-w-3xl text-copy font-medium text-brand-accent"
           >
             We deliver quality, reliability, and consistency in every shipment.
           </motion.p>

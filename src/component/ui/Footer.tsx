@@ -2,16 +2,24 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { FiArrowUpRight } from "react-icons/fi";
+import {
+  IconBrandFacebook,
+  IconBrandInstagram,
+  IconBrandLinkedin,
+  IconBrandWhatsapp,
+  IconMail,
+  IconMapPin,
+  IconPhone,
+} from "@tabler/icons-react";
 import Logo from "./Logo";
 import Button from "./Button";
 import { cn } from "../../lib/cn";
+import { SITE_CONTACT } from "../../data/contact";
 import { mainCategories, toCategorySlug } from "../../data/products";
 
-function FooterSectionHeading({ children }: { children: ReactNode }) {
+function FooterLabel({ children }: { children: ReactNode }) {
   return (
-    <h3 className="inline-flex items-center gap-2 text-body-md font-medium text-ink">
-      <span className="size-1.5 shrink-0 rounded-full bg-ink" aria-hidden />
+    <h3 className="text-caption font-semibold tracking-[0.14em] text-ink uppercase">
       {children}
     </h3>
   );
@@ -26,19 +34,8 @@ function FooterLink({
   children: ReactNode;
   external?: boolean;
 }) {
-  const itemClassName = cn(
-    "group flex items-center gap-1.5 text-body-md text-muted transition-colors duration-200",
-    "hover:text-ink"
-  );
-  const content = (
-    <>
-      <span>{children}</span>
-      <FiArrowUpRight
-        className="h-3.5 w-3.5 shrink-0 text-brand-accent opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-        aria-hidden
-      />
-    </>
-  );
+  const itemClassName =
+    "text-body-sm text-muted transition-colors duration-200 hover:text-ink";
 
   return (
     <li>
@@ -49,16 +46,27 @@ function FooterLink({
           rel="noopener noreferrer"
           className={itemClassName}
         >
-          {content}
+          {children}
         </a>
       ) : (
         <Link href={href} className={itemClassName}>
-          {content}
+          {children}
         </Link>
       )}
     </li>
   );
 }
+
+const socialLinks = [
+  { label: "Facebook", href: "#", Icon: IconBrandFacebook },
+  { label: "Instagram", href: "#", Icon: IconBrandInstagram },
+  { label: "LinkedIn", href: "#", Icon: IconBrandLinkedin },
+  {
+    label: "WhatsApp",
+    href: SITE_CONTACT.whatsappHref,
+    Icon: IconBrandWhatsapp,
+  },
+];
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -107,10 +115,10 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative w-full overflow-x-hidden bg-canvas screen-line-top">
-      <div className="mx-auto max-w-content border-x border-dashed border-hairline px-5 py-12 sm:px-6 sm:py-16 lg:py-20">
-        <div className="grid grid-cols-2 gap-8 lg:grid-cols-5 lg:gap-y-12">
-          <div className="col-span-2">
+    <footer className="relative w-full overflow-x-hidden bg-surface-soft screen-line-top">
+      <div className="mx-auto max-w-content border-x border-dashed border-hairline px-5 py-12 sm:px-6 sm:py-14">
+        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12">
+          <div>
             <Link
               href="/"
               className="inline-block transition-opacity duration-200 hover:opacity-80"
@@ -119,119 +127,164 @@ const Footer = () => {
                 <Logo variant="on-light" />
               </div>
             </Link>
-
-            <p className="mt-4 max-w-sm text-body-md leading-relaxed text-muted">
+            <p className="mt-4 max-w-md text-copy text-muted">
               Your Gateway to Global Trade — bridging markets with excellence,
               integrity, and innovation from the heart of Dubai.
             </p>
-
-            <div className="mt-6 max-w-sm">
-              <FooterSectionHeading>Newsletter</FooterSectionHeading>
-              <p className="mt-4 text-body-md text-muted">
-                Stay updated with our latest news, industry insights, and
-                exclusive offers.
-              </p>
-              <form onSubmit={handleNewsletterSubmit} className="mt-4 space-y-3">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter Your Email"
-                  autoComplete="email"
-                  suppressHydrationWarning
-                  className="w-full rounded-xl border border-hairline bg-surface-card px-4 py-3 text-body-md text-ink placeholder:text-muted focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30"
-                />
-                <div className="hidden">
-                  <input
-                    type="text"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  variant="accent"
-                  disabled={isSubmitting}
-                  className="h-12 w-full"
+            <ul className="mt-5 flex flex-col gap-2.5 text-body-sm text-muted">
+              <li>
+                <a
+                  href={`mailto:${SITE_CONTACT.email}`}
+                  className="inline-flex items-center gap-2 transition-colors hover:text-ink"
                 >
-                  {isSubmitting
-                    ? "Submitting..."
-                    : isSubscribed
-                      ? "Subscribed"
-                      : "Subscribe"}
-                </Button>
-              </form>
+                  <IconMail className="size-4 shrink-0 text-brand-accent" stroke={1.75} />
+                  {SITE_CONTACT.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE_CONTACT.phoneHref}
+                  className="inline-flex items-center gap-2 transition-colors hover:text-ink"
+                >
+                  <IconPhone className="size-4 shrink-0 text-brand-accent" stroke={1.75} />
+                  {SITE_CONTACT.phone}
+                </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <IconMapPin
+                  className="mt-0.5 size-4 shrink-0 text-brand-accent"
+                  stroke={1.75}
+                />
+                <a
+                  href={SITE_CONTACT.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-ink"
+                >
+                  {SITE_CONTACT.address}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="rounded-2xl border border-dashed border-hairline bg-canvas p-5 sm:p-6">
+            <FooterLabel>Newsletter</FooterLabel>
+            <p className="mt-2 max-w-md text-copy text-muted">
+              Stay updated with our latest news, industry insights, and exclusive
+              offers.
+            </p>
+            <form
+              onSubmit={handleNewsletterSubmit}
+              className="mt-4 grid w-full min-w-0 grid-cols-1 gap-2.5 sm:grid-cols-[minmax(0,1fr)_auto]"
+            >
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                autoComplete="email"
+                suppressHydrationWarning
+                className="h-12 w-full min-w-0 max-w-full appearance-none rounded-xl border border-hairline bg-white px-4 text-base text-ink placeholder:text-muted focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30"
+              />
+              <div className="hidden">
+                <input
+                  type="text"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+              <Button
+                type="submit"
+                variant="accent"
+                disabled={isSubmitting}
+                className="h-12 w-full sm:w-auto sm:px-6"
+              >
+                {isSubmitting
+                  ? "Submitting..."
+                  : isSubscribed
+                    ? "Subscribed"
+                    : "Subscribe"}
+              </Button>
+            </form>
+          </div>
+        </div>
+
+        <div className="mt-10 border-t border-dashed border-hairline pt-8">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-3">
+              <FooterLabel>Useful Links</FooterLabel>
+              <ul className="mt-4 flex flex-col gap-2.5">
+                <FooterLink href="/">Home</FooterLink>
+                <FooterLink href="/about">About</FooterLink>
+                <FooterLink href="/products">Products</FooterLink>
+                <FooterLink href="/contact">Contact</FooterLink>
+              </ul>
             </div>
-          </div>
 
-          <div className="col-span-2 sm:col-span-1">
-            <FooterSectionHeading>Useful Links</FooterSectionHeading>
-            <ul className="mt-5 flex flex-col gap-2.5">
-              <FooterLink href="/">Home</FooterLink>
-              <FooterLink href="/about">About</FooterLink>
-              <FooterLink href="/products">Products</FooterLink>
-              <FooterLink href="/contact">Contact</FooterLink>
-            </ul>
-          </div>
+            <div className="lg:col-span-6">
+              <FooterLabel>Product Categories</FooterLabel>
+              <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5">
+                {mainCategories.map((name) => (
+                  <FooterLink
+                    key={name}
+                    href={`/products/${toCategorySlug(name)}`}
+                  >
+                    {name}
+                  </FooterLink>
+                ))}
+              </ul>
+            </div>
 
-          <div className="col-span-2 sm:col-span-1">
-            <FooterSectionHeading>Product Categories</FooterSectionHeading>
-            <ul className="mt-5 flex flex-col gap-2.5">
-              {mainCategories.map((name) => (
-                <FooterLink key={name} href={`/products/${toCategorySlug(name)}`}>
-                  {name}
+            <div className="lg:col-span-3">
+              <FooterLabel>Legals</FooterLabel>
+              <ul className="mt-4 flex flex-col gap-2.5">
+                <FooterLink href="/terms-and-conditions">
+                  Terms & Condition
                 </FooterLink>
-              ))}
-            </ul>
-          </div>
+                <FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
+                <FooterLink href="/cookie-policy">Cookie Policy</FooterLink>
+                <FooterLink href={`mailto:${SITE_CONTACT.email}`} external>
+                  Support
+                </FooterLink>
+              </ul>
 
-          <div className="col-span-2 sm:col-span-1">
-            <FooterSectionHeading>Legals</FooterSectionHeading>
-            <ul className="mt-5 flex flex-col gap-2.5">
-              <FooterLink href="/terms-and-conditions">
-                Terms & Condition
-              </FooterLink>
-              <FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
-              <FooterLink href="/cookie-policy">Cookie Policy</FooterLink>
-              <FooterLink href="mailto:info@ggwint.com" external>
-                Support
-              </FooterLink>
-            </ul>
-
-            <div className="mt-8">
-              <FooterSectionHeading>Social</FooterSectionHeading>
-              <ul className="mt-5 flex flex-col gap-2.5">
-                <FooterLink href="#" external>
-                  Facebook
-                </FooterLink>
-                <FooterLink href="#" external>
-                  Instagram
-                </FooterLink>
-                <FooterLink href="#" external>
-                  LinkedIn
-                </FooterLink>
-                <FooterLink href="https://wa.me/97142712771" external>
-                  WhatsApp
-                </FooterLink>
+              <p className="mt-6 text-caption font-semibold tracking-[0.14em] text-ink uppercase">
+                Social
+              </p>
+              <ul className="mt-3 flex items-center gap-2">
+                {socialLinks.map(({ label, href, Icon }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className={cn(
+                        "flex size-9 items-center justify-center rounded-full border border-hairline bg-canvas text-ink",
+                        "transition-colors duration-200 hover:border-brand-accent hover:text-brand-accent"
+                      )}
+                    >
+                      <Icon className="size-4" stroke={1.75} />
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-dashed border-hairline" />
-
-        <div className="flex w-full flex-col items-center justify-center gap-2 px-4 py-6 sm:flex-row sm:gap-3">
-          <p className="text-center text-body-md leading-relaxed text-muted">
+        <div className="mt-8 flex flex-col items-center justify-between gap-2 border-t border-dashed border-hairline pt-5 sm:flex-row md:pr-14">
+          <p className="text-center text-caption text-muted sm:text-left">
             &copy; {currentYear}{" "}
             <Link href="/" className="text-ink hover:underline">
               GGW International General Trading LLC
             </Link>
             . All Rights Reserved.
           </p>
-          <p className="inline-flex items-center gap-1 text-center text-body-md leading-relaxed text-muted">
+          <p className="inline-flex items-center gap-1 text-center text-caption text-muted">
             Design with
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -245,7 +298,14 @@ const Footer = () => {
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z" />
             </svg>
-            by <Link href="https://subhajit-dhali.vercel.app/" target="_blank" className="text-ink hover:underline">Subhajit</Link>
+            by{" "}
+            <Link
+              href="https://subhajit-dhali.vercel.app/"
+              target="_blank"
+              className="text-ink hover:underline"
+            >
+              Subhajit
+            </Link>
           </p>
         </div>
       </div>

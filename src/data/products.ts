@@ -39,7 +39,7 @@ export const categories = mainCategories;
 
 export function toCategorySlug(category: string) {
   return category
-    .toLowerCase()
+      .toLowerCase()
     .replace(/\s*\/\s*/g, "-")
     .replace(/ & /g, "-")
     .replace(/[^a-z0-9]+/g, "-")

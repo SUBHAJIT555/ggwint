@@ -51,7 +51,7 @@ const MissionVisionSection = () => {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          className="mx-auto max-w-[40ch] text-balance text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md lg:max-w-[45ch] lg:text-display-lg"
+          className="mx-auto max-w-[40ch] text-balance text-section text-ink lg:max-w-[45ch]"
         >
           About{" "}
           <span className="bg-brand-accent px-1.5 text-on-primary">
@@ -63,7 +63,7 @@ const MissionVisionSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ delay: 0.05 }}
-          className="mx-auto mt-4 max-w-[62ch] text-pretty text-body-md text-body"
+          className="mx-auto mt-4 max-w-[62ch] text-pretty text-copy text-body"
         >
           Advantage GGW Trading is a diversified company offering specialized
           services in construction, foodstuff, contracting, import and export,
@@ -82,11 +82,11 @@ const MissionVisionSection = () => {
       >
         <article className="h-full overflow-hidden rounded-md bg-canvas ring-1 ring-hairline ring-inset">
           <div className="relative z-10 mx-auto w-full max-w-sm px-6 py-8 sm:px-8 md:py-12">
-            <h3 className="text-xl font-medium text-ink">Mission</h3>
-            <p className="mt-2 max-w-sm text-sm text-body">
+            <h3 className="text-title-lg text-ink">Mission</h3>
+            <p className="mt-2 max-w-sm text-copy text-body">
               To be a trusted global leader in import and export.
             </p>
-            <ul className="mt-6 flex flex-col gap-2 text-sm text-ink">
+            <ul className="mt-6 flex flex-col gap-2 text-copy text-ink">
               {missionPoints.map((point) => (
                 <li key={point} className="flex items-start gap-2">
                   <CheckIcon className="mt-0.5 text-brand-accent" />
@@ -102,11 +102,11 @@ const MissionVisionSection = () => {
             <div className="pattern-hatch absolute inset-0" />
           </div>
           <div className="relative z-10 mx-auto w-full max-w-sm px-6 py-8 sm:px-8 md:py-12">
-            <h3 className="text-xl font-medium">Vision</h3>
-            <p className="mt-2 max-w-sm text-sm text-white/80">
+            <h3 className="text-title-lg">Vision</h3>
+            <p className="mt-2 max-w-sm text-copy text-white/80">
               To build a sustainable and interconnected global trade network.
             </p>
-            <ul className="mt-6 flex flex-col gap-2 text-sm">
+            <ul className="mt-6 flex flex-col gap-2 text-copy">
               {visionPoints.map((point) => (
                 <li key={point} className="flex items-start gap-2">
                   <CheckIcon className="mt-0.5 text-on-primary" />

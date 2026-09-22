@@ -78,7 +78,7 @@ const CommonHeroSection = ({
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="max-w-[40ch] text-balance text-2xl font-semibold leading-snug tracking-tight text-ink md:max-w-[45ch] md:text-4xl"
+          className="max-w-[40ch] text-balance text-hero text-ink md:max-w-[45ch]"
         >
           {renderHeading(heading, headingHighlight)}
         </motion.h1>
@@ -87,7 +87,7 @@ const CommonHeroSection = ({
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.06, ease: "easeOut" }}
-          className="mt-2 max-w-[56ch] text-pretty text-base text-body"
+          className="mt-3 max-w-[56ch] text-pretty text-copy text-body"
         >
           {subHeading}
         </motion.p>

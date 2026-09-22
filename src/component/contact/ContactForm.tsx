@@ -109,10 +109,10 @@ export default function ContactForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-balance text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md">
+            <h2 className="text-balance text-section text-ink">
               Let&apos;s talk about your next shipment
             </h2>
-            <p className="mt-3 text-body-md text-muted">
+            <p className="mt-3 text-copy text-muted">
               You can reach us anytime via{" "}
               <a
                 href={`mailto:${SITE_CONTACT.email}`}

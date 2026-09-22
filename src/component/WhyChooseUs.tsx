@@ -77,7 +77,7 @@ const WhyChooseUs = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.05 }}
-          className="text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md lg:text-display-lg"
+          className="text-section text-ink"
         >
           Why work with GGW International?
         </motion.h2>
@@ -85,7 +85,7 @@ const WhyChooseUs = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1 }}
-          className="mt-4 max-w-2xl text-body-md text-body"
+          className="mt-4 max-w-2xl text-copy text-body"
         >
           Partner with a team that understands your vision and delivers
           results. We bring expertise, reliability, and a commitment to

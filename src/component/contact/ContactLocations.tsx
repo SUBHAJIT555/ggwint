@@ -37,10 +37,10 @@ export default function ContactLocations() {
               className="max-w-sm"
             >
               <p className="text-caption text-muted">Our location</p>
-              <h2 className="mt-1.5 text-balance text-xl font-semibold tracking-tight text-ink sm:text-2xl">
+              <h2 className="mt-1.5 text-balance text-section text-ink">
                 Visit our office
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
+              <p className="mt-2 text-copy text-muted">
                 Find us on Sheikh Zayed Road —{" "}
                 <span className="text-ink underline decoration-brand-accent/40 decoration-dotted underline-offset-4">
                   open for meetings, sourcing briefings, and trade discussions.

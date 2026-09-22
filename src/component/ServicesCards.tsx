@@ -68,7 +68,7 @@ const ServicesCards = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.05 }}
-          className="max-w-xl text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md lg:text-display-lg"
+          className="max-w-xl text-section text-ink"
         >
           A supply process that stays in sync
         </motion.h2>
@@ -76,7 +76,7 @@ const ServicesCards = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1 }}
-          className="mt-4 max-w-lg text-body-md text-body"
+          className="mt-4 max-w-lg text-copy text-body"
         >
           Source, move, store, and deliver — nothing gets lost in the handoff.
         </motion.p>

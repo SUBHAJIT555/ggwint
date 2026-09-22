@@ -153,7 +153,7 @@ body {
   -ms-overflow-style: none;
 
   ::selection {
-    background-color: var(--color-primary);
+    background-color: #1107de;
     color: var(--color-on-primary);
   }
 }
@@ -301,10 +301,31 @@ body::-webkit-scrollbar {
   --text-nav-link--line-height: 1.4;
   --text-nav-link--font-weight: 500;
 
+  --text-hero: 30px;
+  --text-hero--line-height: 1.15;
+  --text-hero--letter-spacing: -0.6px;
+  --text-hero--font-weight: 600;
+
+  --text-section: 22px;
+  --text-section--line-height: 1.25;
+  --text-section--letter-spacing: -0.3px;
+  --text-section--font-weight: 600;
+
+  --text-copy: 15px;
+  --text-copy--line-height: 1.65;
+  --text-copy--font-weight: 400;
+
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-lift: 0 4px 12px rgba(0, 0, 0, 0.08);
 
   --container-content: 1200px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --text-hero: 40px;
+    --text-section: 26px;
+  }
 }
 
 @keyframes hero-preview-flip {

@@ -56,12 +56,12 @@ const PrivacyPolicy = () => {
 
           {/* Introduction */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               1. Introduction
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
-                <strong className="text-white">
+                <strong className="text-ink">
                   GGW INTERNATIONAL GENERAL TRADING LLC
                 </strong>{" "}
                 ("we," "us," or "our") is committed to protecting your privacy
@@ -95,12 +95,12 @@ const PrivacyPolicy = () => {
 
           {/* Information We Collect */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               2. Information We Collect
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-6">
+            <div className="text-copy text-body space-y-6">
               <div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-oswald font-semibold text-white mb-4">
+                <h3 className="text-title-lg text-ink mb-3">
                   Personal Information
                 </h3>
                 <p>
@@ -146,7 +146,7 @@ const PrivacyPolicy = () => {
               </div>
 
               <div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-oswald font-semibold text-white mb-4">
+                <h3 className="text-title-lg text-ink mb-3">
                   Automatically Collected Information
                 </h3>
                 <p>
@@ -176,56 +176,56 @@ const PrivacyPolicy = () => {
 
           {/* How We Use Information */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               3. How We Use Information
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 We use the collected information for various legitimate business
                 purposes, including:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
-                  <strong className="text-white">
+                  <strong className="text-ink">
                     Responding to Inquiries:
                   </strong>{" "}
                   To respond to your questions, comments, requests, and provide
                   customer support
                 </li>
                 <li>
-                  <strong className="text-white">Providing Services:</strong> To
+                  <strong className="text-ink">Providing Services:</strong> To
                   provide services, process orders, deliver quotations, and
                   fulfill your requests
                 </li>
                 <li>
-                  <strong className="text-white">
+                  <strong className="text-ink">
                     Business Communications:
                   </strong>{" "}
                   To communicate with you regarding business matters, service
                   updates, and important information
                 </li>
                 <li>
-                  <strong className="text-white">Website Improvement:</strong>{" "}
+                  <strong className="text-ink">Website Improvement:</strong>{" "}
                   To analyze website usage, improve our website functionality,
                   and enhance user experience
                 </li>
                 <li>
-                  <strong className="text-white">Marketing:</strong> To send you
+                  <strong className="text-ink">Marketing:</strong> To send you
                   marketing communications, newsletters, and promotional
                   materials (with your consent where required)
                 </li>
                 <li>
-                  <strong className="text-white">Legal Compliance:</strong> To
+                  <strong className="text-ink">Legal Compliance:</strong> To
                   comply with legal obligations, enforce our terms, and protect
                   our rights
                 </li>
                 <li>
-                  <strong className="text-white">Security:</strong> To detect,
+                  <strong className="text-ink">Security:</strong> To detect,
                   prevent, and address security issues, fraud, or other illegal
                   activities
                 </li>
                 <li>
-                  <strong className="text-white">Analytics:</strong> To conduct
+                  <strong className="text-ink">Analytics:</strong> To conduct
                   research, analytics, and statistical analysis to improve our
                   services
                 </li>
@@ -249,16 +249,16 @@ const PrivacyPolicy = () => {
 
           {/* Data Sharing */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               4. Data Sharing
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 We respect your privacy and do not share your personal
                 information except in the limited circumstances described below:
               </p>
               <p>
-                <strong className="text-white">
+                <strong className="text-ink">
                   Trusted Service Providers:
                 </strong>{" "}
                 We may share information with trusted third-party service
@@ -279,7 +279,7 @@ const PrivacyPolicy = () => {
                 than providing services to us.
               </p>
               <p>
-                <strong className="text-white">
+                <strong className="text-ink">
                   Legal and Regulatory Obligations:
                 </strong>{" "}
                 We may disclose your information when required by law,
@@ -288,14 +288,14 @@ const PrivacyPolicy = () => {
                 processes.
               </p>
               <p>
-                <strong className="text-white">Business Transfers:</strong> In
+                <strong className="text-ink">Business Transfers:</strong> In
                 the event of a merger, acquisition, reorganization, or sale of
                 assets, your information may be transferred as part of the
                 transaction. We will notify you of any such change in ownership
                 or control of your personal information.
               </p>
               <p>
-                <strong className="text-white">Protection of Rights:</strong> We
+                <strong className="text-ink">Protection of Rights:</strong> We
                 may disclose information when we believe it is necessary to
                 protect our rights, property, or safety, or that of our users,
                 employees, or others.
@@ -313,10 +313,10 @@ const PrivacyPolicy = () => {
 
           {/* Data Security */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               5. Data Security
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 We implement appropriate technical and organizational measures
                 to protect personal information against unauthorized access,
@@ -362,10 +362,10 @@ const PrivacyPolicy = () => {
 
           {/* Data Retention */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               6. Data Retention
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 We retain personal data only for as long as necessary to fulfill
                 the purposes for which it was collected, unless a longer
@@ -404,42 +404,42 @@ const PrivacyPolicy = () => {
 
           {/* Your Rights */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               7. Your Rights
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 You have certain rights regarding your personal information
                 under applicable data protection laws. These rights include:
               </p>
               <p>
-                <strong className="text-white">Right to Access:</strong> You
+                <strong className="text-ink">Right to Access:</strong> You
                 have the right to request access to your personal data and
                 receive information about how we process it, including what data
                 we hold, why we hold it, and who we share it with.
               </p>
               <p>
-                <strong className="text-white">Right to Correction:</strong> You
+                <strong className="text-ink">Right to Correction:</strong> You
                 have the right to request correction of inaccurate or incomplete
                 personal data. We will update your information promptly upon
                 verification of your identity and the accuracy of the new
                 information.
               </p>
               <p>
-                <strong className="text-white">Right to Deletion:</strong> You
+                <strong className="text-ink">Right to Deletion:</strong> You
                 have the right to request deletion of your personal data in
                 certain circumstances, such as when the data is no longer
                 necessary for the purposes for which it was collected, or when
                 you withdraw your consent.
               </p>
               <p>
-                <strong className="text-white">Right to Object:</strong> You
+                <strong className="text-ink">Right to Object:</strong> You
                 have the right to object to the processing of your personal data
                 for certain purposes, such as direct marketing or when
                 processing is based on legitimate interests.
               </p>
               <p>
-                <strong className="text-white">
+                <strong className="text-ink">
                   Right to Restrict Processing:
                 </strong>{" "}
                 You have the right to request restriction of processing of your
@@ -447,7 +447,7 @@ const PrivacyPolicy = () => {
                 the accuracy of the data or object to processing.
               </p>
               <p>
-                <strong className="text-white">
+                <strong className="text-ink">
                   Right to Data Portability:
                 </strong>{" "}
                 You have the right to receive your personal data in a
@@ -456,7 +456,7 @@ const PrivacyPolicy = () => {
                 feasible.
               </p>
               <p>
-                <strong className="text-white">
+                <strong className="text-ink">
                   Right to Withdraw Consent:
                 </strong>{" "}
                 Where processing is based on your consent, you have the right to
@@ -482,10 +482,10 @@ const PrivacyPolicy = () => {
 
           {/* Third-Party Links */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               8. Third-Party Links
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 Our website may contain links to third-party websites, services,
                 or applications that are not operated or controlled by us. These
@@ -516,10 +516,10 @@ const PrivacyPolicy = () => {
 
           {/* Changes to Privacy Policy */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               9. Changes to Privacy Policy
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 We reserve the right to update, modify, or change this Privacy
                 Policy at any time to reflect changes in our practices,
@@ -557,10 +557,10 @@ const PrivacyPolicy = () => {
 
           {/* Contact Information */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               10. Contact Information
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 If you have any questions, concerns, or inquiries regarding this
                 Privacy Policy, your personal information, or your privacy
@@ -569,19 +569,19 @@ const PrivacyPolicy = () => {
               </p>
               <div className="space-y-4 mt-6">
                 <div>
-                  <p className="text-white font-semibold mb-2">Company:</p>
+                  <p className="text-ink font-semibold mb-2">Company:</p>
                   <p className="text-zinc-300">
                     GGW INTERNATIONAL GENERAL TRADING LLC
                   </p>
                 </div>
                 <div>
-                  <p className="text-white font-semibold mb-2">Location:</p>
+                  <p className="text-ink font-semibold mb-2">Location:</p>
                   <p className="text-zinc-300">
                     Office 393, White Crown Building, Sheikh Zayed Road, Dubai, United Arab Emirates
                   </p>
                 </div>
                 <div>
-                  <p className="text-white font-semibold mb-2">Email:</p>
+                  <p className="text-ink font-semibold mb-2">Email:</p>
                   <a
                     href="mailto:info@ggwint.com"
                     className="block text-cyan-400 hover:text-cyan-300 transition-colors"
@@ -590,7 +590,7 @@ const PrivacyPolicy = () => {
                   </a>
                 </div>
                 <div>
-                  <p className="text-white font-semibold mb-2">Phone:</p>
+                  <p className="text-ink font-semibold mb-2">Phone:</p>
                   <a
                     href="tel:+97142712771"
                     className="text-cyan-400 hover:text-cyan-300 transition-colors"

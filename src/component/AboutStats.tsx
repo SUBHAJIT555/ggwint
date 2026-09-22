@@ -187,10 +187,10 @@ const AboutStats = () => {
           viewport={{ once: true, margin: "-80px" }}
           className="mx-auto max-w-2xl text-center"
         >
-          <h2 className="text-pretty text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md lg:text-display-lg">
+          <h2 className="text-pretty text-section text-ink">
             A vital link between markets worldwide.
           </h2>
-          <p className="mt-4 text-body-md text-muted">
+          <p className="mt-4 text-copy text-muted">
             5,700+ global transactions, 50+ trading partners, 1,500+ products
             traded, and 2,000+ happy customers — from our Dubai hub since 2015.
           </p>

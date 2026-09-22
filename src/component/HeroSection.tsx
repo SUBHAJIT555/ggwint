@@ -208,7 +208,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="max-w-[20ch] text-[34px] font-bold leading-[1.08] tracking-tight text-ink sm:text-[40px] lg:max-w-[22ch] lg:text-[44px] lg:leading-[1.06] xl:max-w-[24ch] xl:text-5xl xl:leading-[1.05]"
+            className="max-w-[18ch] text-hero text-ink lg:max-w-[20ch]"
           >
             GGW INTERNATIONAL GENERAL TRADING LLC
           </motion.h1>
@@ -217,7 +217,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.12 }}
-            className="mt-5 max-w-xl text-[15px] leading-7 text-body lg:max-w-lg lg:text-body-md"
+            className="mt-5 max-w-xl text-copy text-body lg:max-w-lg"
           >
             Your Gateway to Global Trade – Bridging markets with excellence,
             integrity, and innovation from the heart of Dubai

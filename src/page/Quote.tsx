@@ -241,10 +241,10 @@ const Quote = () => {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="mb-3 text-caption uppercase text-muted">Quote</p>
-            <h1 className="text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md">
+            <h1 className="text-section text-ink">
               Review your quote
             </h1>
-            <p className="mt-3 max-w-xl text-body-md text-muted">
+            <p className="mt-3 max-w-xl text-copy text-muted">
               Check your items, add contact details, and send the list to GGW
               International. We&apos;ll come back with pricing and availability.
             </p>
@@ -398,7 +398,7 @@ const Quote = () => {
                       Inclusive of tax
                     </p>
                   </div>
-                  <p className="text-xl font-semibold tracking-tight text-brand-accent">
+                  <p className="text-title-lg text-brand-accent">
                     AED {total.toFixed(2)}
                   </p>
                 </div>

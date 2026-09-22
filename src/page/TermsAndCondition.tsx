@@ -56,14 +56,14 @@ const TermsAndCondition = () => {
 
           {/* Introduction */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               1. Introduction
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 These Terms & Conditions ("Terms") govern the use of the website
                 operated by{" "}
-                <strong className="text-white">
+                <strong className="text-ink">
                   GGW INTERNATIONAL GENERAL TRADING LLC
                 </strong>
                 , based in Dubai, United Arab Emirates. By accessing or using
@@ -95,11 +95,11 @@ const TermsAndCondition = () => {
 
           {/* Company Information */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               2. Company Information
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
-              <p className="text-white font-semibold">
+            <div className="text-copy text-body space-y-4">
+              <p className="text-ink font-semibold">
                 GGW INTERNATIONAL GENERAL TRADING LLC
               </p>
               <p>Office 393, White Crown Building, <br /> Sheikh Zayed Road, <br /> Dubai, United Arab Emirates</p>
@@ -128,10 +128,10 @@ const TermsAndCondition = () => {
 
           {/* Use of the Website */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               3. Use of the Website
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 You agree to use this website only for lawful purposes and in a
                 manner that does not infringe the rights of, restrict, or
@@ -195,10 +195,10 @@ const TermsAndCondition = () => {
 
           {/* Services & Products */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               4. Services & Products
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 All services and products displayed on this website are subject
                 to availability and confirmation. We strive to maintain accurate
@@ -249,17 +249,17 @@ const TermsAndCondition = () => {
 
           {/* Intellectual Property */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               5. Intellectual Property
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 All content on this website, including but not limited to text,
                 logos, trademarks, service marks, images, graphics, photographs,
                 videos, audio files, software, code, design elements, layout,
                 user interface, and all other materials, is the exclusive
                 property of{" "}
-                <strong className="text-white">
+                <strong className="text-ink">
                   GGW INTERNATIONAL GENERAL TRADING LLC
                 </strong>{" "}
                 or its licensors, unless otherwise stated or indicated.
@@ -300,10 +300,10 @@ const TermsAndCondition = () => {
 
           {/* Third-Party Links */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               6. Third-Party Links
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 This website may contain links to third-party websites,
                 resources, or services for reference, convenience, or
@@ -345,13 +345,13 @@ const TermsAndCondition = () => {
 
           {/* Limitation of Liability */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               7. Limitation of Liability
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 To the fullest extent permitted by applicable law,{" "}
-                <strong className="text-white">
+                <strong className="text-ink">
                   GGW INTERNATIONAL GENERAL TRADING LLC
                 </strong>
                 , its officers, directors, employees, agents, affiliates, and
@@ -425,13 +425,13 @@ const TermsAndCondition = () => {
 
           {/* Indemnification */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               8. Indemnification
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 You agree to indemnify, defend, and hold harmless{" "}
-                <strong className="text-white">
+                <strong className="text-ink">
                   GGW INTERNATIONAL GENERAL TRADING LLC
                 </strong>
                 , its officers, directors, employees, agents, affiliates, and
@@ -485,10 +485,10 @@ const TermsAndCondition = () => {
 
           {/* Changes to Terms */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               9. Changes to Terms
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 We reserve the right, at our sole discretion, to modify, update,
                 change, or replace any part of these Terms & Conditions at any
@@ -530,10 +530,10 @@ const TermsAndCondition = () => {
 
           {/* Governing Law */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               10. Governing Law
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 These Terms & Conditions are governed by and construed in
                 accordance with the laws of the United Arab Emirates, without
@@ -579,10 +579,10 @@ const TermsAndCondition = () => {
 
           {/* Contact Section */}
           <Section>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-oswald font-semibold text-white mb-6">
+            <h2 className="text-section text-ink mb-4">
               11. Contact Information
             </h2>
-            <div className="text-zinc-300 text-base sm:text-lg font-poppins leading-relaxed space-y-4">
+            <div className="text-copy text-body space-y-4">
               <p>
                 If you have any questions, concerns, or inquiries regarding
                 these Terms & Conditions, please feel free to contact us using
@@ -590,7 +590,7 @@ const TermsAndCondition = () => {
               </p>
               <div className="space-y-4 mt-6">
                 <div>
-                  <p className="text-white font-semibold mb-2">Email:</p>
+                  <p className="text-ink font-semibold mb-2">Email:</p>
                   <a
                     href="mailto:info@ggwint.com"
                     className="block text-cyan-400 hover:text-cyan-300 transition-colors"
@@ -599,7 +599,7 @@ const TermsAndCondition = () => {
                   </a>
                 </div>
                 <div>
-                  <p className="text-white font-semibold mb-2">Phone:</p>
+                  <p className="text-ink font-semibold mb-2">Phone:</p>
                   <a
                     href="tel:+97142712771"
                     className="text-cyan-400 hover:text-cyan-300 transition-colors"
@@ -608,7 +608,7 @@ const TermsAndCondition = () => {
                   </a>
                 </div>
                 <div>
-                  <p className="text-white font-semibold mb-2">Location:</p>
+                  <p className="text-ink font-semibold mb-2">Location:</p>
                   <p className="text-zinc-300">
                     GGW INTERNATIONAL GENERAL TRADING LLC
                     <br />

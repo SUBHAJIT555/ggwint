@@ -121,7 +121,7 @@ const AboutSnapshot = () => {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          className="text-[32px] sm:text-display-md lg:text-display-lg font-semibold text-ink tracking-[-1.5px] leading-[1.1]"
+          className="text-section text-ink"
         >
           Reliable supply solutions across the UAE
         </motion.h2>
@@ -132,33 +132,33 @@ const AboutSnapshot = () => {
           viewport={{ once: true, margin: "-80px" }}
           className="mt-8 space-y-4"
         >
-          <p className="text-body-md text-body">
+          <p className="text-copy text-body">
             We are specialized in the international trading of steel, MEP
             products, construction materials, IT Products & Solutions, Food
             Stuff, Food Additives, Chemicals, AGRO & Pharma Chemicals.
           </p>
-          <p className="text-body-md text-body">
+          <p className="text-copy text-body">
             We provide reliable supply solutions to the power, industrial,
             commercial and oilfield sectors across the UAE.
           </p>
-          <p className="text-body-md text-body">
+          <p className="text-copy text-body">
             Our partnerships with international manufacturers enable us to
             offer quality products at competitive prices, reliable market
             information, and professional support.
           </p>
-          <p className="text-body-md text-body">
+          <p className="text-copy text-body">
             Supported by an experienced professional team, we ensure efficient
             service, technical expertise and timely delivery. We remain
             committed to customer satisfaction, quality and building lasting
             business relationships.
           </p>
-          <p className="text-body-md text-body">
+          <p className="text-copy text-body">
             Backed by strong industry knowledge and operational expertise, we
             serve customers throughout the UAE with efficiency and reliability.
             Customer satisfaction remains our highest priority and the
             foundation of our continued growth.
           </p>
-          <p className="text-body-md text-body">
+          <p className="text-copy text-body">
             With the continued trust of our employees, suppliers and clients,
             we confidently look forward to sustainable growth and expansion.
           </p>

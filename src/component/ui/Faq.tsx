@@ -70,7 +70,7 @@ const FAQ = ({
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          className="text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md lg:text-display-lg"
+          className="text-section text-ink"
         >
           {heading}
         </motion.h2>
@@ -79,7 +79,7 @@ const FAQ = ({
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            className="mt-4 max-w-2xl text-body-md text-body"
+            className="mt-4 max-w-2xl text-copy text-body"
           >
             {subHeading}
           </motion.p>

@@ -177,7 +177,7 @@ const CallbackModal = () => {
               <div className="p-6 sm:p-8">
                 {/* Header */}
                 <div className="mb-6">
-                  <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight font-semibold text-ink mb-2">
+                  <h2 className="mb-2 text-section text-ink">
                     Request Callback
                   </h2>
                   <p className="text-muted text-sm sm:text-base ">
