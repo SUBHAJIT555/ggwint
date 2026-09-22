@@ -68,7 +68,7 @@ const ScrollToTopButton = () => {
     <div
       className={cn(
         "scroll-to-top-fab fixed z-51 right-4 sm:right-6 md:right-8",
-        "bottom-[calc(4.5rem+env(safe-area-inset-bottom,0px)+0.75rem)]",
+        "bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))]",
         "md:bottom-8",
         "transition-opacity duration-300 ease-out",
         !isVisible && "pointer-events-none opacity-0",
@@ -80,6 +80,7 @@ const ScrollToTopButton = () => {
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label={`Scroll to top — ${Math.round(progress)}% of page`}
+        suppressHydrationWarning
         className="group relative flex size-11 cursor-pointer items-center justify-center rounded-full md:size-12 lg:size-14"
       >
         <svg

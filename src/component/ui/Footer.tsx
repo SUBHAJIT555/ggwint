@@ -107,7 +107,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative w-full overflow-x-hidden bg-canvas screen-line-top pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
+    <footer className="relative w-full overflow-x-hidden bg-canvas screen-line-top">
       <div className="mx-auto max-w-content border-x border-dashed border-hairline px-5 py-12 sm:px-6 sm:py-16 lg:py-20">
         <div className="grid grid-cols-2 gap-8 lg:grid-cols-5 lg:gap-y-12">
           <div className="col-span-2">
@@ -138,6 +138,8 @@ const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter Your Email"
+                  autoComplete="email"
+                  suppressHydrationWarning
                   className="w-full rounded-xl border border-hairline bg-surface-card px-4 py-3 text-body-md text-ink placeholder:text-muted focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30"
                 />
                 <div className="hidden">

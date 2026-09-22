@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import MobileMenu from "../component/ui/MobileMenu";
 import Header from "../component/ui/Header";
 import Footer from "../component/ui/Footer";
-import FloatingCartButton from "../component/ui/FloatingCartButton";
 import WhatsAppButton from "../component/ui/WhatsAppButton";
 import ScrollToTopButton from "../component/ui/ScrollToTopButton";
 import CallbackModal from "../component/ui/CallbackModal";
@@ -21,7 +20,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       <ScrollToTop />
       <Header />
       <MobileMenu />
-      <main className="w-full pt-16 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
+      <main className="w-full pt-16">
         {isHome ? (
           <PageTransition>{children}</PageTransition>
         ) : (
@@ -31,7 +30,6 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         )}
       </main>
       <Footer />
-      <FloatingCartButton />
       <WhatsAppButton />
       <ScrollToTopButton />
       <CallbackModal />

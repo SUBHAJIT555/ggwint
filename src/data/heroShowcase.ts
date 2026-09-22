@@ -97,7 +97,7 @@ export const heroShowcaseCards: HeroShowcaseCard[] = [
   {
     id: "port-operations",
     title: "Port operations",
-    src: "https://images.unsplash.com/photo-1494412574643-ff11af0c31dd?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=1200&q=80",
     href: "/about/",
   },
   {

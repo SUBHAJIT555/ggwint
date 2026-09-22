@@ -16,9 +16,7 @@ const Products = () => {
         subHeading="Discover our comprehensive range of quality products designed to meet your business and personal needs. From food items to consumer goods, we offer excellence in every category."
         buttonText="Request Free Quote"
         buttonLink="/contact"
-        textAlign="center"
-        overlayOpacity={0.65}
-        parallaxStrength={400}
+        showTrust
       />
       <ProductGrid
         initialMainCategory="All"

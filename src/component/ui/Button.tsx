@@ -97,6 +97,7 @@ export default function Button({
       disabled={disabled}
       onClick={onClick}
       className={classes}
+      suppressHydrationWarning
       {...rest}
     >
       {children}

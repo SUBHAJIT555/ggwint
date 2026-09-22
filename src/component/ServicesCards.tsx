@@ -42,11 +42,6 @@ const servicesData = [
   },
 ];
 
-const pairs = [
-  [servicesData[0], servicesData[1]],
-  [servicesData[2], servicesData[3]],
-] as const;
-
 const ServicesCards = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
@@ -86,53 +81,38 @@ const ServicesCards = () => {
           Source, move, store, and deliver — nothing gets lost in the handoff.
         </motion.p>
 
-        <div className="mt-12 space-y-10 lg:space-y-12">
-          {pairs.map(([left, right]) => (
-            <div key={left.id}>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
-                {[left, right].map((service) => (
-                  <motion.div
-                    key={`${service.id}-visual`}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    className="overflow-hidden bg-canvas p-2 shadow-sm ring-1 ring-black/5 [--inner:var(--radius-xl)] [--pad:0.5rem] rounded-[calc(var(--inner)+var(--pad))]"
-                  >
-                    <img
-                      src={service.image}
-                      alt=""
-                      className="h-56 w-full rounded-[var(--inner)] object-cover sm:h-64 lg:h-72"
-                    />
-                  </motion.div>
-                ))}
+        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 lg:gap-x-6 lg:gap-y-12">
+          {servicesData.map((service) => (
+            <motion.article
+              key={service.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              className="flex flex-col"
+            >
+              <div className="overflow-hidden bg-canvas p-2 shadow-sm ring-1 ring-black/5 [--inner:var(--radius-xl)] [--pad:0.5rem] rounded-[calc(var(--inner)+var(--pad))]">
+                <img
+                  src={service.image}
+                  alt=""
+                  className="h-48 w-full rounded-[var(--inner)] object-cover sm:h-64 lg:h-72"
+                />
               </div>
-
-              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-10">
-                {[left, right].map((service) => (
-                  <motion.div
-                    key={`${service.id}-copy`}
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    className="flex items-start gap-3"
-                  >
-                    <span
-                      className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[11px] font-semibold ${service.accent}`}
-                    >
-                      {service.id}
-                    </span>
-                    <div>
-                      <h3 className="text-title-md font-semibold text-ink">
-                        {service.title}
-                      </h3>
-                      <p className="mt-2 text-body-sm leading-6 text-body">
-                        {service.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
+              <div className="mt-6 flex items-start gap-3">
+                <span
+                  className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[11px] font-semibold ${service.accent}`}
+                >
+                  {service.id}
+                </span>
+                <div>
+                  <h3 className="text-title-md font-semibold text-ink">
+                    {service.title}
+                  </h3>
+                  <p className="mt-2 text-body-sm leading-6 text-body">
+                    {service.description}
+                  </p>
+                </div>
               </div>
-            </div>
+            </motion.article>
           ))}
         </div>
       </div>

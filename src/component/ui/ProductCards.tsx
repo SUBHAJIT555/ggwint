@@ -11,10 +11,10 @@ import {
 } from "../../data/products";
 
 import { IoArrowForwardOutline } from "react-icons/io5";
-import { FiFilter, FiX } from "react-icons/fi";
-import { ImCross } from "react-icons/im";
+import { FiX } from "react-icons/fi";
 import { useQuote } from "../../hooks/useQuote";
 import Button from "./Button";
+import ProductFilter, { type ProductFilterOption } from "./ProductFilter";
 
 const PAGE_SIZE = 24;
 
@@ -93,8 +93,6 @@ const ProductGrid = ({
   >(initialMainCategory);
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const [showFloatingFilter, setShowFloatingFilter] = useState(false);
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -127,39 +125,6 @@ const ProductGrid = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Handle scroll to show/hide floating filter button
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const sectionElement = sectionRef.current;
-
-      if (!sectionElement) return;
-
-      const sectionTop = sectionElement.offsetTop;
-      const sectionBottom = sectionTop + sectionElement.offsetHeight;
-      const viewportHeight = window.innerHeight;
-
-      if (
-        currentScrollY > sectionTop + 150 &&
-        currentScrollY < sectionBottom - viewportHeight &&
-        currentScrollY > 100
-      ) {
-        setShowFloatingFilter(true);
-      } else {
-        setShowFloatingFilter(false);
-      }
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, []);
-
   const closeModal = useCallback(() => {
     setSelectedProduct(null);
   }, []);
@@ -184,13 +149,53 @@ const ProductGrid = ({
     };
   }, [selectedProduct, closeModal]);
 
-  const subCategories = useMemo(() => {
-    if (selectedMainCategory === "All") return [];
-    const cats = catalog
-      .filter((p) => p.mainCategory === selectedMainCategory)
-      .map((p) => p.category);
-    return Array.from(new Set(cats));
-  }, [selectedMainCategory]);
+  const filterOptions = useMemo<ProductFilterOption[]>(() => {
+    if (initialMainCategory === "All") {
+      return [
+        { id: "All", label: "All", count: catalog.length },
+        ...categoryList.map((category) => ({
+          id: category,
+          label: category,
+          count: catalog.filter((product) => product.mainCategory === category)
+            .length,
+        })),
+      ];
+    }
+
+    const inCategory = catalog.filter(
+      (product) => product.mainCategory === selectedMainCategory
+    );
+    const subCategories = Array.from(
+      new Set(inCategory.map((product) => product.category))
+    );
+    const extraSubs = subCategories.filter(
+      (subCategory) => subCategory !== selectedMainCategory
+    );
+
+    if (extraSubs.length === 0) {
+      return [
+        {
+          id: "All",
+          label: selectedMainCategory,
+          count: inCategory.length,
+        },
+      ];
+    }
+
+    return [
+      {
+        id: "All",
+        label: `All ${selectedMainCategory}`,
+        count: inCategory.length,
+      },
+      ...subCategories.map((subCategory) => ({
+        id: subCategory,
+        label: subCategory,
+        count: inCategory.filter((product) => product.category === subCategory)
+          .length,
+      })),
+    ];
+  }, [initialMainCategory, selectedMainCategory]);
 
   const filteredProducts = useMemo(() => {
     let result = catalog;
@@ -275,52 +280,49 @@ const ProductGrid = ({
     return pages;
   }, [currentPage, totalPages, isMobile]);
 
-  const scrollToTop = useCallback(() => {
-    if (sectionRef.current) {
-      const sectionTop = sectionRef.current.offsetTop;
-      window.scrollTo({
-        top: sectionTop - 20,
-        behavior: "smooth",
-      });
-    }
+  const scrollToProducts = useCallback(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
-  const changeMainCategory = (category: MainCategory | "All") => {
-    setSelectedMainCategory(category);
-    setSelectedSubCategory("All");
-    setCurrentPage(1);
-    handleFilterSelection();
-  };
-
-  const changeSubCategory = (subCategory: string) => {
-    setSelectedSubCategory(subCategory);
-    setCurrentPage(1);
-    handleFilterSelection();
-  };
-
-  const handleFilterSelection = () => {
-    // Close bottom sheet after selection on mobile
-    if (window.innerWidth < 1024) {
-      setIsBottomSheetOpen(false);
-      // Scroll to top of product grid section after bottom sheet closes
-      setTimeout(() => {
-        scrollToTop();
-      }, 350);
+  const skipFilterScroll = useRef(true);
+  useEffect(() => {
+    if (skipFilterScroll.current) {
+      skipFilterScroll.current = false;
+      return;
     }
+    scrollToProducts();
+  }, [selectedMainCategory, selectedSubCategory, scrollToProducts]);
+
+  const handleFilterChange = (id: string) => {
+    const current =
+      initialMainCategory === "All"
+        ? selectedMainCategory
+        : selectedSubCategory;
+    if (id === current) return;
+
+    if (initialMainCategory === "All") {
+      setSelectedMainCategory(id as MainCategory | "All");
+      setSelectedSubCategory("All");
+    } else {
+      setSelectedSubCategory(id);
+    }
+    setCurrentPage(1);
   };
 
   const handlePageChange = useCallback(
     (newPage: number) => {
       setCurrentPage(newPage);
-      scrollToTop();
+      scrollToProducts();
     },
-    [scrollToTop]
+    [scrollToProducts]
   );
 
   return (
     <section
       ref={sectionRef}
-      className="w-full py-10 sm:py-12 lg:py-16 screen-line-top"
+      className="w-full scroll-mt-20 py-10 sm:py-12 lg:py-16 screen-line-top"
       id="products"
     >
       <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-480 mx-auto space-y-6">
@@ -329,242 +331,24 @@ const ProductGrid = ({
             {title} <IoArrowForwardOutline className="rotate-45" />
           </h2>
 
-          {/* Category Filters - Desktop */}
-          <div className="hidden lg:flex flex-wrap gap-3">
-            {initialMainCategory === "All" ? (
-              <>
-                <button
-                  onClick={() => changeMainCategory("All")}
-                  className={`px-4 py-2 rounded-md text-sm sm:text-base  transition ${selectedMainCategory === "All"
-                      ? "bg-primary text-on-primary border border-gray-400 text-ink"
-                      : "bg-surface-card text-ink hover:bg-gray-300"
-                    }`}
-                >
-                  All
-                </button>
-                {categoryList.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => changeMainCategory(category)}
-                    className={`px-4 py-2 rounded-md text-sm sm:text-base  transition whitespace-nowrap ${selectedMainCategory === category
-                        ? "bg-primary text-on-primary border border-gray-400 text-ink"
-                        : "bg-surface-card text-ink hover:bg-gray-300 hover:text-green-700"
-                      }`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => changeSubCategory("All")}
-                  className={`px-4 py-2 rounded-md text-sm sm:text-base  transition ${selectedSubCategory === "All"
-                      ? "bg-primary text-on-primary border border-gray-400 text-ink"
-                      : "bg-surface-card text-ink hover:bg-gray-300"
-                    }`}
-                >
-                  All {selectedMainCategory}
-                </button>
-                {subCategories.map((subCat) => (
-                  <button
-                    key={subCat}
-                    onClick={() => changeSubCategory(subCat)}
-                    className={`px-4 py-2 rounded-md text-sm sm:text-base  transition whitespace-nowrap ${selectedSubCategory === subCat
-                        ? "bg-primary text-on-primary border border-gray-400 text-ink"
-                        : "bg-surface-card text-ink hover:bg-gray-300 hover:text-green-700"
-                      }`}
-                  >
-                    {subCat}
-                  </button>
-                ))}
-              </>
-            )}
-          </div>
-
-          {/* Mobile/Tablet Filter */}
-          <div className="lg:hidden overflow-x-auto scrollbar-hide -mx-3 sm:-mx-4 md:-mx-6 px-3 sm:px-4 md:px-6">
-            <div className="flex gap-3 min-w-max pb-2">
-              {initialMainCategory === "All" ? (
-                <>
-                  <button
-                    onClick={() => changeMainCategory("All")}
-                    className={`px-4 py-2 rounded-md text-sm  transition whitespace-nowrap ${selectedMainCategory === "All"
-                        ? "bg-primary text-on-primary border border-gray-400 text-ink"
-                        : "bg-surface-card text-ink hover:bg-gray-300"
-                      }`}
-                  >
-                    All
-                  </button>
-                  {categoryList.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => changeMainCategory(category)}
-                      className={`px-4 py-2 rounded-md text-sm  transition whitespace-nowrap ${selectedMainCategory === category
-                          ? "bg-primary text-on-primary border border-gray-400 text-ink"
-                          : "bg-surface-card text-ink hover:bg-gray-300"
-                        }`}
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => changeSubCategory("All")}
-                    className={`px-4 py-2 rounded-md text-sm  transition whitespace-nowrap ${selectedSubCategory === "All"
-                        ? "bg-primary text-on-primary border border-gray-400 text-ink"
-                        : "bg-surface-card text-ink hover:bg-gray-300"
-                      }`}
-                  >
-                    All
-                  </button>
-                  {subCategories.map((subCat) => (
-                    <button
-                      key={subCat}
-                      onClick={() => changeSubCategory(subCat)}
-                      className={`px-4 py-2 rounded-md text-sm  transition whitespace-nowrap ${selectedSubCategory === subCat
-                          ? "bg-primary text-on-primary border border-gray-400 text-ink"
-                          : "bg-surface-card text-ink hover:bg-gray-300"
-                        }`}
-                    >
-                      {subCat}
-                    </button>
-                  ))}
-                </>
-              )}
-            </div>
-          </div>
+          <ProductFilter
+            options={filterOptions}
+            value={
+              initialMainCategory === "All"
+                ? selectedMainCategory
+                : selectedSubCategory
+            }
+            resultCount={filteredProducts.length}
+            onChange={handleFilterChange}
+            label={
+              initialMainCategory === "All"
+                ? "Filter by category"
+                : "Filter this range"
+            }
+          />
         </div>
 
-        {/* Floating Filter Button */}
-        <AnimatePresence>
-          {showFloatingFilter && (
-            <motion.button
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => {
-                if (window.innerWidth < 1024) {
-                  // On mobile, open bottom sheet
-                  setIsBottomSheetOpen(true);
-                } else {
-                  // On desktop, scroll to filter section
-                  if (sectionRef.current) {
-                    const sectionTop = sectionRef.current.offsetTop;
-                    window.scrollTo({
-                      top: sectionTop - 20,
-                      behavior: "smooth",
-                    });
-                  }
-                }
-              }}
-              className="fixed bottom-0 lg:bottom-6 left-1/2 transform -translate-x-1/2 z-50 bg-primary text-on-primary/40 backdrop-blur-sm text-ink px-4 py-2 lg:px-6 lg:py-3 rounded-md shadow-lg  text-xs lg:text-sm tracking-wide lg:tracking-widest flex items-center gap-1.5 lg:gap-2 border border-gray-400 mb-2 lg:mb-0 "
-            >
-              <FiFilter className="h-4 w-4 lg:h-5 lg:w-5" />
-              Filter
-            </motion.button>
-          )}
-        </AnimatePresence>
-
-        {/* Bottom Sheet Modal (Mobile/Tablet) */}
-        <AnimatePresence>
-          {isBottomSheetOpen && (
-            <>
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => setIsBottomSheetOpen(false)}
-                className="lg:hidden fixed inset-0 bg-black/50 z-50"
-              />
-              {/* Bottom Sheet */}
-              <motion.div
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "100%" }}
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="lg:hidden fixed -bottom-7 left-0 right-0 z-50 bg-canvas rounded-t-3xl shadow-2xl max-h-[80vh] overflow-hidden border-t border-hairline"
-              >
-                <div className="p-4 sm:p-6">
-                  {/* Header */}
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-xl font-semibold tracking-tight text-ink uppercase tracking-wide">
-                      Filter by Category
-                    </h3>
-                    <button
-                      onClick={() => setIsBottomSheetOpen(false)}
-                      className="p-2 hover:bg-surface-card rounded-full transition-colors"
-                    >
-                      <ImCross className="h-5 w-5 text-body" />
-                    </button>
-                  </div>
-
-                  {/* Filter Options */}
-                  <div className="overflow-y-auto max-h-[60vh]">
-                    <div className="flex flex-col gap-3">
-                      {initialMainCategory === "All" ? (
-                        <>
-                          <button
-                            onClick={() => changeMainCategory("All")}
-                            className={`w-full px-5 py-3.5 rounded-lg  font-medium text-left transition-all duration-200 ${selectedMainCategory === "All"
-                                ? "bg-primary text-on-primary border border-gray-400 text-ink shadow-md"
-                                : "bg-surface-card text-ink hover:bg-surface-card border border-hairline"
-                              }`}
-                          >
-                            All Categories
-                          </button>
-                          {categoryList.map((category) => (
-                            <button
-                              key={category}
-                              onClick={() => changeMainCategory(category)}
-                              className={`w-full px-5 py-3.5 rounded-lg  font-medium text-left transition-all duration-200 ${selectedMainCategory === category
-                                  ? "bg-primary text-on-primary border border-gray-400 text-ink shadow-md"
-                                  : "bg-surface-card text-ink hover:bg-surface-card border border-hairline"
-                                }`}
-                            >
-                              {category}
-                            </button>
-                          ))}
-                        </>
-                      ) : (
-                        <>
-                          <button
-                            onClick={() => changeSubCategory("All")}
-                            className={`w-full px-5 py-3.5 rounded-lg  font-medium text-left transition-all duration-200 ${selectedSubCategory === "All"
-                                ? "bg-primary text-on-primary border border-gray-400 text-ink shadow-md"
-                                : "bg-surface-card text-ink hover:bg-surface-card border border-hairline"
-                              }`}
-                          >
-                            All Subcategories
-                          </button>
-                          {subCategories.map((subCat) => (
-                            <button
-                              key={subCat}
-                              onClick={() => changeSubCategory(subCat)}
-                              className={`w-full px-5 py-3.5 rounded-lg  font-medium text-left transition-all duration-200 ${selectedSubCategory === subCat
-                                  ? "bg-primary text-on-primary border border-gray-400 text-ink shadow-md"
-                                  : "bg-surface-card text-ink hover:bg-surface-card border border-hairline"
-                                }`}
-                            >
-                              {subCat}
-                            </button>
-                          ))}
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-
-        {/* Mobile List View */}
+        {/* Product list */}
         {paginatedProducts.length === 0 ? (
           <div className="rounded-lg border border-hairline bg-surface-card px-6 py-16 text-center">
             <p className="text-title-md text-ink">Products coming soon</p>

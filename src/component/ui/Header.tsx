@@ -6,42 +6,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenuStore } from "../../store/mobileMenuStore";
 import { IoMenu, IoClose } from "react-icons/io5";
-import {
-  FiArrowRight,
-  FiChevronDown,
-  FiLayers,
-  FiShoppingBag,
-  FiTool,
-  FiShield,
-  FiAlertTriangle,
-  FiZap,
-  FiSettings,
-  FiMonitor,
-} from "react-icons/fi";
-import { IconPaint, IconFlask } from "@tabler/icons-react";
+import { FiArrowRight, FiChevronDown } from "react-icons/fi";
+import { IconBrandWhatsapp, IconShoppingCart } from "@tabler/icons-react";
 import Logo from "./Logo";
 import Button from "./Button";
-import { categoryDetails, type MainCategory } from "../../data/products";
+import { categoryDetails } from "../../data/products";
+import { categoryIcons } from "../../data/categoryIcons";
+import { SITE_CONTACT } from "../../data/contact";
+import { useQuote } from "../../hooks/useQuote";
 
 type MenuItem = {
   name: string;
   path: string;
   hasDropdown?: boolean;
-};
-
-type MenuIcon = React.ComponentType<{ className?: string }>;
-
-const categoryIcons: Record<MainCategory, MenuIcon> = {
-  "Construction Materials": FiLayers,
-  "Food Products": FiShoppingBag,
-  "Mechanical Tools": FiTool,
-  "Construction and Safety": FiShield,
-  "Paints and Finishes": IconPaint,
-  "Water / Fire Proofing": FiAlertTriangle,
-  Electronics: FiZap,
-  "Auto Spare Parts": FiSettings,
-  "IT Accessories": FiMonitor,
-  Chemicals: IconFlask,
 };
 
 const ProductsDropdown = () => {
@@ -81,6 +58,8 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { toggleMenu, isOpen } = useMobileMenuStore();
   const pathname = usePathname();
+  const { items } = useQuote();
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -150,15 +129,51 @@ const Header: React.FC = () => {
               Contact
               <FiArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
             </Button>
+            <Button href="/quote" variant="primary" className="h-10 gap-2 px-3.5">
+              <IconShoppingCart className="size-4" stroke={1.75} />
+              Quote
+              <span
+                className={`flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[11px] font-semibold ${
+                  cartCount > 0
+                    ? "bg-brand-accent text-on-primary"
+                    : "bg-white/15 text-on-primary"
+                }`}
+              >
+                {cartCount}
+              </span>
+            </Button>
           </div>
 
-          <button
-            className="md:hidden text-ink p-2 mobile-menu-button relative z-70"
-            onClick={toggleMenu}
-            aria-label="Open menu"
-          >
-            {isOpen ? <IoClose className="w-6 h-6" /> : <IoMenu className="w-6 h-6" />}
-          </button>
+          <div className="relative z-70 flex items-center gap-0.5 md:hidden">
+            <a
+              href={SITE_CONTACT.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex size-10 items-center justify-center text-[#25D366]"
+              aria-label="WhatsApp"
+            >
+              <IconBrandWhatsapp className="size-5" stroke={1.75} />
+            </a>
+            <Link
+              href="/quote"
+              className="relative inline-flex size-10 items-center justify-center text-ink"
+              aria-label="Quote cart"
+            >
+              <IconShoppingCart className="size-5" stroke={1.75} />
+              {cartCount > 0 ? (
+                <span className="absolute top-1.5 right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-brand-accent px-1 text-[10px] font-semibold text-on-primary">
+                  {cartCount}
+                </span>
+              ) : null}
+            </Link>
+            <button
+              className="inline-flex size-10 items-center justify-center text-ink mobile-menu-button"
+              onClick={toggleMenu}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+            >
+              {isOpen ? <IoClose className="size-6" /> : <IoMenu className="size-6" />}
+            </button>
+          </div>
         </div>
       </div>
     </motion.header>

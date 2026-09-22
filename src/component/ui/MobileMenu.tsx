@@ -6,8 +6,15 @@ import Link from "next/link";
 import { useMobileMenuStore } from "../../store/mobileMenuStore";
 import { IoClose } from "react-icons/io5";
 import { FiChevronDown } from "react-icons/fi";
+import {
+  IconBrandWhatsapp,
+  IconMapPin,
+  IconMessage2Share,
+} from "@tabler/icons-react";
 import Button from "./Button";
+import Logo from "./Logo";
 import { mainCategories, toCategorySlug } from "../../data/products";
+import { SITE_CONTACT } from "../../data/contact";
 
 type NavigationItem = {
   name: string;
@@ -40,6 +47,7 @@ const MobileMenu: React.FC = () => {
         })),
       ],
     },
+    { name: "Cart", path: "/quote" },
   ];
 
   const toggleDropdown = (name: string) => {
@@ -83,16 +91,27 @@ const MobileMenu: React.FC = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="h-screen w-full overflow-y-auto px-6 pt-4 pb-10">
-            <div className="flex justify-end mb-8">
+          <div className="flex h-full flex-col">
+            <div className="flex h-16 shrink-0 items-center justify-between border-b border-dashed border-hairline bg-canvas px-4">
+              <Link
+                href="/"
+                className="shrink-0"
+                onClick={closeMenu}
+                aria-label="GGW International home"
+              >
+                <div className="h-9 w-44">
+                  <Logo variant="on-light" />
+                </div>
+              </Link>
               <button
-                className="text-ink p-2 mobile-menu-button"
+                className="mobile-menu-button inline-flex size-10 items-center justify-center text-ink"
                 onClick={closeMenu}
                 aria-label="Close menu"
               >
-                <IoClose className="w-6 h-6" />
+                <IoClose className="size-6" />
               </button>
             </div>
+            <div className="flex-1 overflow-y-auto px-6 pb-10 pt-4">
             <nav className="space-y-2">
               {navigationItems.map((item) => (
                 <div key={item.name} className="border-b border-hairline">
@@ -162,6 +181,53 @@ const MobileMenu: React.FC = () => {
               <Button href="/contact" variant="accent" className="w-full h-12" onClick={closeMenu}>
                 Contact
               </Button>
+            </div>
+
+            <div className="mt-8 space-y-1 border-t border-dashed border-hairline pt-6">
+              <a
+                href={SITE_CONTACT.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+                className="flex items-center gap-3 rounded-xl px-3 py-3 text-ink hover:bg-surface-card"
+              >
+                <IconBrandWhatsapp className="size-5 shrink-0 text-[#25D366]" stroke={1.75} />
+                <span>
+                  <span className="block text-sm font-medium">WhatsApp</span>
+                  <span className="block text-caption text-muted">
+                    {SITE_CONTACT.phone}
+                  </span>
+                </span>
+              </a>
+              <a
+                href={`mailto:${SITE_CONTACT.email}`}
+                onClick={closeMenu}
+                className="flex items-center gap-3 rounded-xl px-3 py-3 text-ink hover:bg-surface-card"
+              >
+                <IconMessage2Share className="size-5 shrink-0 text-brand-accent" stroke={1.75} />
+                <span>
+                  <span className="block text-sm font-medium">Email</span>
+                  <span className="block text-caption text-muted">
+                    {SITE_CONTACT.email}
+                  </span>
+                </span>
+              </a>
+              <a
+                href={SITE_CONTACT.googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+                className="flex items-start gap-3 rounded-xl px-3 py-3 text-ink hover:bg-surface-card"
+              >
+                <IconMapPin className="mt-0.5 size-5 shrink-0 text-brand-accent" stroke={1.75} />
+                <span>
+                  <span className="block text-sm font-medium">Address</span>
+                  <span className="block text-caption text-muted">
+                    {SITE_CONTACT.address}
+                  </span>
+                </span>
+              </a>
+            </div>
             </div>
           </div>
         </motion.div>

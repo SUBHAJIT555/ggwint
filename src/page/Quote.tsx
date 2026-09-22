@@ -1,19 +1,20 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
+import { useMemo, useState, type InputHTMLAttributes } from "react";
 import {
-  FaTrash,
-  FaMinus,
-  FaPlus,
-  FaArrowLeft,
-  FaPaperPlane,
-} from "react-icons/fa";
+  IconArrowLeft,
+  IconMinus,
+  IconPlus,
+  IconShoppingCart,
+  IconTrash,
+} from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useQuote } from "../hooks/useQuote";
+import Button from "../component/ui/Button";
+import { cn } from "../lib/cn";
 
 const uaePhoneRegex = /^(?:\+971|00971|0)?(?:5[0124568])\d{7}$/;
 
@@ -88,6 +89,40 @@ const quoteSchema = z
 
 type QuoteFormData = z.infer<typeof quoteSchema>;
 
+const fieldClass = cn(
+  "w-full rounded-lg border bg-canvas px-3.5 py-2.5",
+  "text-sm text-ink placeholder:text-muted",
+  "focus:outline-none focus:ring-1",
+  "disabled:opacity-60"
+);
+
+const fieldOk =
+  "border-hairline focus:border-brand-accent focus:ring-brand-accent/30";
+const fieldErr = "border-red-500 focus:border-red-500 focus:ring-red-500/20";
+const labelClass = "mb-1.5 block text-sm font-medium text-ink";
+
+function Field({
+  label,
+  error,
+  className,
+  ...props
+}: {
+  label: string;
+  error?: string;
+} & InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <div className={className}>
+      <label className={labelClass}>{label}</label>
+      <input
+        {...props}
+        suppressHydrationWarning
+        className={cn(fieldClass, error ? fieldErr : fieldOk)}
+      />
+      {error ? <p className="mt-1 text-xs text-red-500">{error}</p> : null}
+    </div>
+  );
+}
+
 const Quote = () => {
   const { items, removeFromQuote, clearQuote, updateQuantity } = useQuote();
   const methods = useForm<QuoteFormData>({
@@ -135,7 +170,6 @@ const Quote = () => {
       const formData = new FormData();
       formData.append("formType", "quote");
 
-      // Add billing data
       formData.append("billing_first_name", data.billing_first_name);
       formData.append("billing_last_name", data.billing_last_name);
       formData.append("billing_email", data.billing_email);
@@ -145,7 +179,6 @@ const Quote = () => {
       formData.append("billing_state", data.billing_state);
       formData.append("billing_postcode", data.billing_postcode || "");
 
-      // Handle shipping info
       if (data.shipping_same_as_billing) {
         formData.append("shipping_first_name", data.billing_first_name);
         formData.append("shipping_last_name", data.billing_last_name);
@@ -203,165 +236,128 @@ const Quote = () => {
   };
 
   return (
-    <div className="w-full min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 mt-5">
-        <div className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="w-full bg-canvas">
+      <section className="px-4 pt-10 pb-6 sm:px-6 sm:pt-14 lg:px-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-base uppercase tracking-[0.2em] text-zinc-500 font-poppins">
-              Quote Information
-            </p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-oswald text-white uppercase tracking-tight">
-              Review Your Quote
+            <p className="mb-3 text-caption uppercase text-muted">Quote</p>
+            <h1 className="text-[32px] font-semibold leading-[1.1] tracking-[-1.5px] text-ink sm:text-display-md">
+              Review your quote
             </h1>
-          </div>
-          {items.length > 0 && (
-            <button
-              onClick={clearQuote}
-              className="px-6 py-2.5 rounded-full border border-red-500/50 bg-red-500/10 text-red-500 font-poppins hover:bg-red-500 hover:text-white transition-all duration-300"
-            >
-              Clear List
-            </button>
-          )}
-        </div>
-
-        {items.length === 0 ? (
-          <div className="p-12 rounded-2xl border border-dashed border-hairline bg-zinc-900/50 shadow-xl text-center">
-            <div className="text-5xl mb-6">📑</div>
-            <p className="font-poppins text-lg text-zinc-400 mb-8 max-w-md mx-auto">
-              No items in your quote list yet. Explore our products and add them
-              here to receive a personalized quote.
+            <p className="mt-3 max-w-xl text-body-md text-muted">
+              Check your items, add contact details, and send the list to GGW
+              International. We&apos;ll come back with pricing and availability.
             </p>
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-primary text-on-primary font-poppins font-medium hover:bg-green-700 transition-all shadow-lg shadow-green-900/20"
+          </div>
+          {items.length > 0 ? (
+            <button
+              type="button"
+              onClick={clearQuote}
+              className="inline-flex items-center gap-1.5 self-start text-sm font-medium text-red-500 transition-colors hover:text-red-600 sm:self-end"
             >
-              <FaArrowLeft className="h-4 w-4" />
-              Start Browsing
-            </Link>
+              <IconTrash className="size-4" stroke={1.75} />
+              Clear list
+            </button>
+          ) : null}
+        </div>
+      </section>
+
+      <section className="px-4 pb-14 sm:px-6 lg:px-8 lg:pb-16">
+        {items.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-hairline bg-surface-card px-6 py-14 text-center shadow-lift">
+            <span className="mx-auto flex size-12 items-center justify-center rounded-xl border border-dashed border-hairline bg-canvas text-brand-accent">
+              <IconShoppingCart className="size-6" stroke={1.75} />
+            </span>
+            <h2 className="mt-5 text-title-md font-semibold text-ink">
+              Your quote list is empty
+            </h2>
+            <p className="mx-auto mt-2 max-w-md text-body-sm text-muted">
+              Browse products and tap Add to Quote. Your list will show up here
+              so we can prepare a personalised estimate.
+            </p>
+            <Button
+              href="/products"
+              variant="accent"
+              className="mt-6 h-11 gap-2 px-5"
+            >
+              <IconArrowLeft className="size-4" stroke={1.75} />
+              Browse products
+            </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            {/* Left Column: Summary + Items */}
-            <div className="lg:col-span-5 space-y-8">
-              {/* Simplified Pricing Summary Card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="p-4 sm:p-5 rounded-2xl bg-zinc-900 border border-hairline shadow-xl relative overflow-hidden"
-              >
-                <div className="flex items-center justify-between mb-4 border-b border-hairline/50 pb-3">
-                  <h2 className="text-xl font-oswald text-white uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-1 h-5 bg-[#0c963a] rounded-full"></span>
-                    Summary
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
+            <div className="space-y-6 lg:col-span-5">
+              <div>
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="text-title-md font-semibold text-ink">
+                    Quoted items
                   </h2>
-                  <span className="text-xs font-poppins text-zinc-500 uppercase tracking-widest bg-zinc-800/50 px-2 py-0.5 rounded-md border border-zinc-700/50">
-                    Quote Estimation
+                  <span className="rounded-full border border-dashed border-hairline bg-surface-card px-2.5 py-0.5 text-caption text-muted">
+                    {totalItems} {totalItems === 1 ? "item" : "items"}
                   </span>
                 </div>
 
-                <div className="space-y-2 relative z-10">
-                  <div className="flex justify-between text-zinc-400 font-poppins text-xs uppercase tracking-wider">
-                    <span>Subtotal</span>
-                    <span className="text-zinc-100 font-bold">
-                      AED {subtotal.toFixed(2)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-zinc-500 font-poppins text-xs uppercase tracking-wider">
-                    <span>Tax (5.0%)</span>
-                    <span className="text-zinc-400 font-semibold italic">
-                      AED {tax.toFixed(2)}
-                    </span>
-                  </div>
-
-                  <div className="mt-4 pt-4 border-t border-dashed border-hairline flex justify-between items-center bg-[#0c963a]/5 -mx-4 -mb-4 p-4">
-                    <div className="flex flex-col">
-                      <span className="text-xs uppercase font-poppins text-[#0c963a] font-bold tracking-widest">
-                        Total Amount
-                      </span>
-                      <span className="text-[11px] text-zinc-500 font-poppins italic">
-                        Inclusive of all taxes
-                      </span>
-                    </div>
-                    <span className="text-3xl font-oswald font-bold text-[#0c963a]">
-                      AED {total.toFixed(2)}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Honeypot */}
-              <div className="hidden">
-                <input type="text" {...register("website")} />
-              </div>
-
-              <div className="space-y-4">
-                <div className="flex items-center justify-between px-1">
-                  <h2 className="text-3xl font-oswald text-white uppercase tracking-wider flex items-center gap-3">
-                    <span className="w-1.5 h-6 bg-[#0c963a] rounded-full"></span>
-                    Quoted Items
-                    <span className="text-sm font-poppins text-zinc-400 bg-zinc-800/50 px-3 py-1 rounded-full border border-hairline font-medium">
-                      {totalItems}
-                    </span>
-                  </h2>
-                </div>
-
-                {/* Scrollable Items Container (Max 4-5 items visible) */}
-                <div className="max-h-120 overflow-y-auto pr-2 scrollbar-hide space-y-3">
+                <div className="max-h-120 space-y-3 overflow-y-auto pr-0.5">
                   <AnimatePresence mode="popLayout">
-                    {items.map((item, index) => (
+                    {items.map((item) => (
                       <motion.div
                         key={item.id}
+                        layout
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.98 }}
-                        transition={{ delay: index * 0.05 }}
-                        className="group flex items-center gap-3 p-2 rounded-xl bg-zinc-900/40 backdrop-blur-sm border border-hairline/50 hover:border-[#0c963a]/30 hover:bg-zinc-800/60 transition-all duration-300 relative overflow-hidden"
+                        className="flex items-center gap-3 rounded-2xl border border-dashed border-hairline bg-surface-card p-2.5"
                       >
-                        <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 border border-hairline relative z-10 shadow-md">
+                        <div className="size-16 shrink-0 overflow-hidden rounded-xl bg-canvas">
                           <img
                             src={item.image}
-                            alt={item.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            alt=""
+                            className="size-full object-cover"
                             loading="lazy"
                           />
                         </div>
-
-                        <div className="flex-1 min-w-0 flex flex-col relative z-10">
-                          <div className="flex justify-between items-start mb-0.5">
-                            <h3 className="text-sm font-poppins text-white leading-tight uppercase tracking-wider group-hover:text-[#0c963a] transition-colors truncate pr-4">
-                              {item.title}
-                            </h3>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="min-w-0">
+                              <h3 className="truncate text-sm font-semibold text-ink">
+                                {item.title}
+                              </h3>
+                              <p className="mt-0.5 text-caption text-muted">
+                                {item.category}
+                              </p>
+                            </div>
                             <button
+                              type="button"
                               onClick={() => removeFromQuote(item.id)}
-                              className="text-red-600 hover:text-red-500 transition-colors p-1"
-                              aria-label="Remove item"
+                              className="inline-flex size-8 shrink-0 items-center justify-center rounded-md text-red-500 transition-colors hover:bg-red-50 hover:text-red-600"
+                              aria-label={`Remove ${item.title}`}
                             >
-                              <FaTrash size={12} />
+                              <IconTrash className="size-4" stroke={1.75} />
                             </button>
                           </div>
-                          <p className="text-[10px] uppercase tracking-widest text-[#0c963a]/80 font-poppins font-bold mb-1.5">
-                            {item.category}
-                          </p>
-
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center p-0.5 bg-zinc-950/80 rounded border border-hairline/50">
+                          <div className="mt-2 flex items-center justify-between gap-3">
+                            <div className="inline-flex items-center rounded-lg border border-hairline bg-canvas">
                               <button
+                                type="button"
                                 onClick={() => updateQuantity(item.id, -1)}
-                                className="h-5 w-5 flex items-center justify-center rounded hover:bg-zinc-800 transition-colors text-zinc-500 hover:text-white"
+                                className="inline-flex size-8 items-center justify-center text-muted hover:text-ink"
+                                aria-label="Decrease quantity"
                               >
-                                <FaMinus size={7} />
+                                <IconMinus className="size-3.5" stroke={2} />
                               </button>
-                              <span className="w-5 text-center text-[11px] font-bold text-white font-poppins">
+                              <span className="w-6 text-center text-sm font-semibold text-ink">
                                 {item.quantity}
                               </span>
                               <button
+                                type="button"
                                 onClick={() => updateQuantity(item.id, 1)}
-                                className="h-5 w-5 flex items-center justify-center rounded hover:bg-zinc-800 transition-colors text-zinc-500 hover:text-white"
+                                className="inline-flex size-8 items-center justify-center text-muted hover:text-ink"
+                                aria-label="Increase quantity"
                               >
-                                <FaPlus size={7} />
+                                <IconPlus className="size-3.5" stroke={2} />
                               </button>
                             </div>
-                            <span className="text-sm font-poppins font-semibold text-[#0c963a]">
+                            <span className="text-sm font-semibold text-ink">
                               AED {(item.price * item.quantity).toFixed(2)}
                             </span>
                           </div>
@@ -371,331 +367,233 @@ const Quote = () => {
                   </AnimatePresence>
                 </div>
               </div>
+
+              <div className="rounded-2xl border border-dashed border-hairline bg-surface-card p-5">
+                <div className="flex items-center justify-between border-b border-dashed border-hairline pb-3">
+                  <h2 className="text-title-md font-semibold text-ink">
+                    Summary
+                  </h2>
+                  <span className="text-caption text-muted">
+                    Quote estimate
+                  </span>
+                </div>
+                <dl className="mt-4 space-y-2.5 text-sm">
+                  <div className="flex justify-between text-muted">
+                    <dt>Subtotal</dt>
+                    <dd className="font-medium text-ink">
+                      AED {subtotal.toFixed(2)}
+                    </dd>
+                  </div>
+                  <div className="flex justify-between text-muted">
+                    <dt>Tax (5%)</dt>
+                    <dd className="font-medium text-ink">
+                      AED {tax.toFixed(2)}
+                    </dd>
+                  </div>
+                </dl>
+                <div className="mt-4 flex items-end justify-between rounded-xl bg-brand-accent/10 px-4 py-3">
+                  <div>
+                    <p className="text-sm font-semibold text-ink">Total</p>
+                    <p className="text-caption text-muted">
+                      Inclusive of tax
+                    </p>
+                  </div>
+                  <p className="text-xl font-semibold tracking-tight text-brand-accent">
+                    AED {total.toFixed(2)}
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* Right Column: Sticky Form */}
-            <div className="lg:col-span-7 space-y-6 lg:sticky lg:top-28">
-              {/* Form Card */}
-              <div className="p-5 sm:p-6 rounded-3xl bg-zinc-900 border border-hairline shadow-2xl relative">
-                <h2 className="text-2xl font-oswald text-white mb-4 uppercase tracking-tight flex items-center gap-2">
-                  <span className="w-1 h-6 bg-green-600 rounded-full"></span>
-                  Details
+            <div className="lg:col-span-7 lg:sticky lg:top-24">
+              <div className="rounded-2xl border border-dashed border-hairline bg-surface-card p-5 sm:p-6">
+                <h2 className="text-title-md font-semibold text-ink">
+                  Your details
                 </h2>
+                <p className="mt-1 text-body-sm text-muted">
+                  We&apos;ll use this to send your quote and confirm availability.
+                </p>
+
                 <form
                   onSubmit={handleSubmit((data) => onSubmit(data))}
-                  className="space-y-4"
+                  className="mt-6 space-y-4"
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1.5">
-                      <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                        First Name
-                      </label>
-                      <input
-                        {...register("billing_first_name")}
-                        placeholder="John"
-                        className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                          errors.billing_first_name
-                            ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                            : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                        }`}
-                      />
-                      {errors.billing_first_name && (
-                        <p className="text-xs text-red-500 ml-1">
-                          {errors.billing_first_name.message}
-                        </p>
-                      )}
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                        Last Name
-                      </label>
-                      <input
-                        {...register("billing_last_name")}
-                        placeholder="Doe"
-                        className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                          errors.billing_last_name
-                            ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                            : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                        }`}
-                      />
-                      {errors.billing_last_name && (
-                        <p className="text-xs text-red-500 ml-1">
-                          {errors.billing_last_name.message}
-                        </p>
-                      )}
-                    </div>
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        {...register("billing_email")}
-                        placeholder="john@example.com"
-                        className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                          errors.billing_email
-                            ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                            : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                        }`}
-                      />
-                      {errors.billing_email && (
-                        <p className="text-xs text-red-500 ml-1">
-                          {errors.billing_email.message}
-                        </p>
-                      )}
-                    </div>
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                        Phone Number
-                      </label>
-                      <input
-                        {...register("billing_phone")}
-                        placeholder="+971 -- --- ----"
-                        className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                          errors.billing_phone
-                            ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                            : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                        }`}
-                      />
-                      {errors.billing_phone && (
-                        <p className="text-xs text-red-500 ml-1">
-                          {errors.billing_phone.message}
-                        </p>
-                      )}
-                    </div>
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                        Billing Address
-                      </label>
-                      <input
-                        {...register("billing_address")}
-                        placeholder="Street, Building, Apartment"
-                        className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                          errors.billing_address
-                            ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                            : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                        }`}
-                      />
-                      {errors.billing_address && (
-                        <p className="text-xs text-red-500 ml-1">
-                          {errors.billing_address.message}
-                        </p>
-                      )}
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                        City/Town
-                      </label>
-                      <input
-                        {...register("billing_town")}
-                        placeholder="Dubai"
-                        className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                          errors.billing_town
-                            ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                            : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                        }`}
-                      />
-                      {errors.billing_town && (
-                        <p className="text-xs text-red-500 ml-1">
-                          {errors.billing_town.message}
-                        </p>
-                      )}
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                        Postcode
-                      </label>
-                      <input
-                        {...register("billing_postcode")}
-                        placeholder="00000"
-                        className="w-full rounded-xl border border-hairline px-3.5 py-2.5 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 bg-canvas text-ink font-poppins text-base transition-all"
-                      />
-                    </div>
+                  <div className="hidden" aria-hidden>
+                    <input type="text" {...register("website")} />
                   </div>
 
-                  {/* Shipping Toggle */}
-                  <div className="flex items-center gap-3 p-4 rounded-xl bg-zinc-800/30 border border-hairline my-6">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <Field
+                      label="First name"
+                      error={errors.billing_first_name?.message}
+                      placeholder="First name"
+                      {...register("billing_first_name")}
+                    />
+                    <Field
+                      label="Last name"
+                      error={errors.billing_last_name?.message}
+                      placeholder="Last name"
+                      {...register("billing_last_name")}
+                    />
+                    <Field
+                      label="Email"
+                      type="email"
+                      className="sm:col-span-2"
+                      error={errors.billing_email?.message}
+                      placeholder="you@company.com"
+                      {...register("billing_email")}
+                    />
+                    <Field
+                      label="Phone number"
+                      className="sm:col-span-2"
+                      error={errors.billing_phone?.message}
+                      placeholder="+971 50 000 0000"
+                      {...register("billing_phone")}
+                    />
+                    <Field
+                      label="Billing address"
+                      className="sm:col-span-2"
+                      error={errors.billing_address?.message}
+                      placeholder="Street, building, office"
+                      {...register("billing_address")}
+                    />
+                    <Field
+                      label="City"
+                      error={errors.billing_town?.message}
+                      placeholder="Dubai"
+                      {...register("billing_town")}
+                    />
+                    <Field
+                      label="Postcode"
+                      placeholder="00000"
+                      {...register("billing_postcode")}
+                    />
+                  </div>
+
+                  <label className="flex cursor-pointer items-center gap-2.5 rounded-xl border border-dashed border-hairline bg-canvas px-3.5 py-3 text-sm text-ink">
                     <input
                       type="checkbox"
                       id="shippingSame"
                       {...register("shipping_same_as_billing")}
-                      className="w-4 h-4 rounded border-hairline bg-black text-green-600 focus:ring-green-500/20"
+                      className={cn(
+                        "size-4 shrink-0 appearance-none rounded-xs border transition-colors",
+                        "border-hairline bg-canvas",
+                        "checked:border-brand-accent checked:bg-brand-accent",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/35",
+                        "checked:bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M3.5%208.5%206.5%2011.5%2012.5%204.5%22%2F%3E%3C%2Fsvg%3E')] bg-center bg-no-repeat"
+                      )}
                     />
-                    <label
-                      htmlFor="shippingSame"
-                      className="text-base text-zinc-300 font-poppins cursor-pointer"
-                    >
-                      Shipping address same as billing?
-                    </label>
-                  </div>
+                    Shipping address is the same as billing
+                  </label>
 
-                  {!shippingSameAsBilling && (
+                  {!shippingSameAsBilling ? (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
-                      className="space-y-4 pt-2 border-t border-hairline mb-6"
+                      className="space-y-4 border-t border-dashed border-hairline pt-4"
                     >
-                      <h3 className="text-base font-oswald text-white uppercase tracking-wider mb-2">
-                        Shipping Information
+                      <h3 className="text-sm font-semibold text-ink">
+                        Shipping information
                       </h3>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="space-y-1.5">
-                          <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                            First Name
-                          </label>
-                          <input
-                            {...register("shipping_first_name")}
-                            placeholder="John"
-                            className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                              errors.shipping_first_name
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                                : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                            }`}
-                          />
-                          {errors.shipping_first_name && (
-                            <p className="text-xs text-red-500 ml-1">
-                              {errors.shipping_first_name.message}
-                            </p>
-                          )}
-                        </div>
-                        <div className="space-y-1.5">
-                          <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                            Last Name
-                          </label>
-                          <input
-                            {...register("shipping_last_name")}
-                            placeholder="Doe"
-                            className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                              errors.shipping_last_name
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                                : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                            }`}
-                          />
-                        </div>
-                        <div className="space-y-1.5 sm:col-span-2">
-                          <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                            Email Address
-                          </label>
-                          <input
-                            type="email"
-                            {...register("shipping_email")}
-                            placeholder="john@example.com"
-                            className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                              errors.shipping_email
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                                : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                            }`}
-                          />
-                        </div>
-                        <div className="space-y-1.5 sm:col-span-2">
-                          <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                            Phone Number
-                          </label>
-                          <input
-                            {...register("shipping_phone")}
-                            placeholder="+971 -- --- ----"
-                            className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                              errors.shipping_phone
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                                : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                            }`}
-                          />
-                        </div>
-                        <div className="space-y-1.5 sm:col-span-2">
-                          <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                            Shipping Address
-                          </label>
-                          <input
-                            {...register("shipping_address")}
-                            placeholder="Street, Building, Apartment"
-                            className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                              errors.shipping_address
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                                : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                            }`}
-                          />
-                        </div>
-                        <div className="space-y-1.5">
-                          <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                            City/Town
-                          </label>
-                          <input
-                            {...register("shipping_town")}
-                            placeholder="Dubai"
-                            className={`w-full rounded-xl border px-3.5 py-2.5 focus:outline-none focus:ring-1 bg-canvas text-ink font-poppins text-base transition-all ${
-                              errors.shipping_town
-                                ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                                : "border-hairline focus:border-green-500 focus:ring-green-500/20"
-                            }`}
-                          />
-                        </div>
-                        <div className="space-y-1.5">
-                          <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                            Postcode
-                          </label>
-                          <input
-                            {...register("shipping_postcode")}
-                            placeholder="00000"
-                            className="w-full rounded-xl border border-hairline px-3.5 py-2.5 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 bg-canvas text-ink font-poppins text-base transition-all"
-                          />
-                        </div>
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <Field
+                          label="First name"
+                          error={errors.shipping_first_name?.message}
+                          placeholder="First name"
+                          {...register("shipping_first_name")}
+                        />
+                        <Field
+                          label="Last name"
+                          error={errors.shipping_last_name?.message}
+                          placeholder="Last name"
+                          {...register("shipping_last_name")}
+                        />
+                        <Field
+                          label="Email"
+                          type="email"
+                          className="sm:col-span-2"
+                          error={errors.shipping_email?.message}
+                          placeholder="you@company.com"
+                          {...register("shipping_email")}
+                        />
+                        <Field
+                          label="Phone number"
+                          className="sm:col-span-2"
+                          error={errors.shipping_phone?.message}
+                          placeholder="+971 50 000 0000"
+                          {...register("shipping_phone")}
+                        />
+                        <Field
+                          label="Shipping address"
+                          className="sm:col-span-2"
+                          error={errors.shipping_address?.message}
+                          placeholder="Street, building, office"
+                          {...register("shipping_address")}
+                        />
+                        <Field
+                          label="City"
+                          error={errors.shipping_town?.message}
+                          placeholder="Dubai"
+                          {...register("shipping_town")}
+                        />
+                        <Field
+                          label="Postcode"
+                          placeholder="00000"
+                          {...register("shipping_postcode")}
+                        />
                       </div>
                     </motion.div>
-                  )}
+                  ) : null}
 
-                  <div className="space-y-1.5">
-                    <label className="text-xs uppercase tracking-widest font-poppins text-zinc-500 font-bold ml-1">
-                      Additional Notes
-                    </label>
+                  <div>
+                    <label className={labelClass}>Additional notes</label>
                     <textarea
                       {...register("order_notes")}
-                      rows={2}
-                      className="w-full rounded-xl border border-hairline px-3.5 py-2.5 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500/20 bg-canvas text-ink font-poppins text-base transition-all resize-none"
-                      placeholder="Special instructions..."
+                      rows={3}
+                      placeholder="Quantities, delivery timing, or anything we should know…"
+                      suppressHydrationWarning
+                      className={cn(fieldClass, fieldOk, "min-h-22 resize-y")}
                     />
                   </div>
 
-                  {status.type && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className={`p-4 rounded-xl font-poppins text-sm ${
+                  {status.type ? (
+                    <p
+                      className={cn(
+                        "rounded-xl border border-dashed px-3.5 py-3 text-sm",
                         status.type === "success"
-                          ? "bg-green-500/10 border border-green-500/20 text-green-500"
-                          : "bg-red-500/10 border border-red-500/20 text-red-500"
-                      }`}
+                          ? "border-brand-accent/30 bg-brand-accent/10 text-ink"
+                          : "border-red-200 bg-red-50 text-red-600"
+                      )}
+                      role="status"
                     >
                       {status.message}
-                    </motion.div>
-                  )}
+                    </p>
+                  ) : null}
 
-                  <div className="pt-2 flex flex-col gap-3">
-                    <button
+                  <div className="flex flex-col gap-3 pt-1">
+                    <Button
                       type="submit"
+                      variant="accent"
                       disabled={loading}
-                      className="w-full inline-flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-primary text-on-primary font-poppins font-bold hover:bg-green-700 transition-all shadow-lg shadow-green-900/30 group disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="h-11 w-full"
                     >
-                      {loading ? (
-                        <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      ) : (
-                        <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      )}
-                      {loading ? "Sending..." : "Send Request"}
-                    </button>
-                    <Link
+                      {loading ? "Sending…" : "Send quote request"}
+                    </Button>
+                    <Button
                       href="/products"
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-hairline bg-zinc-800/30 text-zinc-400 font-poppins text-sm hover:text-white hover:bg-zinc-800 transition-all font-medium uppercase tracking-widest"
+                      variant="secondary"
+                      className="h-11 w-full gap-2"
                     >
-                      <FaArrowLeft size={12} />
-                      Add More
-                    </Link>
+                      <IconArrowLeft className="size-4" stroke={1.75} />
+                      Add more products
+                    </Button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 };

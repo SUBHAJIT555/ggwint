@@ -37,12 +37,12 @@ const ProductCategoryCards = () => {
           supplies, electronics, and chemicals.
         </motion.p>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
           {categoryDetails.map((category, index) => (
             <Link
               key={category.slug}
               href={`/products/${category.slug}`}
-              className="group flex h-full flex-col rounded-3xl border border-hairline border-dashed bg-surface-card p-1 [--inner:1.25rem] shadow-lift hover:shadow-lg transition-all duration-300"
+              className="group flex h-full flex-col rounded-2xl border border-hairline border-dashed bg-surface-card p-1 [--inner:0.85rem] shadow-lift hover:shadow-lg transition-all duration-300 sm:rounded-3xl sm:[--inner:1.25rem]"
             >
               <div className="relative isolate overflow-hidden rounded-(--inner)">
                 <img
@@ -54,11 +54,11 @@ const ProductCategoryCards = () => {
                   aria-hidden="true"
                   className="absolute inset-0 rounded-(--inner) bg-linear-to-t from-[#111111]/25 to-transparent"
                 />
-                <span className="absolute left-3 top-3 inline-flex h-7 min-w-7 items-center justify-center rounded-pill bg-[#111111]/55 px-2.5 text-caption font-medium text-on-primary backdrop-blur-sm">
+                <span className="absolute left-2 top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-pill bg-[#111111]/55 px-2 text-[10px] font-medium text-on-primary backdrop-blur-sm sm:left-3 sm:top-3 sm:h-7 sm:min-w-7 sm:px-2.5 sm:text-caption">
                   {String(index + 1).padStart(2, "0")}
                 </span>
               </div>
-              <h3 className="min-h-12 px-1 pt-3 text-title-sm font-semibold leading-snug text-ink">
+              <h3 className="min-h-10 px-1 pt-2 text-[13px] font-semibold leading-snug text-ink sm:min-h-12 sm:pt-3 sm:text-title-sm">
                 {category.name}
               </h3>
             </Link>

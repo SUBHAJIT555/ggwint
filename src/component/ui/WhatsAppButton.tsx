@@ -2,9 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { IoLogoWhatsapp } from "react-icons/io";
+import { IconBrandWhatsapp } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
-import Button from "./Button";
 
 const WHATSAPP_URL =
   "https://wa.me/97142712771?text=" +
@@ -71,7 +70,7 @@ const WhatsAppButton = () => {
                   "transition-transform duration-200 group-hover:scale-105"
                 )}
               >
-                <IoLogoWhatsapp className="size-[18px]" />
+                <IconBrandWhatsapp className="size-[18px]" stroke={1.75} />
               </span>
               <span
                 className="relative z-10 text-[11px] font-bold uppercase tracking-[0.2em] text-ink"
@@ -83,26 +82,6 @@ const WhatsAppButton = () => {
           </motion.div>
         ) : null}
       </AnimatePresence>
-
-      <div
-        className="mobile-sticky-actions fixed inset-x-0 bottom-0 z-100 border-t border-hairline bg-canvas/95 backdrop-blur-md md:hidden"
-        role="toolbar"
-        aria-label="Quick enquiry actions"
-      >
-        <div className="mx-auto flex max-w-lg px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-          <Button
-            href={WHATSAPP_URL}
-            variant="whatsapp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-12 w-full"
-            aria-label="Contact us on WhatsApp"
-          >
-            <IoLogoWhatsapp className="size-5 shrink-0" />
-            WhatsApp
-          </Button>
-        </div>
-      </div>
     </>
   );
 };
