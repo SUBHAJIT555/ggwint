@@ -283,6 +283,12 @@ const Footer = () => {
               GGW International General Trading LLC
             </Link>
             . All Rights Reserved.
+            <span className="mx-2 text-hairline" aria-hidden>
+              ·
+            </span>
+            <Link href="/sitemap" className="text-ink hover:underline">
+              Sitemap
+            </Link>
           </p>
           <p className="inline-flex items-center gap-1 text-center text-caption text-muted">
             Design with

@@ -6,8 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMobileMenuStore } from "../../store/mobileMenuStore";
 import { IoMenu, IoClose } from "react-icons/io5";
-import { FiArrowRight, FiChevronDown } from "react-icons/fi";
-import { IconBrandWhatsapp, IconShoppingCart } from "@tabler/icons-react";
+import { FiChevronDown } from "react-icons/fi";
+import { IconBrandWhatsapp, IconMessage, IconShoppingCart } from "@tabler/icons-react";
 import Logo from "./Logo";
 import Button from "./Button";
 import { categoryDetails } from "../../data/products";
@@ -125,9 +125,9 @@ const Header: React.FC = () => {
                 </div>
               ))}
             </nav>
-            <Button href="/contact" variant="accent" className="group h-10 gap-2 px-4">
+            <Button href="/contact" variant="accent" className="h-10 gap-2 px-4">
               Contact
-              <FiArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              <IconMessage className="size-4" stroke={2} />
             </Button>
             <Button href="/quote" variant="primary" className="h-10 gap-2 px-3.5">
               <IconShoppingCart className="size-4" stroke={1.75} />
