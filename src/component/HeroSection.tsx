@@ -7,8 +7,8 @@ import Button from "./ui/Button";
 import { heroFallbackSrc, heroShowcaseCards } from "../data/heroShowcase";
 
 const COLS = 5;
-const COL_WIDTH = 400;
-const CARD_WIDTH = 384;
+const COL_WIDTH = 350;
+const CARD_WIDTH = 334;
 const CARD_GAP = 16;
 const REST_SCALE = 1.35;
 const TRAVEL_SCALE = 1.12;
@@ -87,7 +87,8 @@ const HeroCardWall = () => {
       .map((_, index) => index)
       .filter((index) => {
         const col = index % COLS;
-        return col >= 1 && col <= 3;
+        const row = Math.floor(index / COLS);
+        return col >= 1 && col <= 3 && row >= 1;
       });
     return inner.filter((_, step) => step % 2 === 0).slice(0, 10);
   }, [layout.cards]);
@@ -104,17 +105,17 @@ const HeroCardWall = () => {
     const frameCard = (index: number, scale: number) => {
       const card = layout.cards[index];
       if (!card) return;
-      // Park the focused card at the start of the solid mask (~75% from the right)
-      // so its left neighbors ghost under the copy instead of leaving a white gap.
       const vx = viewport.clientWidth * 0.22;
-      const vy = viewport.clientHeight * 0.16;
+      const spare = viewport.clientHeight - card.height * scale;
+      const cardTop = spare > 48 ? spare / 2 : 0;
       pos.current.tx = vx - card.x * scale;
-      pos.current.ty = vy - card.y * scale;
+      pos.current.ty = cardTop - card.y * scale;
       scaleTargetRef.current = scale;
     };
 
     const startIndex = tourIndexes[0] ?? 0;
     focusedRef.current = startIndex;
+    setFocused(startIndex);
     frameCard(startIndex, prefersReduced ? 1.08 : REST_SCALE);
     pos.current.x = pos.current.tx;
     pos.current.y = pos.current.ty;
@@ -181,7 +182,7 @@ const HeroCardWall = () => {
                 opacity: isFocused ? 1 : 0.55,
               }}
             >
-              <span className="flex shrink-0 items-center px-1 pt-0.5 font-mono text-[9px] text-neutral-500">
+              <span className="flex shrink-0 items-center px-1.5 pt-1 font-sans text-xs font-medium text-muted">
                 {card.title}
               </span>
               <span className="hero-card-screen relative min-h-0 flex-1 overflow-hidden rounded-lg">
@@ -201,7 +202,7 @@ const HeroCardWall = () => {
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full min-h-[calc(100svh-4rem)] overflow-hidden bg-canvas screen-line-bottom">
+    <section className="relative w-full overflow-hidden bg-canvas screen-line-bottom md:min-h-[calc(100svh-4rem)]">
       <div className="relative z-10 flex w-full flex-col items-center lg:min-h-[calc(100svh-4rem)] lg:flex-row">
         <div className="relative z-20 flex w-full flex-col items-start justify-center px-4 py-10 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:w-[50%] lg:py-16 lg:pl-[max(1.25rem,calc((100vw-1200px)/2-1.25rem))] xl:w-[48%]">
           <motion.h1
