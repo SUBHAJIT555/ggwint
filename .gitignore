@@ -12,7 +12,6 @@ dist
 dist-ssr
 .next
 out
-public/images
 *.local
 
 # Editor directories and files
