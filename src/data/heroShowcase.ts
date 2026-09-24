@@ -1,7 +1,3 @@
-/**
- * Temporary hero visuals. Replace `src` values with final GGW assets later.
- * Keep `id`, `title`, and `href` if you want the cards to keep linking.
- */
 export type HeroShowcaseCard = {
   id: string;
   title: string;
@@ -15,101 +11,104 @@ export type HeroProofAvatar = {
   alt: string;
 };
 
+const categoryHref = {
+  auto: "/products/auto-spare-parts/",
+  safety: "/products/construction-and-safety-tools/",
+  materials: "/products/construction-materials/",
+  electrics: "/products/electrics-and-electronics/",
+  chemicals: "/products/food-agro-pharma-chemicals/",
+  food: "/products/food-products/",
+  it: "/products/it-and-accessories/",
+  paints: "/products/paints-and-finishes/",
+  solar: "/products/solar-panels-lithium-batteries/",
+  water: "/products/water-and-fire-proofing/",
+} as const;
+
+const scene = (file: string) => `/images/heroes/${file}.webp`;
+
 export const heroShowcaseCards: HeroShowcaseCard[] = [
   {
-    id: "construction-materials",
-    title: "Construction Materials",
-    src: "https://images.unsplash.com/photo-1503387762458-7e528f908504?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/construction-materials/",
-  },
-  {
-    id: "food-products",
-    title: "Food Products",
-    src: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/food-products/",
-  },
-  {
-    id: "mechanical-tools",
-    title: "Mechanical Tools",
-    src: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/mechanical-tools/",
-  },
-  {
-    id: "construction-safety",
-    title: "Construction and Safety",
-    src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/construction-and-safety/",
-  },
-  {
-    id: "paints-finishes",
-    title: "Paints and Finishes",
-    src: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/paints-and-finishes/",
-  },
-  {
-    id: "water-fire-proofing",
-    title: "Water / Fire Proofing",
-    src: "https://images.unsplash.com/photo-1581094794329-adc7bb0b4d2b?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/water-fire-proofing/",
-  },
-  {
-    id: "electronics",
-    title: "Electronics",
-    src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/electronics/",
-  },
-  {
-    id: "auto-spare-parts",
-    title: "Auto Spare Parts",
-    src: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/auto-spare-parts/",
-  },
-  {
-    id: "it-accessories",
-    title: "IT Accessories",
-    src: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/it-accessories/",
-  },
-  {
-    id: "chemicals",
-    title: "Chemicals",
-    src: "https://images.unsplash.com/photo-1532187875605-2fe358a71e7a?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/chemicals/",
-  },
-  {
-    id: "dubai-trade",
-    title: "Dubai trade hub",
-    src: "https://images.unsplash.com/photo-1512453979798-5ea125fb417b?auto=format&fit=crop&w=1200&q=80",
+    id: "cargo-shipping",
+    title: "Import and export",
+    src: scene("port"),
     href: "/about/",
   },
   {
-    id: "global-logistics",
-    title: "Global logistics",
-    src: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80",
-    href: "/about/",
-  },
-  {
-    id: "warehouse-supply",
+    id: "warehouse-range",
     title: "Warehouse supply",
-    src: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+    src: scene("products"),
     href: "/products/",
   },
   {
-    id: "port-operations",
+    id: "engine-parts",
+    title: "Auto Spare Parts",
+    src: scene("auto"),
+    href: categoryHref.auto,
+  },
+  {
+    id: "site-safety",
+    title: "Construction and Safety Tools",
+    src: scene("safety"),
+    href: categoryHref.safety,
+  },
+  {
+    id: "building-materials",
+    title: "Construction Materials",
+    src: scene("materials"),
+    href: categoryHref.materials,
+  },
+  {
+    id: "electronics-board",
+    title: "Electrics and Electronics",
+    src: scene("electrics"),
+    href: categoryHref.electrics,
+  },
+  {
+    id: "lab-chemicals",
+    title: "Food, Agro & Pharma Chemicals",
+    src: scene("chemicals"),
+    href: categoryHref.chemicals,
+  },
+  {
+    id: "fresh-produce",
+    title: "Food Products",
+    src: scene("food"),
+    href: categoryHref.food,
+  },
+  {
+    id: "workspace-it",
+    title: "IT and Accessories",
+    src: scene("it"),
+    href: categoryHref.it,
+  },
+  {
+    id: "wall-paint",
+    title: "Paints and Finishes",
+    src: scene("paints"),
+    href: categoryHref.paints,
+  },
+  {
+    id: "solar-field",
+    title: "Solar Panels & Lithium Batteries",
+    src: scene("solar"),
+    href: categoryHref.solar,
+  },
+  {
+    id: "building-envelope",
+    title: "Water and Fire Proofing",
+    src: scene("waterproofing"),
+    href: categoryHref.water,
+  },
+  {
+    id: "port-trade",
     title: "Port operations",
-    src: "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=1200&q=80",
+    src: scene("port"),
     href: "/about/",
   },
   {
-    id: "industrial-site",
-    title: "Industrial projects",
-    src: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80",
-    href: "/products/construction-materials/",
-  },
-  {
-    id: "quality-control",
-    title: "Quality control",
-    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
+    id: "city-towers",
+    title: "Global business",
+    src: scene("about"),
     href: "/about/",
   },
 ];
@@ -157,5 +156,4 @@ export const heroProofAvatars: HeroProofAvatar[] = [
   },
 ];
 
-export const heroFallbackSrc =
-  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80";
+export const heroFallbackSrc = "/images/heroes/products.webp";

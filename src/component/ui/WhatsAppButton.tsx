@@ -4,12 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { IconBrandWhatsapp } from "@tabler/icons-react";
 import { cn } from "../../lib/cn";
+import { SITE_CONTACT } from "../../data/contact";
 
-const WHATSAPP_URL =
-  "https://wa.me/97142712771?text=" +
-  encodeURIComponent(
-    "Hello! I'm interested in learning more about GGW International's products."
-  );
+const WHATSAPP_URL = SITE_CONTACT.whatsappHref;
 
 const WHATSAPP_GRADIENT = `
   radial-gradient(ellipse 94% 78% at 10% 11%, rgba(120, 200, 160, 0.34), transparent 72%),

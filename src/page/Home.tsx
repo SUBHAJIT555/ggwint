@@ -14,7 +14,7 @@ const homeFAQData: FAQItem[] = [
     id: 1,
     question: "What does GGW International offer?",
     answer:
-      "We specialize in international general trading across construction materials, food products, mechanical tools, construction and safety, paints and finishes, water/fire proofing, electronics, auto spare parts, IT accessories, and chemicals.",
+      "We specialize in international general trading across auto spare parts, construction and safety tools, construction materials, electrics and electronics, food, agro and pharma chemicals, food products, IT and accessories, paints and finishes, solar panels and lithium batteries, and water and fire proofing.",
   },
   {
     id: 2,
@@ -45,7 +45,7 @@ const homeFAQData: FAQItem[] = [
     id: 6,
     question: "How long has GGW International been in business?",
     answer:
-      "GGW International General Trading LLC is a UAE-based ISO 9001:2015-certified company, established in 2015. We have built a track record of reliable supply and long-term client relationships.",
+      "G G W INTERNATIONAL GENERAL TRADING L.L.C is a UAE-based ISO 9001:2015-certified company, established in 2015. We have built a track record of reliable supply and long-term client relationships.",
   },
 ];
 
@@ -66,13 +66,17 @@ const Home = () => {
           subHeading="Find answers to common questions about our services and how we can help your business"
           highlightWord="common questions"
           faqItems={homeFAQData}
-          whatsappNumber="+97142712771"
           whatsappMessage="Hello! I'm interested in learning more about GGW International's products."
           chatPrompt="Can't find what you are looking for?"
           chatButtonText="We would like to chat with you"
           defaultExpandedId={2}
         />
-        <CallToAction />
+        <CallToAction
+          heading="General trading and supply from Dubai"
+          subHeading="GGW International supplies construction materials, food products, auto spare parts, electronics, and chemicals to businesses across the UAE. Request a quote and we will confirm availability and delivery."
+          quoteLabel="Get a quote"
+          whatsappMessage="Hello! I'm interested in learning more about GGW International's products."
+        />
       </div>
     </>
   );

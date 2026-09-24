@@ -3,10 +3,6 @@
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import {
-  IconBrandFacebook,
-  IconBrandInstagram,
-  IconBrandLinkedin,
-  IconBrandWhatsapp,
   IconMail,
   IconMapPin,
   IconPhone,
@@ -57,14 +53,16 @@ function FooterLink({
   );
 }
 
-const socialLinks = [
-  { label: "Facebook", href: "#", Icon: IconBrandFacebook },
-  { label: "Instagram", href: "#", Icon: IconBrandInstagram },
-  { label: "LinkedIn", href: "#", Icon: IconBrandLinkedin },
+const affiliatedCompanies = [
   {
-    label: "WhatsApp",
-    href: SITE_CONTACT.whatsappHref,
-    Icon: IconBrandWhatsapp,
+    name: "Telosgrid Technologies",
+    href: "https://telos-grid.com/",
+    src: "/images/affilatedCompanies/telosgrid.png",
+  },
+  {
+    name: "Wadi Souf",
+    href: "https://wadisouf.com/home/",
+    src: "/images/affilatedCompanies/wadisouf.png",
   },
 ];
 
@@ -121,11 +119,17 @@ const Footer = () => {
           <div>
             <Link
               href="/"
-              className="inline-block transition-opacity duration-200 hover:opacity-80"
+              className="inline-flex items-center gap-3 transition-opacity duration-200 hover:opacity-80"
             >
-              <div className="h-9 w-52">
-                <Logo variant="on-light" />
-              </div>
+              <Logo className="h-28" />
+              <span className="leading-[1.15] text-ink">
+                <span className="block text-sm font-semibold tracking-[0.04em]">
+                  G G W INTERNATIONAL
+                </span>
+                <span className="mt-1 block text-xs tracking-wide text-muted">
+                  GENERAL TRADING L.L.C
+                </span>
+              </span>
             </Link>
             <p className="mt-4 max-w-md text-copy text-muted">
               Your Gateway to Global Trade — bridging markets with excellence,
@@ -167,7 +171,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-dashed border-hairline bg-canvas p-5 sm:p-6">
+          <div>
+            <div className=" border border-dashed border-hairline bg-canvas p-5 sm:p-6">
             <FooterLabel>Newsletter</FooterLabel>
             <p className="mt-2 max-w-md text-copy text-muted">
               Stay updated with our latest news, industry insights, and exclusive
@@ -185,8 +190,9 @@ const Footer = () => {
                 placeholder="Enter your email"
                 autoComplete="email"
                 suppressHydrationWarning
-                className="h-12 w-full min-w-0 max-w-full appearance-none rounded-xl border border-hairline bg-white px-4 text-base text-ink placeholder:text-muted focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30"
+                className="h-12 w-full min-w-0 max-w-full appearance-none rounded-md border border-hairline bg-white px-4 text-base text-ink placeholder:text-muted shadow-[inset_0_1.5px_8px_0_rgba(38,103,255,0.10)] focus:border-brand-accent focus:outline-none focus:ring-1 focus:ring-brand-accent/30"
               />
+        
               <div className="hidden">
                 <input
                   type="text"
@@ -209,6 +215,36 @@ const Footer = () => {
                     : "Subscribe"}
               </Button>
             </form>
+          </div>
+          <div className="mt-6">
+            <p className="text-caption font-semibold tracking-[0.14em] text-ink uppercase">
+              Affiliated company
+            </p>
+            <ul className="mt-3 grid grid-cols-2 gap-3">
+              {affiliatedCompanies.map(({ name, href, src }) => (
+                <li key={name}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3"
+                  >
+                    <span
+                      className={cn(
+                        "flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-full border border-hairline bg-canvas",
+                        "transition-colors duration-200 group-hover:border-brand-accent"
+                      )}
+                    >
+                      <img src={src} alt="" className="size-11 object-contain" />
+                    </span>
+                    <span className="text-body-sm font-medium text-ink transition-colors duration-200 group-hover:text-brand-accent">
+                      {name}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
           </div>
         </div>
 
@@ -250,28 +286,6 @@ const Footer = () => {
                   Support
                 </FooterLink>
               </ul>
-
-              <p className="mt-6 text-caption font-semibold tracking-[0.14em] text-ink uppercase">
-                Social
-              </p>
-              <ul className="mt-3 flex items-center gap-2">
-                {socialLinks.map(({ label, href, Icon }) => (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={label}
-                      className={cn(
-                        "flex size-9 items-center justify-center rounded-full border border-hairline bg-canvas text-ink",
-                        "transition-colors duration-200 hover:border-brand-accent hover:text-brand-accent"
-                      )}
-                    >
-                      <Icon className="size-4" stroke={1.75} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>
@@ -280,7 +294,7 @@ const Footer = () => {
           <p className="text-center text-caption text-muted sm:text-left">
             &copy; {currentYear}{" "}
             <Link href="/" className="text-ink hover:underline">
-              GGW International General Trading LLC
+              {SITE_CONTACT.name}
             </Link>
             . All Rights Reserved.
             <span className="mx-2 text-hairline" aria-hidden>

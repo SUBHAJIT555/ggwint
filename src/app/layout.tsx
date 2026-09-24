@@ -19,11 +19,11 @@ export const viewport: Viewport = {
 };
 
 const siteDescription =
-  "GGW International General Trading LLC is your gateway to global trade, bridging markets with excellence, integrity, and innovation from the heart of Dubai.";
+  "G G W INTERNATIONAL GENERAL TRADING L.L.C is your gateway to global trade, bridging markets with excellence, integrity, and innovation from the heart of Dubai.";
 
 export const metadata: Metadata = {
   title: {
-    default: "GGW International General Trading LLC | Dubai, UAE",
+    default: "G G W INTERNATIONAL GENERAL TRADING L.L.C | Dubai, UAE",
     template: "%s | GGW International",
   },
   description: siteDescription,
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     "global trade UAE",
     "GCC trading company",
   ],
-  authors: [{ name: "GGW International General Trading LLC" }],
-  publisher: "GGW International General Trading LLC",
+  authors: [{ name: "G G W INTERNATIONAL GENERAL TRADING L.L.C" }],
+  publisher: "G G W INTERNATIONAL GENERAL TRADING L.L.C",
   robots: {
     index: true,
     follow: true,
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://ggwint.com",
-    title: "GGW International General Trading LLC | Dubai, UAE",
+    title: "G G W INTERNATIONAL GENERAL TRADING L.L.C | Dubai, UAE",
     description: siteDescription,
     siteName: "GGW International",
     locale: "en_US",
@@ -66,17 +66,21 @@ export const metadata: Metadata = {
         url: "https://ggwint.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "GGW International General Trading LLC — Dubai, UAE",
+        alt: "G G W INTERNATIONAL GENERAL TRADING L.L.C — Dubai, UAE",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "GGW International General Trading LLC | Dubai, UAE",
+    title: "G G W INTERNATIONAL GENERAL TRADING L.L.C | Dubai, UAE",
     description: siteDescription,
     images: ["https://ggwint.com/twitter-image.jpg"],
   },
   applicationName: "GGW International",
+  icons: {
+    icon: [{ url: "/images/GGWIcon.png", type: "image/png" }],
+    apple: [{ url: "/images/GGWIcon.png", type: "image/png" }],
+  },
   appleWebApp: {
     capable: true,
     title: "GGW International",
@@ -91,7 +95,7 @@ export const metadata: Metadata = {
     "geo.placename": "Dubai",
     "geo.position": "25.2048;55.2708",
     ICBM: "25.2048, 55.2708",
-    copyright: "GGW International General Trading LLC",
+    copyright: "G G W INTERNATIONAL GENERAL TRADING L.L.C",
   },
 };
 

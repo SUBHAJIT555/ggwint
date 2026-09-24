@@ -12,6 +12,7 @@ import {
   FiStar,
 } from "react-icons/fi";
 import { cn } from "../../lib/cn";
+import { SITE_CONTACT } from "../../data/contact";
 
 export interface FAQItem {
   id: number;
@@ -50,7 +51,7 @@ const FAQ = ({
   heading,
   subHeading,
   faqItems,
-  whatsappNumber = "+97142712771",
+  whatsappNumber = SITE_CONTACT.whatsappNumber,
   whatsappMessage = "Hello! I have a question about GGW International's products.",
   chatPrompt = "Didn't find your answer?",
   chatButtonText = "Chat with us",
@@ -62,7 +63,7 @@ const FAQ = ({
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          className="mb-4 text-caption text-muted uppercase"
+          className="mb-4 text-caption text-muted uppercase bg-brand-accent px-1.5 text-on-primary  w-fit"
         >
           {sectionLabel}
         </motion.p>
@@ -129,13 +130,13 @@ const FAQ = ({
           </a>{" "}
           or email{" "}
           <a
-            href="mailto:bd@ggwint.com"
+            href={`mailto:${SITE_CONTACT.email}`}
             className={cn(
               "inline-flex items-center gap-1 font-medium text-brand-accent underline-offset-4 hover:text-brand-accent hover:underline transition-all duration-300"
             )}
           >
             
-            info@ggwint.com
+            {SITE_CONTACT.email}
           </a>
           .
         </p>

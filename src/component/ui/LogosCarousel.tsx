@@ -31,6 +31,7 @@ export type LogosCarouselProps = {
   direction?: WaveDirection;
   className?: string;
   compact?: boolean;
+  cellClassName?: string;
 };
 
 export function LogosCarousel({
@@ -39,6 +40,7 @@ export function LogosCarousel({
   direction = "ltr",
   className,
   compact = false,
+  cellClassName,
 }: LogosCarouselProps) {
   const columns = useMemo(
     () => distributeLogos(Children.toArray(children), columnCount),
@@ -114,6 +116,7 @@ export function LogosCarousel({
             activeIndex={(activeIndices[columnIndex] ?? 0) % columnLogos.length}
             reduceMotion={reduceMotion}
             compact={compact}
+            cellClassName={cellClassName}
           />
         );
       })}
@@ -128,6 +131,7 @@ type LogoColumnProps = {
   activeIndex: number;
   reduceMotion: boolean;
   compact: boolean;
+  cellClassName?: string;
 };
 
 const LogoColumn = memo(function LogoColumn({
@@ -137,17 +141,19 @@ const LogoColumn = memo(function LogoColumn({
   activeIndex,
   reduceMotion,
   compact,
+  cellClassName,
 }: LogoColumnProps) {
   const swapDelay = reduceMotion ? 0 : waveIndex * (STAGGER_DELAY / 1000);
 
   return (
     <motion.div
       data-slot="logos-carousel-column"
-      className={
+      className={cn(
         compact
           ? "relative h-8 w-full min-w-0 overflow-hidden sm:min-w-32 sm:w-auto"
-          : "relative aspect-2/1 min-h-18 overflow-hidden px-2 sm:min-h-24 sm:px-4 md:min-h-28"
-      }
+          : "relative aspect-2/1 min-h-18 overflow-hidden px-2 sm:min-h-24 sm:px-4 md:min-h-28",
+        cellClassName
+      )}
       initial={
         reduceMotion ? false : { opacity: 0, y: "60%" }
       }

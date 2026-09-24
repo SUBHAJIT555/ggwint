@@ -160,7 +160,7 @@ const HeroCardWall = () => {
     <div
       ref={viewportRef}
       data-hero-wall="true"
-      className="hero-card-wall relative h-80 w-full overflow-hidden sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:z-0 lg:h-auto lg:w-[58%] xl:w-[60%]"
+      className="hero-card-wall relative h-80 w-full overflow-hidden sm:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:z-10 lg:h-auto lg:w-[58%] xl:w-[60%]"
     >
       <div
         ref={wallRef}
@@ -179,7 +179,7 @@ const HeroCardWall = () => {
                 top: card.y,
                 width: card.width,
                 height: card.height,
-                opacity: isFocused ? 1 : 0.55,
+                opacity: isFocused ? 1 : 0.88,
               }}
             >
               <span className="flex shrink-0 items-center px-1.5 pt-1 font-sans text-xs font-medium text-muted">
@@ -202,23 +202,42 @@ const HeroCardWall = () => {
 
 const HeroSection = () => {
   return (
-    <section className="relative w-full overflow-hidden bg-canvas screen-line-bottom md:min-h-[calc(100svh-4rem)]">
+    <section className="relative w-full overflow-hidden bg-canvas screen-line-bottom lg:min-h-[calc(100svh-4rem)]">
       <div className="relative z-10 flex w-full flex-col items-center lg:min-h-[calc(100svh-4rem)] lg:flex-row">
-        <div className="relative z-20 flex w-full flex-col items-start justify-center px-4 py-10 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:w-[50%] lg:py-16 lg:pl-[max(1.25rem,calc((100vw-1200px)/2-1.25rem))] xl:w-[48%]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[34%] lg:block"
+        >
+          <img
+            src="/images/heroes/port.webp"
+            alt=""
+            className="h-full w-full object-cover object-left opacity-50"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-canvas/25 via-canvas/70 to-canvas" />
+        </div>
+        <div className="relative z-20 flex w-full flex-col items-start justify-center overflow-hidden px-4 py-10 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:w-[50%] lg:overflow-visible lg:py-16 lg:pl-[max(1.25rem,calc((100vw-1200px)/2-1.25rem))] xl:w-[48%]">
+          <div aria-hidden className="pointer-events-none absolute inset-0 lg:hidden">
+            <img
+              src="/images/heroes/port.webp"
+              alt=""
+              className="h-full w-full object-cover object-[center_30%] opacity-50"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-canvas/25 via-canvas/70 to-canvas" />
+          </div>
           <motion.h1
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="max-w-[18ch] text-hero text-ink lg:max-w-[20ch]"
+            className="relative z-10 max-w-[18ch] text-hero text-ink lg:max-w-[20ch]"
           >
-            GGW INTERNATIONAL GENERAL TRADING LLC
+            G G W INTERNATIONAL GENERAL TRADING L.L.C
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.12 }}
-            className="mt-5 max-w-xl text-copy text-body lg:max-w-lg"
+            className="relative z-10 mt-5 max-w-xl text-copy text-body lg:max-w-lg"
           >
             Your Gateway to Global Trade – Bridging markets with excellence,
             integrity, and innovation from the heart of Dubai
@@ -228,7 +247,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18 }}
-            className="mt-7 flex flex-wrap items-center gap-3"
+            className="relative z-10 mt-7 flex flex-wrap items-center gap-3"
           >
             <Button href="/products" variant="accent" className="h-11 rounded-lg px-5">
               Explore products

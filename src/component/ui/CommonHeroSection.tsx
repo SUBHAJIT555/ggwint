@@ -4,9 +4,8 @@ import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 import { toSrc, type ImageSource } from "../../lib/toSrc";
 import Button from "./Button";
+import BrandRow from "./BrandRow";
 import { clientLogos } from "../../data/clientLogos";
-import { cn } from "../../lib/cn";
-import { LogosCarousel } from "./LogosCarousel";
 
 type ButtonVariant = "primary" | "secondary" | "accent";
 
@@ -59,7 +58,7 @@ const CommonHeroSection = ({
   backgroundImage,
   headingHighlight,
   showTrust = false,
-  trustCaption = "Some of the companies we've worked with",
+  trustCaption = "Trusted by companies and operators across",
 }: CommonHeroSectionProps) => {
   const scene = backgroundImage ? toSrc(backgroundImage) : DEFAULT_SCENE;
 
@@ -118,30 +117,9 @@ const CommonHeroSection = ({
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.16, ease: "easeOut" }}
-            className="mt-8 flex w-full flex-col items-center gap-5 md:mt-12"
+            className="mt-8 w-full md:mt-12"
           >
-            <p className="max-w-40 text-center text-sm font-medium text-ink">
-              {trustCaption}
-            </p>
-            <LogosCarousel columnCount={4} compact>
-              {clientLogos.map((logo) => (
-                <span
-                  key={logo.name}
-                  className="flex items-center gap-2 whitespace-nowrap text-sm font-medium text-ink"
-                >
-                  <span
-                    className={cn(
-                      "relative flex size-8 items-center justify-center rounded-sm",
-                      "bg-linear-to-b from-neutral-200 to-neutral-200",
-                      "ring-1 ring-black/10 ring-offset-2 ring-offset-canvas ring-inset"
-                    )}
-                  >
-                    <img src={logo.src} alt="" className="h-4 w-4 object-contain" />
-                  </span>
-                  {logo.name}
-                </span>
-              ))}
-            </LogosCarousel>
+            <BrandRow caption={trustCaption} logos={clientLogos} />
           </motion.div>
         )}
       </div>

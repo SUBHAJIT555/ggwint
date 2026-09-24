@@ -6,38 +6,13 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import { useRef, useState, type ComponentType } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import {
-  FiAlertTriangle,
-  FiArrowRight,
-  FiBox,
-  FiLayers,
-  FiMonitor,
-  FiSettings,
-  FiShield,
-  FiTool,
-  FiZap,
-} from "react-icons/fi";
-import { IconFlask, IconPaint } from "@tabler/icons-react";
+import { FiArrowRight } from "react-icons/fi";
 import { toSrc, type ImageSource } from "../lib/toSrc";
 import Button from "./ui/Button";
-import { categoryDetails, type MainCategory } from "../data/products";
-
-type CategoryIcon = ComponentType<{ className?: string }>;
-
-const categoryIcons: Record<MainCategory, CategoryIcon> = {
-  "Construction Materials": FiLayers,
-  "Food Products": FiBox,
-  "Mechanical Tools": FiTool,
-  "Construction and Safety": FiShield,
-  "Paints and Finishes": IconPaint,
-  "Water / Fire Proofing": FiAlertTriangle,
-  Electronics: FiZap,
-  "Auto Spare Parts": FiSettings,
-  "IT Accessories": FiMonitor,
-  Chemicals: IconFlask,
-};
+import { categoryIcons } from "../data/categoryIcons";
+import { categoryDetails } from "../data/products";
 
 const AboutSnapshot = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -130,39 +105,13 @@ const AboutSnapshot = () => {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          className="mt-8 space-y-4"
+          className="mt-8"
         >
           <p className="text-copy text-body">
-            We are specialized in the international trading of steel, MEP
-            products, construction materials, IT Products & Solutions, Food
-            Stuff, Food Additives, Chemicals, AGRO & Pharma Chemicals.
-          </p>
-          <p className="text-copy text-body">
-            We provide reliable supply solutions to the power, industrial,
-            commercial and oilfield sectors across the UAE.
-          </p>
-          <p className="text-copy text-body">
-            Our partnerships with international manufacturers enable us to
-            offer quality products at competitive prices, reliable market
-            information, and professional support.
-          </p>
-          <p className="text-copy text-body">
-            Supported by an experienced professional team, we ensure efficient
-            service, technical expertise and timely delivery. We remain
-            committed to customer satisfaction, quality and building lasting
-            business relationships.
-          </p>
-          <p className="text-copy text-body">
-            Backed by strong industry knowledge and operational expertise, we
-            serve customers throughout the UAE with efficiency and reliability.
-            Customer satisfaction remains our highest priority and the
-            foundation of our continued growth.
-          </p>
-          <p className="text-copy text-body">
-            With the continued trust of our employees, suppliers and clients,
-            we confidently look forward to sustainable growth and expansion.
+            We specialize in the international trading of <b>steel</b>, <b>MEP products</b>, <b>construction materials</b>, <b>IT products &amp; solutions</b>, <b>food stuff</b>, <b>food additives</b>, <b>chemicals</b>, <b>AGRO</b> and <b>pharma chemicals</b>, providing <b>reliable supply solutions</b> to the <b>power, industrial, commercial,</b> and <b>oilfield sectors</b> across the UAE. Our partnerships with international manufacturers enable us to offer <b>quality products at competitive prices</b>, reliable market information, and <b>professional support</b>. Backed by an <b>experienced professional team</b> and strong industry knowledge, we ensure <b>efficient service</b>, <b>technical expertise</b>, and <b>timely delivery</b>, remaining committed to <b>customer satisfaction</b>, quality, and building lasting business relationships. Supported by the continued trust of our <b>employees</b>, <b>suppliers</b>, and <b>clients</b>, we confidently look forward to <b>sustainable growth</b> and expansion, serving customers throughout the UAE with efficiency and reliability.
           </p>
         </motion.div>
+   
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 border-t border-hairline">
           {productHighlights.map((product) => {
@@ -180,9 +129,9 @@ const AboutSnapshot = () => {
               >
                 <Link
                   href={product.href}
-                  className="group flex items-start gap-3 py-5 pr-6 md:odd:pr-8 md:even:pl-8"
+                  className="group flex items-start gap-3 py-5 pr-6 md:odd:pr-8 md:even:pl-8 "
                 >
-                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-accent/10 text-brand-accent">
+                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center  text-brand-accent group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300">
                     <Icon className="h-5 w-5" />
                   </span>
                   <span className="min-w-0">

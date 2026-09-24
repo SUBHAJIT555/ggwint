@@ -62,7 +62,7 @@ const PrivacyPolicy = () => {
             <div className="text-copy text-body space-y-4">
               <p>
                 <strong className="text-ink">
-                  GGW INTERNATIONAL GENERAL TRADING LLC
+                  G G W INTERNATIONAL GENERAL TRADING L.L.C
                 </strong>{" "}
                 ("we," "us," or "our") is committed to protecting your privacy
                 and ensuring the security of personal information collected
@@ -571,13 +571,13 @@ const PrivacyPolicy = () => {
                 <div>
                   <p className="text-ink font-semibold mb-2">Company:</p>
                   <p className="text-zinc-300">
-                    GGW INTERNATIONAL GENERAL TRADING LLC
+                    G G W INTERNATIONAL GENERAL TRADING L.L.C
                   </p>
                 </div>
                 <div>
                   <p className="text-ink font-semibold mb-2">Location:</p>
                   <p className="text-zinc-300">
-                    Office 393, White Crown Building, Sheikh Zayed Road, Dubai, United Arab Emirates
+                    Office 303, Building White Crown, Sheikh Zayed Road, Dubai, UAE
                   </p>
                 </div>
                 <div>
@@ -592,10 +592,10 @@ const PrivacyPolicy = () => {
                 <div>
                   <p className="text-ink font-semibold mb-2">Phone:</p>
                   <a
-                    href="tel:+97142712771"
+                    href="tel:+971565877607"
                     className="text-cyan-400 hover:text-cyan-300 transition-colors"
                   >
-                    +971 4 271 2771
+                    +971 56 587 7607
                   </a>
                 </div>
               </div>

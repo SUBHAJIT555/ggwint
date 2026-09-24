@@ -28,16 +28,16 @@ const callbackSchema = z.object({
 type FormData = z.infer<typeof callbackSchema>;
 
 const services = [
-  "Construction Materials",
-  "Food Products",
-  "Mechanical Tools",
-  "Construction and Safety",
-  "Paints and Finishes",
-  "Water / Fire Proofing",
-  "Electronics",
   "Auto Spare Parts",
-  "IT Accessories",
-  "Chemicals",
+  "Construction and Safety Tools",
+  "Construction Materials",
+  "Electrics and Electronics",
+  "Food, Agro & Pharma Chemicals",
+  "Food Products",
+  "IT and Accessories",
+  "Paints and Finishes",
+  "Solar Panels & Lithium Batteries",
+  "Water and Fire Proofing",
   "Others",
 ];
 

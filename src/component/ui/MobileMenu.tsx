@@ -99,9 +99,7 @@ const MobileMenu: React.FC = () => {
                 onClick={closeMenu}
                 aria-label="GGW International home"
               >
-                <div className="h-9 w-44">
-                  <Logo variant="on-light" />
-                </div>
+                <Logo mark="compact" />
               </Link>
               <button
                 className="mobile-menu-button inline-flex size-10 items-center justify-center text-ink"

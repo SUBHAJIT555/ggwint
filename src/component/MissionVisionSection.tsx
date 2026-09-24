@@ -55,7 +55,7 @@ const MissionVisionSection = () => {
         >
           About{" "}
           <span className="bg-brand-accent px-1.5 text-on-primary">
-            Advantage GGW Trading
+            G G W INTERNATIONAL GENERAL TRADING L.L.C
           </span>
         </motion.h2>
         <motion.p
@@ -65,7 +65,7 @@ const MissionVisionSection = () => {
           transition={{ delay: 0.05 }}
           className="mx-auto mt-4 max-w-[62ch] text-pretty text-copy text-body"
         >
-          Advantage GGW Trading is a diversified company offering specialized
+          G G W INTERNATIONAL GENERAL TRADING L.L.C is a diversified company offering specialized
           services in construction, foodstuff, contracting, import and export,
           and electronics and IT. With a focus on quality and innovation, the
           company delivers reliable solutions across multiple sectors, ensuring

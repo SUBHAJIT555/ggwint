@@ -25,8 +25,9 @@ const ProductCategoryCards = () => {
           transition={{ delay: 0.05 }}
           className="text-section text-ink"
         >
-          Our product categories
+          Explore Our <span className="bg-brand-accent px-1.5 text-on-primary">Diverse Product Categories</span>
         </motion.h2>
+   
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

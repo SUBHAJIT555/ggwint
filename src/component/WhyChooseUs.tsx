@@ -69,7 +69,7 @@ const WhyChooseUs = () => {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="mb-4 text-caption text-muted uppercase"
+          className="mb-4 text-caption text-muted uppercase bg-brand-accent px-1.5 text-on-primary  w-fit"
         >
           Why choose us
         </motion.p>
@@ -92,7 +92,7 @@ const WhyChooseUs = () => {
           excellence in every project.
         </motion.p>
 
-        <div className="mt-12 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-10 sm:gap-y-12 lg:grid-cols-3">
           {features.map((feature, index) => {
             const Icon = feature.Icon;
             return (

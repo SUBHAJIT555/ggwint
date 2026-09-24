@@ -12,22 +12,27 @@ const About = () => {
   return (
     <div>
       <CommonHeroSection
-        heading="About GGW International General Trading LLC"
-        headingHighlight="General Trading LLC"
+        backgroundImage="/images/heroes/about.webp"
+        heading="About G G W INTERNATIONAL GENERAL TRADING L.L.C"
+        headingHighlight="GENERAL TRADING L.L.C"
         subHeading="Decades of experience, unwavering reliability, and a steadfast commitment to delivering quality trading solutions across diverse industries."
         buttonText="Explore products"
         buttonLink="/products"
         secondaryButtonText="Get a quote"
         secondaryButtonLink="/contact"
         showTrust
-        trustCaption="Some of the companies we've worked with"
       />
       <OurStory />
       <MissionVisionSection />
       <PassionateProfessionals />
       <AboutStats />
       <WhyChooseUs />
-      <CallToAction />
+      <CallToAction
+        heading="A Dubai partner for sourcing and long-term supply"
+        subHeading="G G W INTERNATIONAL GENERAL TRADING L.L.C sources, imports, and delivers for contractors, traders, and operators across the UAE. Tell us your requirements and our team will map the right supply plan."
+        quoteLabel="Talk to us"
+        whatsappMessage="Hello! I would like to know more about working with GGW International."
+      />
     </div>
   );
 };

@@ -1,36 +1,37 @@
-"use client";
-
 const Logo = ({
   className = "",
-  variant = "on-dark",
+  mark = "full",
 }: {
   className?: string;
   variant?: "on-dark" | "on-light";
+  mark?: "full" | "compact";
 }) => {
-  const isLight = variant === "on-light";
+  if (mark === "compact") {
+    return (
+      <span className={`flex items-center gap-2.5 ${className}`}>
+        <img
+          src="/images/GGWIcon.png"
+          alt=""
+          className="size-10 object-contain"
+        />
+        <span className="leading-[1.15] text-ink">
+          <span className="block text-[11px] font-semibold tracking-[0.04em] sm:text-xs">
+            G G W INTERNATIONAL
+          </span>
+          <span className="block text-[9px] tracking-wide text-muted sm:text-[10px]">
+            GENERAL TRADING L.L.C
+          </span>
+        </span>
+      </span>
+    );
+  }
 
   return (
-    <div className={`flex items-center gap-2.5 h-full ${className}`}>
-      <span
-        className={`flex items-center justify-center w-8 h-8 rounded-sm text-[10px] font-semibold tracking-wide ${
-          isLight ? "bg-ink text-canvas" : "bg-canvas text-ink"
-        }`}
-      >
-        GGW
-      </span>
-      <span className={`leading-[1.15] ${isLight ? "text-ink" : "text-on-dark"}`}>
-        <span className="block text-[11px] sm:text-xs font-semibold tracking-[0.04em]">
-          GGW INTERNATIONAL
-        </span>
-        <span
-          className={`block text-[9px] sm:text-[10px] tracking-wide ${
-            isLight ? "text-muted" : "text-on-dark-soft"
-          }`}
-        >
-          General Trading LLC
-        </span>
-      </span>
-    </div>
+    <img
+      src="/images/GGWLogo.png"
+      alt="G G W INTERNATIONAL GENERAL TRADING L.L.C"
+      className={`block w-auto max-w-none object-contain object-left ${className}`}
+    />
   );
 };
 

@@ -64,7 +64,7 @@ const TermsAndCondition = () => {
                 These Terms & Conditions ("Terms") govern the use of the website
                 operated by{" "}
                 <strong className="text-ink">
-                  GGW INTERNATIONAL GENERAL TRADING LLC
+                  G G W INTERNATIONAL GENERAL TRADING L.L.C
                 </strong>
                 , based in Dubai, United Arab Emirates. By accessing or using
                 this website, you agree to be bound by these Terms & Conditions
@@ -72,7 +72,7 @@ const TermsAndCondition = () => {
               </p>
               <p>
                 These Terms constitute a legally binding agreement between you
-                and GGW INTERNATIONAL GENERAL TRADING LLC. If you do not agree
+                and G G W INTERNATIONAL GENERAL TRADING L.L.C. If you do not agree
                 with any part of these terms, you should immediately discontinue
                 use of this website and refrain from accessing any of our
                 services or content.
@@ -100,11 +100,11 @@ const TermsAndCondition = () => {
             </h2>
             <div className="text-copy text-body space-y-4">
               <p className="text-ink font-semibold">
-                GGW INTERNATIONAL GENERAL TRADING LLC
+                G G W INTERNATIONAL GENERAL TRADING L.L.C
               </p>
-              <p>Office 393, White Crown Building, <br /> Sheikh Zayed Road, <br /> Dubai, United Arab Emirates</p>
+              <p>Office 303, Building White Crown, <br /> Sheikh Zayed Road, <br /> Dubai, UAE</p>
               <p>
-                GGW INTERNATIONAL GENERAL TRADING LLC is a limited liability
+                G G W INTERNATIONAL GENERAL TRADING L.L.C is a limited liability
                 company registered and operating under the laws of the United
                 Arab Emirates. We are an ISO 9001:2015-certified trading company
                 committed to bridging global markets with excellence, integrity,
@@ -260,7 +260,7 @@ const TermsAndCondition = () => {
                 user interface, and all other materials, is the exclusive
                 property of{" "}
                 <strong className="text-ink">
-                  GGW INTERNATIONAL GENERAL TRADING LLC
+                  G G W INTERNATIONAL GENERAL TRADING L.L.C
                 </strong>{" "}
                 or its licensors, unless otherwise stated or indicated.
               </p>
@@ -269,7 +269,7 @@ const TermsAndCondition = () => {
                 trademark, patent, trade secret, and other intellectual property
                 laws of the United Arab Emirates and international treaties. All
                 rights not expressly granted to you in these Terms are reserved
-                by GGW INTERNATIONAL GENERAL TRADING LLC and its licensors.
+                by G G W INTERNATIONAL GENERAL TRADING L.L.C and its licensors.
               </p>
               <p>
                 You may not copy, reproduce, distribute, transmit, display,
@@ -309,7 +309,7 @@ const TermsAndCondition = () => {
                 resources, or services for reference, convenience, or
                 informational purposes. These links are provided solely for your
                 convenience and do not constitute an endorsement, sponsorship,
-                or recommendation by GGW INTERNATIONAL GENERAL TRADING LLC.
+                or recommendation by G G W INTERNATIONAL GENERAL TRADING L.L.C.
               </p>
               <p>
                 We do not control, monitor, or maintain the content of
@@ -352,7 +352,7 @@ const TermsAndCondition = () => {
               <p>
                 To the fullest extent permitted by applicable law,{" "}
                 <strong className="text-ink">
-                  GGW INTERNATIONAL GENERAL TRADING LLC
+                  G G W INTERNATIONAL GENERAL TRADING L.L.C
                 </strong>
                 , its officers, directors, employees, agents, affiliates, and
                 licensors shall not be liable for any direct, indirect,
@@ -432,7 +432,7 @@ const TermsAndCondition = () => {
               <p>
                 You agree to indemnify, defend, and hold harmless{" "}
                 <strong className="text-ink">
-                  GGW INTERNATIONAL GENERAL TRADING LLC
+                  G G W INTERNATIONAL GENERAL TRADING L.L.C
                 </strong>
                 , its officers, directors, employees, agents, affiliates, and
                 licensors from and against any and all claims, demands, actions,
@@ -560,7 +560,7 @@ const TermsAndCondition = () => {
               <p>
                 These Terms, together with our Privacy Policy and any other
                 legal notices published on the website, constitute the entire
-                agreement between you and GGW INTERNATIONAL GENERAL TRADING LLC
+                agreement between you and G G W INTERNATIONAL GENERAL TRADING L.L.C
                 regarding your use of the website and supersede all prior or
                 contemporaneous communications, agreements, and understandings,
                 whether written or oral, relating to the subject matter hereof.
@@ -601,22 +601,22 @@ const TermsAndCondition = () => {
                 <div>
                   <p className="text-ink font-semibold mb-2">Phone:</p>
                   <a
-                    href="tel:+97142712771"
+                    href="tel:+971565877607"
                     className="text-cyan-400 hover:text-cyan-300 transition-colors"
                   >
-                    +971 4 271 2771
+                    +971 56 587 7607
                   </a>
                 </div>
                 <div>
                   <p className="text-ink font-semibold mb-2">Location:</p>
                   <p className="text-zinc-300">
-                    GGW INTERNATIONAL GENERAL TRADING LLC
+                    G G W INTERNATIONAL GENERAL TRADING L.L.C
                     <br />
-                    Office 393, White Crown Building
+                    Office 303, Building White Crown
                     <br />
                     Sheikh Zayed Road,
                     <br />
-                    Dubai, United Arab Emirates
+                    Dubai, UAE
                   </p>
                 </div>
               </div>

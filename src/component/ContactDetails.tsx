@@ -16,6 +16,7 @@ import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import type { PanInfo } from "framer-motion";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { SITE_CONTACT } from "../data/contact";
 
 
 const uaePhoneRegex = /^(?:\+971|00971|0)?(?:5[0124568])\d{7}$/;
@@ -633,10 +634,10 @@ const ContactDetails = () => {
                       Phone Number
                     </p>
                     <a
-                      href="tel:+97142712771"
+                      href={SITE_CONTACT.phoneHref}
                       className="text-zinc-400 font-poppins hover:text-cyan-400 transition-colors"
                     >
-                      +971 4 271 2771
+                      {SITE_CONTACT.phone}
                     </a>
                   </div>
                 </motion.div>
@@ -653,9 +654,8 @@ const ContactDetails = () => {
                       Address
                     </p>
                     <p className="text-zinc-400 font-poppins">
-                      GGW International General Trading LLC <br />
-                      Office 393, White Crown Building, <br />
-                      Sheikh Zayed Road, Dubai, UAE
+                      {SITE_CONTACT.name} <br />
+                      {SITE_CONTACT.address}
                     </p>
                   </div>
                 </motion.div>
@@ -692,7 +692,7 @@ const ContactDetails = () => {
                       <FaFacebookF className="text-2xl" />
                     </motion.a>
                     <motion.a
-                      href="https://wa.me/97142712771"
+                      href={SITE_CONTACT.whatsappHref}
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.1 }}
@@ -721,9 +721,8 @@ const ContactDetails = () => {
               Our Address :
             </h3>
             <p className="text-lg text-zinc-400 font-poppins font-medium">
-              GGW International General Trading LLC <br />
-              Office 393, White Crown Building, <br />
-              Sheikh Zayed Road, Dubai, UAE
+              {SITE_CONTACT.name} <br />
+              {SITE_CONTACT.address}
             </p>
           </div>
           <motion.div

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const paragraphs = [
-  "Founded in Dubai in 2015, GGW TRADING was established with a clear vision — to simplify and elevate the global trading landscape. Recognizing the demand for a reliable and efficient partner, we set out to navigate the complexities of international trade with integrity, expertise, and a commitment to excellence.",
+  "Founded in Dubai in 2015, G G W INTERNATIONAL GENERAL TRADING L.L.C was established with a clear vision — to simplify and elevate the global trading landscape. Recognizing the demand for a reliable and efficient partner, we set out to navigate the complexities of international trade with integrity, expertise, and a commitment to excellence.",
   "Since our inception, we have built a reputation for excellence, fostering strong relationships with suppliers and clients across the globe. Our strategic location in Dubai’s bustling commercial hub has enabled us to serve as a vital link between diverse markets worldwide.",
 ];
 

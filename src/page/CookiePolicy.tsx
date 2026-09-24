@@ -63,7 +63,7 @@ const CookiePolicy = () => {
               <p>
                 This Cookie Policy explains how{" "}
                 <strong className="text-ink">
-                  GGW INTERNATIONAL GENERAL TRADING LLC
+                  G G W INTERNATIONAL GENERAL TRADING L.L.C
                 </strong>{" "}
                 ("we," "us," or "our") uses cookies and similar tracking
                 technologies when you visit our website. This policy should be
@@ -619,20 +619,20 @@ const CookiePolicy = () => {
                 <div>
                   <p className="text-ink font-semibold mb-2">Phone:</p>
                   <a
-                    href="tel:+97142712771"
+                    href="tel:+971565877607"
                     className="text-cyan-400 hover:text-cyan-300 transition-colors"
                   >
-                    +971 4 271 2771
+                    +971 56 587 7607
                   </a>
                 </div>
                 <div>
                   <p className="text-ink font-semibold mb-2">Location:</p>
                   <p className="text-zinc-300">
-                    GGW INTERNATIONAL GENERAL TRADING LLC
+                    G G W INTERNATIONAL GENERAL TRADING L.L.C
                     <br />
-                    Office 393, White Crown Building,
+                    Office 303, Building White Crown,
                     <br />
-                    Sheikh Zayed Road, Dubai, United Arab Emirates
+                    Sheikh Zayed Road, Dubai, UAE
                   </p>
                 </div>
               </div>

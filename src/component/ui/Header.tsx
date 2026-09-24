@@ -93,9 +93,7 @@ const Header: React.FC = () => {
       <div className="max-w-content mx-auto h-full border-x border-dashed border-hairline px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-full">
           <Link href="/" className="relative z-10 shrink-0">
-            <div className="w-44 sm:w-52 md:w-56 h-9">
-              <Logo variant="on-light" />
-            </div>
+            <Logo mark="compact" />
           </Link>
 
           <div className="hidden md:flex items-center gap-4 shrink-0">

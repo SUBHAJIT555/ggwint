@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiArrowUp, FiX } from "react-icons/fi";
 import { IoLogoWhatsapp } from "react-icons/io";
+import { SITE_CONTACT } from "../../data/contact";
 
 // Optional Lenis type (if you add Lenis later)
 type LenisInstance = {
@@ -18,7 +19,7 @@ const FloatingActionButtons = () => {
   const [isWhatsAppHovered, setIsWhatsAppHovered] = useState(false);
   const [isTooltipManuallyClosed, setIsTooltipManuallyClosed] = useState(false);
   const [hasHoverSupport, setHasHoverSupport] = useState(false);
-  const whatsappNumber = "+97142712771";
+  const whatsappNumber = SITE_CONTACT.whatsappNumber;
   const whatsappMessage =
     "Hello! I'm interested in learning more about GGW International's products.";
 

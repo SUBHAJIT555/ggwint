@@ -18,6 +18,52 @@ import ProductFilter, { type ProductFilterOption } from "./ProductFilter";
 
 const PAGE_SIZE = 24;
 
+function seededRandom(seed: number) {
+  let value = seed >>> 0;
+  return () => {
+    value = (value * 1664525 + 1013904223) >>> 0;
+    return value / 4294967296;
+  };
+}
+
+function shuffle<T>(items: T[], seed: number): T[] {
+  const copy = [...items];
+  const random = seededRandom(seed);
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swap = Math.floor(random() * (index + 1));
+    [copy[index], copy[swap]] = [copy[swap], copy[index]];
+  }
+  return copy;
+}
+
+function mixAcrossCategories(products: Product[]): Product[] {
+  const groups = new Map<string, Product[]>();
+  for (const product of products) {
+    const bucket = groups.get(product.mainCategory);
+    if (bucket) bucket.push(product);
+    else groups.set(product.mainCategory, [product]);
+  }
+
+  const queues = shuffle([...groups.entries()], 42).map(([category, items]) => {
+    const seed = [...category].reduce((total, char) => total + char.charCodeAt(0), 0);
+    return shuffle(items, seed);
+  });
+
+  const mixed: Product[] = [];
+  let added = true;
+  while (added) {
+    added = false;
+    for (const queue of queues) {
+      const next = queue.shift();
+      if (!next) continue;
+      mixed.push(next);
+      added = true;
+    }
+  }
+
+  return mixed;
+}
+
 type ProductGridProps = {
   title?: string;
   initialMainCategory?: MainCategory | "All";
@@ -212,6 +258,10 @@ const ProductGrid = ({
           (product) => product.category === selectedSubCategory
         );
       }
+    }
+
+    if (selectedMainCategory === "All") {
+      return mixAcrossCategories(result);
     }
 
     return result;

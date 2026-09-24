@@ -3,14 +3,26 @@
 import { motion } from "framer-motion";
 import { IoLogoWhatsapp } from "react-icons/io";
 import Button from "./Button";
+import BrandRow from "./BrandRow";
+import { SITE_CONTACT } from "../../data/contact";
 
-const WHATSAPP_URL =
-  "https://wa.me/97142712771?text=" +
-  encodeURIComponent(
-    "Hello! I'm interested in learning more about GGW International's products."
-  );
+type CallToActionProps = {
+  heading: string;
+  subHeading: string;
+  quoteLabel?: string;
+  whatsappMessage: string;
+};
 
-const CallToAction = () => {
+const CallToAction = ({
+  heading,
+  subHeading,
+  quoteLabel = "Request a Quote",
+  whatsappMessage,
+}: CallToActionProps) => {
+  const whatsappUrl =
+    `https://wa.me/${SITE_CONTACT.whatsappNumber}?text=` +
+    encodeURIComponent(whatsappMessage);
+
   return (
     <section className="relative isolate w-full overflow-hidden bg-canvas screen-line-top">
       <div
@@ -36,7 +48,7 @@ const CallToAction = () => {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="text-section text-ink"
           >
-            Need a trusted trading partner in Dubai? Get a quote
+            {heading}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -45,7 +57,7 @@ const CallToAction = () => {
             transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
             className="mx-auto mt-4 max-w-3xl text-copy font-medium text-brand-accent"
           >
-            We deliver quality, reliability, and consistency in every shipment.
+            {subHeading}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -59,10 +71,10 @@ const CallToAction = () => {
               variant="accent"
               className="h-12 w-full px-6 sm:w-auto sm:min-w-50"
             >
-              Request a Quote
+              {quoteLabel}
             </Button>
             <Button
-              href={WHATSAPP_URL}
+              href={whatsappUrl}
               variant="whatsapp"
               target="_blank"
               rel="noopener noreferrer"
@@ -71,6 +83,15 @@ const CallToAction = () => {
               <IoLogoWhatsapp className="h-4 w-4" />
               WhatsApp Us
             </Button>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+            className="mx-auto mt-10 max-w-3xl sm:mt-12"
+          >
+            <BrandRow />
           </motion.div>
         </div>
       </div>
