@@ -13,7 +13,7 @@ type LenisScroll = {
   ) => void;
 };
 
-function scrollToRouteTarget(lenis: LenisScroll | null) {
+function scrollToRouteTarget(lenis?: LenisScroll | null) {
   const id = decodeURIComponent(window.location.hash.replace(/^#/, ""));
   const target = id ? document.getElementById(id) : null;
 
@@ -44,8 +44,8 @@ function scrollToRouteTarget(lenis: LenisScroll | null) {
 const ScrollToTop = () => {
   const pathname = usePathname();
   const lenis = useLenis();
-  const lenisRef = useRef<LenisScroll | null>(lenis);
-  lenisRef.current = lenis;
+  const lenisRef = useRef<LenisScroll | null>(lenis ?? null);
+  lenisRef.current = lenis ?? null;
 
   useEffect(() => {
     const scroll = () => scrollToRouteTarget(lenisRef.current);
