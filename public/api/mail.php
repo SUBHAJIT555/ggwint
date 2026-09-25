@@ -1,5 +1,26 @@
 <?php
 
+ob_start();
+register_shutdown_function(static function (): void {
+  $err = error_get_last();
+  $fatal = $err && in_array($err['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR], true);
+  if (!$fatal) {
+    while (ob_get_level() > 0) {
+      ob_end_flush();
+    }
+    return;
+  }
+  while (ob_get_level() > 0) {
+    ob_end_clean();
+  }
+  if (!headers_sent()) {
+    header('Content-Type: application/json; charset=utf-8');
+  }
+  http_response_code(500);
+  $message = preg_replace('/ in \\/.+$/', '', (string) $err['message']);
+  echo json_encode(['status' => 'error', 'message' => $message]);
+});
+
 // --- CORS ---
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $allowed = [
@@ -31,26 +52,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // --- Timezone ---
 date_default_timezone_set('Asia/Dubai');
-mb_internal_encoding('UTF-8');
 
-// Look above the site folder first (cPanel home), then inside the site folder.
-$searchDirs = [dirname(__DIR__, 2), dirname(__DIR__)];
+if (PHP_VERSION_ID < 80100) {
+  http_response_code(500);
+  echo json_encode([
+    'status' => 'error',
+    'message' => 'This mailer needs PHP 8.1 or newer. cPanel is running PHP ' . PHP_VERSION . '.',
+  ]);
+  exit;
+}
+
+// public_html/api, public_html, then the folder above the site.
+$searchDirs = [__DIR__, dirname(__DIR__), dirname(__DIR__, 2)];
 $autoload = null;
-$envDir = null;
+$envFile = null;
 foreach ($searchDirs as $dir) {
   if ($autoload === null && is_file($dir . '/vendor/autoload.php')) {
     $autoload = $dir . '/vendor/autoload.php';
   }
-  if ($envDir === null && is_file($dir . '/.env')) {
-    $envDir = $dir;
+  $candidate = $dir . '/.env';
+  if ($envFile === null && is_readable($candidate)) {
+    $raw = file_get_contents($candidate);
+    if ($raw !== false && strpos($raw, 'SMTP_HOST=') !== false) {
+      $envFile = $candidate;
+    }
   }
 }
 
-if ($autoload === null || $envDir === null) {
+if ($autoload === null) {
   http_response_code(500);
   echo json_encode([
     'status' => 'error',
-    'message' => 'Mailer is not installed on the server yet.',
+    'message' => 'Mailer libraries were not uploaded. Put the vendor folder in public_html/vendor.',
+  ]);
+  exit;
+}
+
+if ($envFile === null) {
+  http_response_code(500);
+  echo json_encode([
+    'status' => 'error',
+    'message' => 'SMTP settings were not found. Put .env in public_html, next to the vendor folder.',
   ]);
   exit;
 }
@@ -58,10 +100,38 @@ if ($autoload === null || $envDir === null) {
 require $autoload;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use Dotenv\Dotenv;
 
-Dotenv::createImmutable($envDir)->load();
+if (function_exists('mb_internal_encoding')) {
+  mb_internal_encoding('UTF-8');
+}
+
+$envLines = file($envFile, FILE_IGNORE_NEW_LINES);
+if ($envLines === false) {
+  http_response_code(500);
+  echo json_encode(['status' => 'error', 'message' => 'Could not read .env.']);
+  exit;
+}
+foreach ($envLines as $envLine) {
+  $envLine = trim($envLine);
+  if ($envLine === '' || $envLine[0] === '#') {
+    continue;
+  }
+  $eq = strpos($envLine, '=');
+  if ($eq === false) {
+    continue;
+  }
+  $key = trim(substr($envLine, 0, $eq));
+  $value = trim(substr($envLine, $eq + 1));
+  $len = strlen($value);
+  if ($len >= 2) {
+    $quote = $value[0];
+    if (($quote === '"' || $quote === "'") && $value[$len - 1] === $quote) {
+      $value = substr($value, 1, -1);
+    }
+  }
+  $_ENV[$key] = $value;
+  $_SERVER[$key] = $value;
+}
 
 // --- Helpers ---
 function v(string $key, string $default = ''): string
@@ -115,11 +185,20 @@ if (!in_array($formType, ['contact', 'newsletter', 'quote', 'callback'], true)) 
 }
 
 // --- SMTP CONFIG ---
-$smtpHost = $_ENV['SMTP_HOST'];
-$smtpUser = $_ENV['SMTP_USER'];
-$smtpPass = $_ENV['SMTP_PASS'];
-$smtpPort = $_ENV['SMTP_PORT'];
-$smtpSecure = $_ENV['SMTP_SECURE'];
+$smtpHost = trim((string) ($_ENV['SMTP_HOST'] ?? ''));
+$smtpUser = trim((string) ($_ENV['SMTP_USER'] ?? ''));
+$smtpPass = (string) ($_ENV['SMTP_PASS'] ?? '');
+$smtpPort = trim((string) ($_ENV['SMTP_PORT'] ?? ''));
+$smtpSecure = trim((string) ($_ENV['SMTP_SECURE'] ?? ''));
+
+if ($smtpHost === '' || $smtpUser === '' || $smtpPass === '' || $smtpPort === '') {
+  http_response_code(500);
+  echo json_encode([
+    'status' => 'error',
+    'message' => '.env is missing SMTP_HOST, SMTP_PORT, SMTP_USER, or SMTP_PASS.',
+  ]);
+  exit;
+}
 
 $toAddresses = [['info@ggwint.com', 'G G W INTERNATIONAL GENERAL TRADING L.L.C']];
 $fromEmail = $smtpUser;
@@ -573,6 +652,7 @@ if ($formType === 'contact') {
 }
 
 // --- Send Email ---
+$mail = null;
 try {
   $mail = new PHPMailer(true);
   $mail->isSMTP();
@@ -581,7 +661,15 @@ try {
   $mail->Username = $smtpUser;
   $mail->Password = $smtpPass;
   $mail->SMTPSecure = $smtpSecure === 'smtps' ? PHPMailer::ENCRYPTION_SMTPS : PHPMailer::ENCRYPTION_STARTTLS;
-  $mail->Port = $smtpPort;
+  $mail->Port = (int) $smtpPort;
+  $mail->Timeout = 20;
+  $mail->SMTPOptions = [
+    'ssl' => [
+      'verify_peer' => false,
+      'verify_peer_name' => false,
+      'allow_self_signed' => true,
+    ],
+  ];
   $mail->CharSet = 'UTF-8';
   $mail->Encoding = 'base64';
 
@@ -606,8 +694,12 @@ try {
   } else {
     echo json_encode(['status' => 'success', 'message' => 'Thank you! Your submission has been received.']);
   }
-} catch (Exception $e) {
-  error_log('Mailer Error: ' . $mail->ErrorInfo);
+} catch (\Throwable $e) {
+  $detail = $mail instanceof PHPMailer && $mail->ErrorInfo !== '' ? $mail->ErrorInfo : $e->getMessage();
+  if ($smtpPass !== '') {
+    $detail = str_replace($smtpPass, '***', $detail);
+  }
+  error_log('Mailer Error: ' . $detail);
   http_response_code(500);
-  echo json_encode(['status' => 'error', 'message' => 'Failed to send email.']);
+  echo json_encode(['status' => 'error', 'message' => 'Failed to send email. ' . $detail]);
 }
