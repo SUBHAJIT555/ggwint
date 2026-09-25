@@ -63,18 +63,16 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://ggwint.com/og-image.jpg",
-        width: 1200,
-        height: 630,
+        url: "/images/GGWLogo.png",
         alt: "G G W INTERNATIONAL GENERAL TRADING L.L.C — Dubai, UAE",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "G G W INTERNATIONAL GENERAL TRADING L.L.C | Dubai, UAE",
     description: siteDescription,
-    images: ["https://ggwint.com/twitter-image.jpg"],
+    images: ["/images/GGWLogo.png"],
   },
   applicationName: "GGW International",
   icons: {
@@ -93,8 +91,8 @@ export const metadata: Metadata = {
     language: "English",
     "geo.region": "AE-DU",
     "geo.placename": "Dubai",
-    "geo.position": "25.2048;55.2708",
-    ICBM: "25.2048, 55.2708",
+    "geo.position": "25.0699544;55.1370806",
+    ICBM: "25.0699544, 55.1370806",
     copyright: "G G W INTERNATIONAL GENERAL TRADING L.L.C",
   },
 };

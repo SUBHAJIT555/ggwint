@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ggwint.com/sitemap.xml

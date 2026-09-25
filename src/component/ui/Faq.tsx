@@ -7,7 +7,6 @@ import {
   FiBox,
   FiClock,
   FiHelpCircle,
-  FiMail,
   FiMapPin,
   FiPhone,
   FiStar,

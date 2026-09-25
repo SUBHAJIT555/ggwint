@@ -16,7 +16,7 @@ export const SITE_CONTACT = {
   address: "Office 303, Building White Crown, Sheikh Zayed Road, Dubai, UAE",
   city: "Dubai",
   googleMapsUrl:
-    "https://www.google.com/maps/place/White+Crown+Tower/@25.2229921,55.2821137,17z",
+    "https://www.google.com/maps?cid=10171398313034586037&hl=en",
 } as const;
 
 export const CONTACT_FORM_ID = "get-free-quote";

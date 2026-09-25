@@ -33,15 +33,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 date_default_timezone_set('Asia/Dubai');
 mb_internal_encoding('UTF-8');
 
-// --- Autoload ---
-require __DIR__ . '/../../vendor/autoload.php';
+// Look above the site folder first (cPanel home), then inside the site folder.
+$searchDirs = [dirname(__DIR__, 2), dirname(__DIR__)];
+$autoload = null;
+$envDir = null;
+foreach ($searchDirs as $dir) {
+  if ($autoload === null && is_file($dir . '/vendor/autoload.php')) {
+    $autoload = $dir . '/vendor/autoload.php';
+  }
+  if ($envDir === null && is_file($dir . '/.env')) {
+    $envDir = $dir;
+  }
+}
+
+if ($autoload === null || $envDir === null) {
+  http_response_code(500);
+  echo json_encode([
+    'status' => 'error',
+    'message' => 'Mailer is not installed on the server yet.',
+  ]);
+  exit;
+}
+
+require $autoload;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(dirname(__DIR__, 2));
-$dotenv->load();
+Dotenv::createImmutable($envDir)->load();
 
 // --- Helpers ---
 function v(string $key, string $default = ''): string
