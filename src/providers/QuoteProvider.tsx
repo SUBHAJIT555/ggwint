@@ -1,12 +1,49 @@
 "use client";
 
-import { useCallback, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { QuoteItem } from "../contexts/QuoteContext";
 import type { Product } from "../data/products";
 import { QuoteContext } from "../contexts/QuoteContext";
 
+const STORAGE_KEY = "ggw-quote";
+
+const isQuoteItem = (value: unknown): value is QuoteItem => {
+    if (!value || typeof value !== "object") return false;
+    const item = value as Partial<QuoteItem>;
+    return (
+        typeof item.id === "string" &&
+        typeof item.title === "string" &&
+        typeof item.quantity === "number" &&
+        item.quantity > 0 &&
+        typeof item.price === "number"
+    );
+};
+
+const readStoredQuote = (): QuoteItem[] => {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+        const parsed: unknown = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter(isQuoteItem);
+    } catch {
+        return [];
+    }
+};
+
 export const QuoteProvider = ({ children }: { children: ReactNode }) => {
     const [items, setItems] = useState<QuoteItem[]>([]);
+    const [hasLoaded, setHasLoaded] = useState(false);
+
+    useEffect(() => {
+        setItems(readStoredQuote());
+        setHasLoaded(true);
+    }, []);
+
+    useEffect(() => {
+        if (!hasLoaded) return;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    }, [hasLoaded, items]);
 
     const addToQuote = useCallback((product: Product, quantity = 1) => {
         setItems((prev) => {

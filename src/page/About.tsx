@@ -7,6 +7,7 @@ import PassionateProfessionals from "../component/PassionateProfessionals";
 import AboutStats from "../component/AboutStats";
 import WhyChooseUs from "../component/WhyChooseUs";
 import CallToAction from "../component/ui/CallToAction";
+import { CONTACT_FORM_HREF } from "../data/contact";
 
 const About = () => {
   return (
@@ -19,7 +20,7 @@ const About = () => {
         buttonText="Explore products"
         buttonLink="/products"
         secondaryButtonText="Get a quote"
-        secondaryButtonLink="/contact"
+        secondaryButtonLink={CONTACT_FORM_HREF}
         showTrust
       />
       <OurStory />

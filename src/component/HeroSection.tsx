@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Button from "./ui/Button";
+import { CONTACT_FORM_HREF } from "../data/contact";
 import { heroFallbackSrc, heroShowcaseCards } from "../data/heroShowcase";
 
 const COLS = 5;
@@ -252,7 +253,7 @@ const HeroSection = () => {
             <Button href="/products" variant="accent" className="h-11 rounded-lg px-5">
               Explore products
             </Button>
-            <Button href="/contact" variant="primary" className="h-11 rounded-lg px-5">
+            <Button href={CONTACT_FORM_HREF} variant="primary" className="h-11 rounded-lg px-5">
               Get a quote
             </Button>
           </motion.div>

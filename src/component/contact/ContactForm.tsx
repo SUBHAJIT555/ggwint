@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/cn";
-import { SITE_CONTACT } from "../../data/contact";
-import { mainCategories } from "../../data/products";
+import { CONTACT_FORM_ID, SITE_CONTACT } from "../../data/contact";
+import { mainCategories, toCategorySlug } from "../../data/products";
 import Button from "../ui/Button";
 
 const fieldClass = cn(
@@ -26,8 +27,23 @@ const INITIAL = {
   services: [] as string[],
 };
 
+function categoryFromSlug(slug: string | null) {
+  if (!slug) return null;
+  return mainCategories.find((category) => toCategorySlug(category) === slug) ?? null;
+}
+
 export default function ContactForm() {
+  const serviceSlug = useSearchParams().get("service");
   const [form, setForm] = useState(INITIAL);
+
+  useEffect(() => {
+    const category = categoryFromSlug(serviceSlug);
+    if (!category) return;
+    setForm((prev) =>
+      prev.services.includes(category) ? prev : { ...prev, services: [category] }
+    );
+  }, [serviceSlug]);
+
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
@@ -64,9 +80,6 @@ export default function ContactForm() {
     const phone = form.phone.trim()
       ? `+971 ${form.phone.trim()}`
       : "";
-    const interest = form.services.length
-      ? `\n\nInterested in: ${form.services.join(", ")}`
-      : "";
 
     try {
       const formData = new FormData();
@@ -74,7 +87,8 @@ export default function ContactForm() {
       formData.append("lastName", form.lastName.trim());
       formData.append("email", form.email.trim());
       formData.append("phone", phone);
-      formData.append("message", `${form.message.trim()}${interest}`);
+      formData.append("message", form.message.trim());
+      form.services.forEach((service) => formData.append("services[]", service));
       formData.append("formType", "contact");
       formData.append("website", "");
 
@@ -101,7 +115,10 @@ export default function ContactForm() {
   const busy = status === "loading";
 
   return (
-    <section id="get-free-quote" className="w-full bg-canvas screen-line-top">
+    <section
+      id={CONTACT_FORM_ID}
+      className="w-full scroll-mt-20 bg-canvas screen-line-top"
+    >
       <div className="px-5 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
         <div className="grid items-end gap-10 lg:grid-cols-2 lg:gap-12">
           <motion.div

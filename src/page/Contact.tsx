@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import ContactForm from "../component/contact/ContactForm";
 import ContactHero from "../component/contact/ContactHero";
 import ContactLocations from "../component/contact/ContactLocations";
@@ -9,7 +10,9 @@ const Contact = () => {
     <div className="bg-canvas">
       <ContactHero />
       <ContactLocations />
-      <ContactForm />
+      <Suspense fallback={null}>
+        <ContactForm />
+      </Suspense>
     </div>
   );
 };

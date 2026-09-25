@@ -3,6 +3,7 @@
 import {
   motion,
   AnimatePresence,
+  useInView,
   useMotionValue,
   useSpring,
 } from "framer-motion";
@@ -16,6 +17,7 @@ import { categoryDetails } from "../data/products";
 
 const AboutSnapshot = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "0px 0px -10% 0px" });
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const [isHovering, setIsHovering] = useState(false);
   const mouseX = useMotionValue(0);
@@ -61,7 +63,7 @@ const AboutSnapshot = () => {
   }));
 
   return (
-    <section ref={containerRef} className="relative bg-surface-card py-section overflow-hidden screen-line-top">
+    <section ref={containerRef} className="relative overflow-hidden bg-surface-card py-8 screen-line-top sm:py-section">
       <AnimatePresence>
         {isHovering && hoveredImage && (
           <motion.div
@@ -94,51 +96,53 @@ const AboutSnapshot = () => {
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.05 }}
           className="text-section text-ink"
         >
-          Reliable supply solutions across the UAE
+          Reliable <span className="bg-brand-accent text-on-primary px-1.5">supply solutions</span> across the UAE
         </motion.h2>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-8"
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.08 }}
+          className="mt-4 sm:mt-8"
         >
-          <p className="text-copy text-body">
+          <p className="text-body-sm leading-snug text-body sm:hidden">
+            We trade <b>steel</b>, <b>MEP products</b>, <b>construction materials</b>, <b>food</b>, <b>chemicals</b>, and <b>IT products</b> for the power, industrial, commercial, and oilfield sectors across the UAE.
+          </p>
+          <p className="hidden text-copy text-body sm:block">
             We specialize in the international trading of <b>steel</b>, <b>MEP products</b>, <b>construction materials</b>, <b>IT products &amp; solutions</b>, <b>food stuff</b>, <b>food additives</b>, <b>chemicals</b>, <b>AGRO</b> and <b>pharma chemicals</b>, providing <b>reliable supply solutions</b> to the <b>power, industrial, commercial,</b> and <b>oilfield sectors</b> across the UAE. Our partnerships with international manufacturers enable us to offer <b>quality products at competitive prices</b>, reliable market information, and <b>professional support</b>. Backed by an <b>experienced professional team</b> and strong industry knowledge, we ensure <b>efficient service</b>, <b>technical expertise</b>, and <b>timely delivery</b>, remaining committed to <b>customer satisfaction</b>, quality, and building lasting business relationships. Supported by the continued trust of our <b>employees</b>, <b>suppliers</b>, and <b>clients</b>, we confidently look forward to <b>sustainable growth</b> and expansion, serving customers throughout the UAE with efficiency and reliability.
           </p>
         </motion.div>
    
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 border-t border-hairline">
+        <div className="mt-12 hidden grid-cols-2 border-t border-hairline sm:grid sm:gap-0">
           {productHighlights.map((product) => {
             const Icon = product.Icon;
             return (
               <motion.div
                 key={product.name}
                 initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                className="border-b border-hairline"
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                className="sm:border-b sm:border-hairline"
                 onMouseEnter={() => handleHover(product.image)}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleLeave}
               >
                 <Link
                   href={product.href}
-                  className="group flex items-start gap-3 py-5 pr-6 md:odd:pr-8 md:even:pl-8 "
+                  className="group flex items-start gap-3 py-5 pr-6 sm:odd:pr-8 sm:even:pl-8"
                 >
-                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center  text-brand-accent group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300">
+                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center text-brand-accent transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
                     <Icon className="h-5 w-5" />
                   </span>
                   <span className="min-w-0">
                     <span className="block text-body-md font-medium text-ink transition-colors group-hover:text-brand-accent">
                       {product.name}
                     </span>
-                    <span className="mt-0.5 block text-caption text-muted leading-snug">
+                    <span className="mt-0.5 block text-caption leading-snug text-muted">
                       {product.description}
                     </span>
                   </span>
@@ -148,7 +152,7 @@ const AboutSnapshot = () => {
           })}
         </div>
 
-        <div className="mt-10">
+        <div className="mt-6 sm:mt-10">
           <Button href="/about" variant="accent">
             Discover more about us <FiArrowRight />
           </Button>

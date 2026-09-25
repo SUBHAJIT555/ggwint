@@ -3,6 +3,7 @@
 import CommonHeroSection from "../component/ui/CommonHeroSection";
 import ProductGrid from "../component/ui/ProductCards";
 import CallToAction from "../component/ui/CallToAction";
+import { CONTACT_FORM_HREF, contactFormHref } from "../data/contact";
 import {
   categoryDetails,
   mainCategories,
@@ -91,7 +92,11 @@ const ProductCategory = ({ categorySlug }: { categorySlug?: string }) => {
           "Discover our comprehensive range of quality products designed to meet your business needs."
         }
         buttonText="Get a quote"
-        buttonLink="/contact"
+        buttonLink={
+          selectedMainCategory === "All"
+            ? CONTACT_FORM_HREF
+            : contactFormHref(toCategorySlug(selectedMainCategory))
+        }
         secondaryButtonText="All products"
         secondaryButtonLink="/products"
         showTrust
@@ -117,6 +122,11 @@ const ProductCategory = ({ categorySlug }: { categorySlug?: string }) => {
         }
         quoteLabel={
           selectedMainCategory === "All" ? "Request a quote" : "Quote this range"
+        }
+        serviceSlug={
+          selectedMainCategory === "All"
+            ? undefined
+            : toCategorySlug(selectedMainCategory)
         }
         whatsappMessage={
           selectedMainCategory === "All"

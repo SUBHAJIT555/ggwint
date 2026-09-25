@@ -4,12 +4,14 @@ import { motion } from "framer-motion";
 import { IoLogoWhatsapp } from "react-icons/io";
 import Button from "./Button";
 import BrandRow from "./BrandRow";
-import { SITE_CONTACT } from "../../data/contact";
+import { CONTACT_FORM_HREF, SITE_CONTACT, contactFormHref } from "../../data/contact";
 
 type CallToActionProps = {
   heading: string;
   subHeading: string;
   quoteLabel?: string;
+  /** Category slug to pre-select on the contact form. */
+  serviceSlug?: string;
   whatsappMessage: string;
 };
 
@@ -17,6 +19,7 @@ const CallToAction = ({
   heading,
   subHeading,
   quoteLabel = "Request a Quote",
+  serviceSlug,
   whatsappMessage,
 }: CallToActionProps) => {
   const whatsappUrl =
@@ -67,7 +70,7 @@ const CallToAction = ({
             className="mt-4 flex flex-col items-center justify-center gap-3 sm:mt-5 sm:flex-row sm:gap-4"
           >
             <Button
-              href="/contact"
+              href={serviceSlug ? contactFormHref(serviceSlug) : CONTACT_FORM_HREF}
               variant="accent"
               className="h-12 w-full px-6 sm:w-auto sm:min-w-50"
             >

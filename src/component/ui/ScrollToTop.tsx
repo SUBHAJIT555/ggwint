@@ -1,51 +1,57 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { useLenis } from "lenis/react";
+
+const HEADER_OFFSET = 80;
+
+type LenisScroll = {
+  scrollTo: (
+    target: number | HTMLElement,
+    options?: { offset?: number; immediate?: boolean }
+  ) => void;
+};
+
+function scrollToRouteTarget(lenis: LenisScroll | null) {
+  const id = decodeURIComponent(window.location.hash.replace(/^#/, ""));
+  const target = id ? document.getElementById(id) : null;
+
+  if (target) {
+    if (lenis) {
+      lenis.scrollTo(target, { immediate: true });
+      return;
+    }
+    const top = target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+    window.scrollTo({ top: Math.max(0, top), left: 0, behavior: "instant" });
+    return;
+  }
+
+  if (lenis) {
+    lenis.scrollTo(0, { immediate: true });
+    return;
+  }
+
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  if (document.documentElement) document.documentElement.scrollTop = 0;
+  if (document.body) document.body.scrollTop = 0;
+}
 
 /**
- * ScrollToTop component that scrolls to the top of the page
- * whenever the route changes. Handles edge cases like lazy-loaded
- * components and delayed content rendering.
+ * Scrolls to the top on route changes. Links that include a hash land on
+ * that section instead, once it is in the document.
  */
 const ScrollToTop = () => {
   const pathname = usePathname();
+  const lenis = useLenis();
+  const lenisRef = useRef<LenisScroll | null>(lenis);
+  lenisRef.current = lenis;
 
   useEffect(() => {
-    // Scroll to top immediately when route changes
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant", // Use instant for immediate scroll
-    });
+    const scroll = () => scrollToRouteTarget(lenisRef.current);
+    scroll();
 
-    // Also scroll the document element (for better browser compatibility)
-    if (document.documentElement) {
-      document.documentElement.scrollTop = 0;
-    }
-    if (document.body) {
-      document.body.scrollTop = 0;
-    }
-
-    // Handle cases where content is still loading or animations are running
-    // Try multiple times to ensure scroll happens even with lazy-loaded components
-    const timeouts = [
-      setTimeout(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-        if (document.documentElement) document.documentElement.scrollTop = 0;
-        if (document.body) document.body.scrollTop = 0;
-      }, 0),
-      setTimeout(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-        if (document.documentElement) document.documentElement.scrollTop = 0;
-        if (document.body) document.body.scrollTop = 0;
-      }, 100),
-      setTimeout(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-        if (document.documentElement) document.documentElement.scrollTop = 0;
-        if (document.body) document.body.scrollTop = 0;
-      }, 300),
-    ];
+    const timeouts = [0, 100, 350].map((delay) => setTimeout(scroll, delay));
 
     return () => {
       timeouts.forEach((timeout) => clearTimeout(timeout));

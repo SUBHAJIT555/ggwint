@@ -18,3 +18,13 @@ export const SITE_CONTACT = {
   googleMapsUrl:
     "https://www.google.com/maps/place/White+Crown+Tower/@25.2229921,55.2821137,17z",
 } as const;
+
+export const CONTACT_FORM_ID = "get-free-quote";
+
+/** Quote buttons land on the contact form, not the top of the contact page. */
+export const CONTACT_FORM_HREF = `/contact/#${CONTACT_FORM_ID}`;
+
+export function contactFormHref(serviceSlug?: string) {
+  if (!serviceSlug) return CONTACT_FORM_HREF;
+  return `/contact/?service=${encodeURIComponent(serviceSlug)}#${CONTACT_FORM_ID}`;
+}

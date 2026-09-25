@@ -3,10 +3,13 @@
 // --- CORS ---
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $allowed = [
-  'https://yourdomain.com',
-  'https://www.yourdomain.com',
+  'https://ggwint.com',
+  'https://www.ggwint.com',
+  'https://ggwint.vercel.app',
   'http://localhost',
+  'http://localhost:3000',
   'http://127.0.0.1',
+  'http://127.0.0.1:3000',
 ];
 
 if ($origin && in_array($origin, $allowed, true)) {
@@ -27,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // --- Timezone ---
-date_default_timezone_set('Asia/Kolkata');
+date_default_timezone_set('Asia/Dubai');
 mb_internal_encoding('UTF-8');
 
 // --- Autoload ---
@@ -98,14 +101,14 @@ $smtpPass = $_ENV['SMTP_PASS'];
 $smtpPort = $_ENV['SMTP_PORT'];
 $smtpSecure = $_ENV['SMTP_SECURE'];
 
-$toAddresses = [['aditya@baharnani.com', 'Aditya Baharnani']];
+$toAddresses = [['info@ggwint.com', 'G G W INTERNATIONAL GENERAL TRADING L.L.C']];
 $fromEmail = $smtpUser;
 $fromName = 'GGW International';
 
 // --- Brand styling ---
-$brandName = 'GGW International';
+$brandName = 'G G W INTERNATIONAL GENERAL TRADING L.L.C';
 $tagline = 'Your Gateway to Global Trade';
-$brandColor = '#cc0d39';
+$brandColor = '#2667FF';
 $muted = '#6b7280';
 $bg = '#f9fafb';
 $cardBg = '#ffffff';
@@ -122,6 +125,17 @@ if ($formType === 'contact') {
   $phone = strip_tags(trim($_POST['phone'] ?? ''));
   $message = strip_tags(trim($_POST['message'] ?? ''));
   $website = trim($_POST['website'] ?? '');
+  $services = [];
+  if (isset($_POST['services'])) {
+    $rawServices = is_array($_POST['services']) ? $_POST['services'] : explode(',', (string) $_POST['services']);
+    foreach ($rawServices as $service) {
+      $service = strip_tags(trim((string) $service));
+      if ($service !== '') {
+        $services[] = $service;
+      }
+    }
+  }
+  $servicesLabel = $services ? implode(', ', $services) : '';
 
   // Honeypot check - silently exit if website field is filled
   if (!empty($website)) {
@@ -131,9 +145,9 @@ if ($formType === 'contact') {
     exit;
   }
 
-  // Validation
-  if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($message)) {
-    $response["message"] = "All fields are required for contact form!";
+  // Phone is optional on the contact form.
+  if (empty($firstName) || empty($lastName) || empty($email) || empty($message)) {
+    $response["message"] = "Name, email, and message are required.";
     echo json_encode($response);
     exit;
   }
@@ -144,29 +158,37 @@ if ($formType === 'contact') {
     exit;
   }
 
-  // Phone validation
-  if (!validatePhone($phone)) {
+  if ($phone !== '' && !validatePhone($phone)) {
     $response["message"] = "Invalid phone number format!";
     echo json_encode($response);
     exit;
   }
 
-  // Email content for contact form
-  $mailSubject = "New contact form submission from $firstName $lastName";
+  $servicesRow = $servicesLabel !== ''
+    ? '<tr><td style="padding:6px 12px 6px 0;vertical-align:top;"><strong>Product categories:</strong></td><td style="padding:6px 0;">' . htmlspecialchars($servicesLabel) . '</td></tr>'
+    : '';
+  $phoneRow = $phone !== ''
+    ? '<tr><td style="padding:6px 12px 6px 0;vertical-align:top;"><strong>Phone:</strong></td><td style="padding:6px 0;">' . htmlspecialchars($phone) . '</td></tr>'
+    : '';
+
+  $mailSubject = $servicesLabel !== ''
+    ? "New enquiry for $servicesLabel from $firstName $lastName"
+    : "New contact form submission from $firstName $lastName";
   $mailBody = '
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9; padding: 24px;">
       <h2 style="color: ' . $brandColor . '; border-bottom: 1px solid #e3e3e3; padding-bottom: 10px;">New Contact Form Submission</h2>
               <table style="width:100%; font-size: 16px; margin-top: 16px;">
-                <tr><td><strong>Name:</strong></td><td>' . htmlspecialchars($firstName . ' ' . $lastName) . '</td></tr>
-                <tr><td><strong>Email:</strong></td><td>' . htmlspecialchars($email) . '</td></tr>
-                <tr><td><strong>Phone:</strong></td><td>' . htmlspecialchars($phone) . '</td></tr>
-                <tr><td><strong>Message:</strong></td><td>' . nl2br(htmlspecialchars($message)) . '</td></tr>
+                <tr><td style="padding:6px 12px 6px 0;vertical-align:top;"><strong>Name:</strong></td><td style="padding:6px 0;">' . htmlspecialchars($firstName . ' ' . $lastName) . '</td></tr>
+                <tr><td style="padding:6px 12px 6px 0;vertical-align:top;"><strong>Email:</strong></td><td style="padding:6px 0;">' . htmlspecialchars($email) . '</td></tr>
+                ' . $phoneRow . '
+                ' . $servicesRow . '
+                <tr><td style="padding:6px 12px 6px 0;vertical-align:top;"><strong>Message:</strong></td><td style="padding:6px 0;">' . nl2br(htmlspecialchars($message)) . '</td></tr>
               </table>
               <p style="color: #888; font-size: 13px; margin-top: 24px;">
-                Time: ' . date('Y-m-d H:i:s') . '
+                Time: ' . date('Y-m-d H:i:s') . ' (Dubai)
               </p>
             </div>';
-  $mailAltBody = "New Contact Form Submission\n\nName: $firstName $lastName\nEmail: $email\nPhone: $phone\nMessage: $message\nTime: " . date('Y-m-d H:i:s');
+  $mailAltBody = "New Contact Form Submission\n\nName: $firstName $lastName\nEmail: $email\nPhone: " . ($phone !== '' ? $phone : 'Not provided') . "\nProduct categories: " . ($servicesLabel !== '' ? $servicesLabel : 'None selected') . "\nMessage: $message\nTime: " . date('Y-m-d H:i:s') . " (Dubai)";
   $replyToEmail = $email;
   $replyToName = $firstName . ' ' . $lastName;
 
@@ -328,7 +350,7 @@ if ($formType === 'contact') {
         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-top:8px;">
           <tr style="background:#f3f4f6;">
             <th align="left" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">Item</th>
-            <th align="center" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">Size</th>
+            <th align="left" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">Category</th>
             <th align="center" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">Qty</th>
             <th align="right" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">Price</th>
             <th align="right" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">Total</th>
@@ -336,18 +358,18 @@ if ($formType === 'contact') {
 
     foreach ($cart as $item) {
       $itemName = clean($item['title'] ?? $item['name'] ?? '');
-      $itemSize = clean($item['size'] ?? 'N/A');
+      $itemCategory = clean($item['mainCategory'] ?? $item['category'] ?? '');
       $itemQty = clean($item['quantity'] ?? '1');
-      $itemPrice = clean($item['price'] ?? '0.00');
-      $itemTotal = number_format((float) $itemPrice * (int) $itemQty, 2);
+      $itemPrice = (float) ($item['price'] ?? 0);
+      $itemTotal = number_format($itemPrice * (int) $itemQty, 2);
 
       $cartHtml .= '
             <tr>
               <td align="left" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">' . $itemName . '</td>
-              <td align="center" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">' . $itemSize . '</td>
+              <td align="left" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">' . $itemCategory . '</td>
               <td align="center" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">' . $itemQty . '</td>
-              <td align="right" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">$' . $itemPrice . '</td>
-              <td align="right" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">$' . $itemTotal . '</td>
+              <td align="right" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">AED ' . number_format($itemPrice, 2) . '</td>
+              <td align="right" style="padding:8px;border:1px solid ' . $border . ';font-family:Arial,Helvetica,sans-serif;">AED ' . $itemTotal . '</td>
             </tr>';
     }
 
@@ -421,8 +443,8 @@ if ($formType === 'contact') {
           <tr><td style="background:#f3f4f6;padding:8px 10px;font-family:Arial,Helvetica,sans-serif;font-weight:600;color:' . $brandColor . ';">Order Summary</td></tr>
           <tr><td style="padding:10px;">' . $cartHtml . '
             <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px;border-collapse:collapse;">
-              <tr><td align="right" style="padding:6px 0;font-family:Arial,Helvetica,sans-serif;font-weight:600;color:' . $brandColor . ';">Cart Total:</td><td align="right" style="padding:6px 0;font-family:Arial,Helvetica,sans-serif;">' . clean(v('cart_total')) . '</td></tr>
-              <tr><td align="right" style="padding:6px 0;font-family:Arial,Helvetica,sans-serif;font-weight:600;color:' . $brandColor . ';">Order Total:</td><td align="right" style="padding:6px 0;font-family:Arial,Helvetica,sans-serif;">' . clean(v('order_total')) . '</td></tr>
+              <tr><td align="right" style="padding:6px 0;font-family:Arial,Helvetica,sans-serif;font-weight:600;color:' . $brandColor . ';">Cart Total:</td><td align="right" style="padding:6px 0;font-family:Arial,Helvetica,sans-serif;">AED ' . clean(v('cart_total')) . '</td></tr>
+              <tr><td align="right" style="padding:6px 0;font-family:Arial,Helvetica,sans-serif;font-weight:600;color:' . $brandColor . ';">Order Total:</td><td align="right" style="padding:6px 0;font-family:Arial,Helvetica,sans-serif;">AED ' . clean(v('order_total')) . '</td></tr>
             </table>
           </td></tr>
         </table>
@@ -505,7 +527,7 @@ if ($formType === 'contact') {
                   New Quote Request - <?= clean(v('billing_first_name') . ' ' . v('billing_last_name')) ?>
                 </p>
                 <p style="margin:4px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:<?= $muted ?>;">
-                  Received at <?= date('Y-m-d H:i:s') ?> (server time)</p>
+                  Received at <?= date('Y-m-d H:i:s') ?> (Dubai)</p>
               </td>
             </tr>
             <?= $mainContent ?>
@@ -525,7 +547,7 @@ if ($formType === 'contact') {
   <?php
   $mailBody = ob_get_clean();
   $mailSubject = 'New Quote Request - ' . v('billing_first_name') . ' ' . v('billing_last_name');
-  $mailAltBody = "New Quote Request\n\nBilling: " . v('billing_first_name') . " " . v('billing_last_name') . "\nEmail: " . v('billing_email') . "\nPhone: " . v('billing_phone') . "\nCart Total: " . v('cart_total') . "\nOrder Total: " . v('order_total') . "\n";
+  $mailAltBody = "New Quote Request\n\nBilling: " . v('billing_first_name') . " " . v('billing_last_name') . "\nEmail: " . v('billing_email') . "\nPhone: " . v('billing_phone') . "\nCart Total: AED " . v('cart_total') . "\nOrder Total: AED " . v('order_total') . "\n";
   $replyToEmail = $email;
   $replyToName = v('billing_first_name') . ' ' . v('billing_last_name');
 }

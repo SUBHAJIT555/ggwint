@@ -30,7 +30,7 @@ const CHANNELS = [
   },
   {
     title: "Call us",
-    description: "Sun–Thu, Dubai business hours.",
+    description: "Mon–Sat, 10:00 AM – 6:00 PM. Sunday and official holidays closed.",
     value: SITE_CONTACT.phone,
     href: SITE_CONTACT.phoneHref,
     Icon: FiPhone,

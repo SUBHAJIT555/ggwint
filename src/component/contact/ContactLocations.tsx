@@ -98,11 +98,11 @@ export default function ContactLocations() {
                   </p>
                   <dl className="mt-1 space-y-1 text-sm">
                     <div className="flex flex-wrap items-baseline gap-x-2">
-                      <dt className="text-muted">Sun – Thu</dt>
-                      <dd className="font-medium text-ink">9:00 AM – 6:00 PM</dd>
+                      <dt className="text-muted">Mon – Sat</dt>
+                      <dd className="font-medium text-ink">10:00 AM – 6:00 PM</dd>
                     </div>
                     <div className="flex flex-wrap items-baseline gap-x-2">
-                      <dt className="text-muted">Fri – Sat</dt>
+                      <dt className="text-muted">Sunday & official holidays</dt>
                       <dd className="font-medium text-ink">Closed</dd>
                     </div>
                   </dl>

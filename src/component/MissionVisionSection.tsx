@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { CONTACT_FORM_HREF } from "../data/contact";
 import { cn } from "../lib/cn";
 
 const CheckIcon = ({ className }: { className?: string }) => (
@@ -127,7 +128,7 @@ const MissionVisionSection = () => {
         <p>We deliver quality, reliability, and consistency in every shipment.</p>
         <p className="mt-1">
           <a
-            href="/contact"
+            href={CONTACT_FORM_HREF}
             className="text-brand-accent underline decoration-hairline underline-offset-4 transition-colors hover:text-brand-accent"
           >
             Get a quote

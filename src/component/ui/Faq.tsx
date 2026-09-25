@@ -1,7 +1,8 @@
 "use client";
 
 import type { ComponentType } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import {
   FiBox,
   FiClock,
@@ -56,14 +57,19 @@ const FAQ = ({
   chatPrompt = "Didn't find your answer?",
   chatButtonText = "Chat with us",
 }: FAQProps) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "0px 0px -15% 0px" });
+
   return (
-    <section className="bg-canvas py-section text-ink screen-line-top">
+    <section
+      ref={sectionRef}
+      className="bg-canvas py-section text-ink screen-line-top"
+    >
       <div className="mx-auto max-w-content px-4 sm:px-6 lg:px-8">
         <motion.p
           initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          className="mb-4 text-caption text-muted uppercase bg-brand-accent px-1.5 text-on-primary  w-fit"
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          className="mb-4 w-fit bg-brand-accent px-1.5 text-caption text-on-primary uppercase"
         >
           {sectionLabel}
         </motion.p>

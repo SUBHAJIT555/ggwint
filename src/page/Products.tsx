@@ -3,6 +3,7 @@
 import CommonHeroSection from "../component/ui/CommonHeroSection";
 import ProductGrid from "../component/ui/ProductCards";
 import CallToAction from "../component/ui/CallToAction";
+import { CONTACT_FORM_HREF } from "../data/contact";
 
 const Products = () => {
   return (
@@ -13,7 +14,7 @@ const Products = () => {
         headingHighlight="Product Universe"
         subHeading="Discover our comprehensive range of quality products designed to meet your business and personal needs. From food items to consumer goods, we offer excellence in every category."
         buttonText="Request Free Quote"
-        buttonLink="/contact"
+        buttonLink={CONTACT_FORM_HREF}
         showTrust
       />
       <ProductGrid
